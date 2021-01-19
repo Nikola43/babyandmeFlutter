@@ -2,14 +2,11 @@ import 'package:babyandme/pages/gallery/gallery.dart';
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
-import 'package:babyandme/pages/videos_gallery/video_gallery.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'dashboard_screen.dart';
 import 'login_screen.dart';
-import 'on_boarding_page.dart';
 import 'pages/images_gallery/full_screen_image_screen.dart';
 import 'transition_route_observer.dart';
 
@@ -32,6 +29,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
       title: 'Login Demo',
       theme: ThemeData(
@@ -86,7 +84,6 @@ class _MyAppState extends State<MyApp> {
         LoginScreen.routeName: (context) => LoginScreen(),
         DashboardScreen.routeName: (context) => DashboardScreen(),
         ImageGalleryPage.routeName: (context) => ImageGalleryPage(),
-        VideoGalleryPage.routeName: (context) => VideoGalleryPage(),
         Gallery.routeName: (context) => Gallery(),
         FullScreenImage.routeName: (context) => FullScreenImage(),
         StreamingCodePage.routeName: (context) => StreamingCodePage(),

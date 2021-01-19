@@ -1,10 +1,8 @@
+import 'package:babyandme/models/image.dart';
 import 'package:babyandme/models/images.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:flutter/material.dart';
-
 import 'package:babyandme/providers/image_provider.dart' as p;
-
-import '../../dashboard_screen.dart';
 
 class ImageGalleryPage extends StatefulWidget {
   static const routeName = '/image_gallery';
@@ -21,7 +19,12 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
   //State must have "build" => return Widget
   @override
   Widget build(BuildContext context) {
-    return _buildGridTiles(context, imageProvider);
+    int type = ModalRoute.of(context).settings.arguments;
+    print(type);
+    if (type < 0) {
+      type = 1;
+    }
+    return _buildGridTiles(context, imageProvider, type);
   }
 }
 
@@ -37,16 +40,17 @@ _getUserId() {
       });
 }
 
-Widget _buildGridTiles(BuildContext context, p.ImageProvider imageProvider) {
-  return new FutureBuilder<List<String>>(
-    future: imageProvider.getImages(),
-    builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+Widget _buildGridTiles(
+    BuildContext context, p.ImageProvider imageProvider, int type) {
+  return new FutureBuilder<List<ImageModel>>(
+    future: imageProvider.getImages(type),
+    builder: (BuildContext context, AsyncSnapshot<List<ImageModel>> snapshot) {
       if (snapshot.hasData) {
         print(snapshot.data);
         List<Widget> list = [];
 
         for (int i = 0; i < snapshot.data.length; i++) {
-          list.add(_drawImage(context, snapshot.data, i));
+          list.add(_drawImage(context, snapshot.data, i, type));
         }
         return GridView.extent(
             maxCrossAxisExtent: 150.0,
@@ -60,11 +64,11 @@ Widget _buildGridTiles(BuildContext context, p.ImageProvider imageProvider) {
   );
 }
 
-Widget _drawImage(BuildContext context, List<String> list, int index) {
+Widget _drawImage(BuildContext context, List<ImageModel> list, int index, int type) {
   final images = Images(list: list, index: index);
 
   return Hero(
-      tag: list[index] + String.fromCharCode(index),
+      tag: list[index].id.toString() + String.fromCharCode(index),
       child: GestureDetector(
           onTap: () {
             Navigator.of(context)
@@ -74,8 +78,9 @@ Widget _drawImage(BuildContext context, List<String> list, int index) {
             borderRadius: new BorderRadius.circular(10.0),
             child: FadeInImage(
               fit: BoxFit.fitHeight,
-              placeholder: AssetImage("assets/images/9619-loading-dots-in-yellow.gif"),
-              image: NetworkImage(list[index]),
+              placeholder:
+                  AssetImage("assets/images/9619-loading-dots-in-yellow.gif"),
+              image: NetworkImage(type == 1 ? list[index].url : list[index].thumbnail),
             ),
           )));
 }

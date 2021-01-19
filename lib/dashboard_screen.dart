@@ -159,7 +159,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       children: [
         GestureDetector(
           onTap: () {
-            _goToGallery(context);
+            _goToGallery(context, 1);
           },
           child: ClipRRect(
             borderRadius: new BorderRadius.circular(10.0),
@@ -172,14 +172,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                     size: 20,
                   ),
                 ),
-                Text('sdsd')
+                Text('Images')
               ],
             ),
           ),
         ),
         GestureDetector(
           onTap: () {
-            _goToGallery(context);
+            _goToGallery(context, 2);
           },
           child: ClipRRect(
             borderRadius: new BorderRadius.circular(10.0),
@@ -192,13 +192,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                     size: 20,
                   ),
                 ),
-                Text('sdsd')
+                Text('Video')
               ],
             ),
           ),
         ),
         FlatButton(
-            onPressed: () => {_goToGallery(context)}, child: Text('Gallery')),
+            onPressed: () => {_goToGallery(context, 2)}, child: Text('Video')),
         FlatButton(
             onPressed: () => {_goToHeartbeat(context)}, child: Text('Latido')),
         FlatButton(
@@ -331,10 +331,12 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 }
 
-_goToGallery(BuildContext context) {
-  Navigator.of(context).pushReplacement(MaterialPageRoute(
-    builder: (context) => Gallery(),
-  ));
+_goToGallery(BuildContext context, int type) {
+  Navigator.pushNamed(
+    context,
+    Gallery.routeName,
+    arguments: type
+  );
 }
 
 _goToImageGallery(BuildContext context) {

@@ -1,7 +1,5 @@
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
-import 'package:babyandme/pages/videos_gallery/video_gallery.dart';
 import 'package:flutter/material.dart';
-
 import '../../dashboard_screen.dart';
 
 class Gallery extends StatefulWidget {
@@ -11,15 +9,65 @@ class Gallery extends StatefulWidget {
   _GalleryState createState() => _GalleryState();
 }
 
-class _GalleryState extends State<Gallery> {
+class _GalleryState extends State<Gallery> with SingleTickerProviderStateMixin {
+  final List<Tab> myTabs = <Tab>[
+    Tab(icon: Icon(Icons.photo, color: Colors.white), text: "Imágenes"),
+    Tab(icon: Icon(Icons.photo, color: Colors.white), text: "Videos"),
+    Tab(icon: Icon(Icons.photo, color: Colors.white), text: "Holo"),
+  ];
+
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: myTabs.length);
+    _tabController.addListener(_handleTabSelection);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging) {
+
+    }
+
+    if (_tabController.indexIsChanging) {
+      switch (_tabController.index) {
+        case 0:
+          print("1");
+          break;
+        case 1:
+          print("1");
+          break;
+        case 3:
+          print("1");
+          break;
+      }
+    }
+  }
+  changeMyTab(){
+    setState(() {
+      _tabController.index = 2;
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    final type = ModalRoute.of(context).settings.arguments;
+    print(type);
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           leading: new IconButton(
-            icon: new Icon(Icons.arrow_back, color: Colors.white,),
+            icon: new Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
             onPressed: () {
               Navigator.push(
                 context,
@@ -43,10 +91,12 @@ class _GalleryState extends State<Gallery> {
           ),
         ),
         body: TabBarView(
+          controller: _tabController,
           children: [
+
             ImageGalleryPage(),
-            VideoGalleryPage(),
-            VideoGalleryPage(),
+            ImageGalleryPage(),
+            ImageGalleryPage(),
           ],
         ),
       ),

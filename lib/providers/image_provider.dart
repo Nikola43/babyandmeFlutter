@@ -5,32 +5,33 @@ import 'package:babyandme/utils/http_request.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 
 class ImageProvider {
-  final apiUrl = "https://api.babyandme.stelast.com/api/multimedia_content/images/";
+  final apiUrl = "https://api.babyandme.stelast.com/api/multimedia_content/";
 
 
-  Future<List<String>> getImages() async {
-    List<String> list = [];
-    print("get images");
+  Future<List<ImageModel>> getImages(int type) async {
+    List<ImageModel> list = [];
     var token = await SharedPreferencesUtil.getString('token');
-    print(token);
-
     var userId = await SharedPreferencesUtil.getInt('user_id');
-    print(userId.toString());
-
+    var mode = 'images';
     try {
-      final response = await HttpRequestUtil.makeSecureGetRequest(apiUrl + userId.toString(), token);
-      print("resp");
-      print(response);
+      switch(type) {
+        case 1: mode = "images"; break;
+        case 2: mode = "videos"; break;
+        case 3: mode = "holo"; break;
+      }
+      final response = await HttpRequestUtil.makeSecureGetRequest(apiUrl + mode  + '/' + userId.toString(), token);
+      //print("resp");
+      //print(response);
 
       for (int i = 0; i < response.length; i++) {
-        final img = Image.fromJsonMap(response[i]);
-        print(img);
-        list.add(img.url);
+        final img = ImageModel.fromJsonMap(response[i]);
+        //print(img);
+        list.add(img);
       }
     } on NoSuchMethodError catch (e) {
       print('error caught: $e');
     }
-    print('sdsd');
+    //print('sdsd');
 
     return list;
   }

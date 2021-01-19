@@ -1,5 +1,7 @@
+import 'image.dart';
+
 class Images {
-  List<String> list;
+  List<ImageModel> list;
   int index;
 
   Images({

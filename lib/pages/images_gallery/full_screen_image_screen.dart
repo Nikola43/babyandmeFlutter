@@ -1,3 +1,4 @@
+import 'package:babyandme/models/image.dart';
 import 'package:babyandme/models/images.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
@@ -56,7 +57,7 @@ class _FullScreenImageState extends State<FullScreenImage> {
       body: Stack(
         children: <Widget>[
           Hero(
-            tag: images.list[images.index] + String.fromCharCode(images.index),
+            tag: images.list[images.index].id.toString() + String.fromCharCode(images.index),
             child: PageView.builder(
                 controller: pageController,
                 itemCount: images.list.length,
@@ -78,7 +79,7 @@ class _FullScreenImageState extends State<FullScreenImage> {
   }
 
   Widget imageSlider(
-      List<String> images, int index, double width, double height) {
+      List<ImageModel> images, int index, double width, double height) {
     return AnimatedBuilder(
       animation: pageController,
       builder: (context, widget) {
@@ -88,7 +89,7 @@ class _FullScreenImageState extends State<FullScreenImage> {
           width: width,
           height: height,
           child: PhotoView(
-            imageProvider: NetworkImage(images[index]),
+            imageProvider: NetworkImage(images[index].thumbnail.length > 0 ? images[index].thumbnail : images[index].url),
           )),
     );
   }
