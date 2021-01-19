@@ -93,7 +93,6 @@ class _GalleryState extends State<Gallery> with SingleTickerProviderStateMixin {
         body: TabBarView(
           controller: _tabController,
           children: [
-
             ImageGalleryPage(),
             ImageGalleryPage(),
             ImageGalleryPage(),

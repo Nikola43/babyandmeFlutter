@@ -1,3 +1,4 @@
+import 'package:babyandme/services/recovery_password_service.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
@@ -14,6 +15,8 @@ class LoginScreen extends StatelessWidget {
 
   Duration get loginTime => Duration(milliseconds: timeDilation.ceil() * 2250);
   final LoginService loginService = LoginService();
+  final RecoveryPasswordService recoveryPasswordService =
+      RecoveryPasswordService();
 
   Future<String> _loginUser(LoginData data) async {
     var user = await loginService.login(data.name, data.password);
@@ -28,20 +31,15 @@ class LoginScreen extends StatelessWidget {
       ToastUtil.makeToast("Usuario no encontrado");
       return 'error';
     }
-    /*
-    return Future.delayed(loginTime).then((_) {
-
-    });
-    */
   }
 
-  Future<String> _recoverPassword(String name) {
-    return Future.delayed(loginTime).then((_) {
-      if (!mockUsers.containsKey(name)) {
-        return 'Username not exists';
-      }
+  Future<String> _recoverPassword(String name) async {
+    var ok = await recoveryPasswordService.recoveryPassword(name);
+    if (ok != null) {
       return null;
-    });
+    } else {
+      return 'error';
+    }
   }
 
   @override
