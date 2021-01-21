@@ -31,29 +31,33 @@ class _FullScreenImageState extends State<FullScreenImage> {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.cloud_download,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                // do something
-              },
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.share,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                // do something
-              },
-            )
-          ],
-          leading: new IconButton(
+        centerTitle: true, // this is all you need
+
+        leading: new IconButton(
               icon: new Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => {Navigator.pop(context)})),
+              onPressed: () => {Navigator.pop(context)}
+              ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.cloud_download,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // do something
+            },
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.share,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // do something
+            },
+          )
+        ],
+      ),
       body: Stack(
         children: <Widget>[
           Hero(

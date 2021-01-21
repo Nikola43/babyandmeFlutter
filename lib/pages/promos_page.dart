@@ -16,7 +16,10 @@ class _PromosPageState extends State<PromosPage> {
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        centerTitle: true, // this is all you need
+
+      ),
       body: Container(
         child: SingleChildScrollView(
           child: Column(

@@ -49,8 +49,9 @@ dependencies:
   photo_view: ^0.10.3
   auto_orientation: ^1.0.6
   youtube_player_flutter: ^7.0.0+7
-  flutter_datetime_picker: ^1.4.0
-  extended_image: ^1.5.0
+  flutter_datetime_picker:
+    git:
+      url: https://github.com/espresso3389/flutter_datetime_picker
   date_format: ^1.0.9
   another_flushbar: ^1.10.5
   overlay_support: ^1.0.5
@@ -78,7 +79,14 @@ flutter:
     - assets/images/babyandmebranco.png
     - assets/images/ecorp-lightgreen.png
 
+
   fonts:
+    - family: Hologram
+      fonts:
+        - asset: assets/fonts/ic_holo.ttf
+    - family: Streaming
+      fonts:
+        - asset: assets/fonts/ic_streaming.ttf
     - family: OpenSans
       fonts:
         - asset: assets/fonts/OpenSans-Light.ttf

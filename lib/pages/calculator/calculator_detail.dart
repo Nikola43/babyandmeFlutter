@@ -1,8 +1,9 @@
 import 'package:babyandme/models/calculator.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorDetailPage extends StatefulWidget {
+  static const routeName = '/calculator_detail';
+
   CalculatorDetailPage({Key key}) : super(key: key);
 
   _CalculatorDetailPageState createState() => _CalculatorDetailPageState();
@@ -17,8 +18,19 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Calculadora", style: TextStyle(color: Colors.white)),
+        leading: new IconButton(
+          icon: new Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {},
+        ),
+      ),
       body: Container(
+        color: Colors.lightBlue,
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -45,11 +57,20 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
                         padding: EdgeInsets.all(50),
                         child: ClipRRect(
                             borderRadius: new BorderRadius.circular(10.0),
+                            child: FadeInImage(
+                              fit: BoxFit.fitHeight,
+                              placeholder: AssetImage(
+                                  "assets/images/9619-loading-dots-in-yellow.gif"),
+                              image: NetworkImage(calc.imageUrl),
+                            )),
+                        /*
+
                             child: ExtendedImage.network(
                               calc.imageUrl,
                               fit: BoxFit.fill,
                               cache: true,
                             )),
+                         */
                       ),
                       Text(calc.text),
                     ],

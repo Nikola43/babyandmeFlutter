@@ -24,7 +24,35 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
     if (type < 0) {
       type = 1;
     }
-    return _buildGridTiles(context, imageProvider, type);
+    String label = "";
+
+    switch (type) {
+      case 1:
+        label = "Fotos";
+        break;
+      case 2:
+        label = "Videos";
+        break;
+      case 3:
+        label = "Holos";
+        break;
+    }
+
+    return Scaffold(
+        appBar: AppBar(
+            centerTitle: true, // this is all you need
+
+            title: Text(
+              label,
+              style: TextStyle(color: Colors.white),
+            ),
+            leading: new IconButton(
+                icon: new Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => {Navigator.pop(context)})),
+        body: Container(
+          color: Colors.white,
+          child: _buildGridTiles(context, imageProvider, type),
+        ));
   }
 }
 
@@ -64,7 +92,8 @@ Widget _buildGridTiles(
   );
 }
 
-Widget _drawImage(BuildContext context, List<ImageModel> list, int index, int type) {
+Widget _drawImage(
+    BuildContext context, List<ImageModel> list, int index, int type) {
   final images = Images(list: list, index: index);
 
   return Hero(
@@ -80,7 +109,8 @@ Widget _drawImage(BuildContext context, List<ImageModel> list, int index, int ty
               fit: BoxFit.fitHeight,
               placeholder:
                   AssetImage("assets/images/9619-loading-dots-in-yellow.gif"),
-              image: NetworkImage(type == 1 ? list[index].url : list[index].thumbnail),
+              image: NetworkImage(
+                  type == 1 ? list[index].url : list[index].thumbnail),
             ),
           )));
 }

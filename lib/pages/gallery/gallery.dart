@@ -10,6 +10,8 @@ class Gallery extends StatefulWidget {
 }
 
 class _GalleryState extends State<Gallery> with SingleTickerProviderStateMixin {
+  Size screenSize;
+
   final List<Tab> myTabs = <Tab>[
     Tab(icon: Icon(Icons.photo, color: Colors.white), text: "Imágenes"),
     Tab(icon: Icon(Icons.photo, color: Colors.white), text: "Videos"),
@@ -57,12 +59,16 @@ class _GalleryState extends State<Gallery> with SingleTickerProviderStateMixin {
   }
   @override
   Widget build(BuildContext context) {
+    screenSize = MediaQuery.of(context).size;
+
     final type = ModalRoute.of(context).settings.arguments;
     print(type);
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true, // this is all you need
+
           leading: new IconButton(
             icon: new Icon(
               Icons.arrow_back,

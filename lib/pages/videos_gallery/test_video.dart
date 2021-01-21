@@ -91,6 +91,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
       ),
       home: Scaffold(
         appBar: AppBar(
+          centerTitle: true, // this is all you need
           title: Text(widget.title),
         ),
         body: Column(

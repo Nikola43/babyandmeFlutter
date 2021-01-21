@@ -1,6 +1,5 @@
 import 'package:babyandme/login_screen.dart';
-import 'package:babyandme/pages/gallery/gallery.dart';
-import 'package:babyandme/pages/heartbeat_page.dart';
+import 'package:babyandme/pages/calculator/calculator_page.dart';
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:flutter/foundation.dart';
@@ -27,6 +26,17 @@ class _DashboardScreenState extends State<DashboardScreen>
         .then((_) => false);
 
     /*
+    Navigator.of(context).pop();
+    return Future.delayed(Duration(milliseconds: 1)).then((_) {
+      return false;
+    });
+    return Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ))
+        .then((_) => false);
+
+
         return Navigator.of(context)
         .pushReplacementNamed('/')
         // we dont want to pop the screen, just replace it completely
@@ -74,13 +84,20 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   AppBar _buildAppBar(ThemeData theme) {
     final signOutBtn = IconButton(
-      icon: const Icon(FontAwesomeIcons.signOutAlt),
+      icon: const Icon(
+        FontAwesomeIcons.signOutAlt,
+        color: Colors.white,
+      ),
       color: theme.accentColor,
       onPressed: () => _goToLogin(context),
     );
 
     return AppBar(
+      centerTitle: true,
+      // this is all you need
       automaticallyImplyLeading: false,
+      brightness: Brightness.light,
+      // status bar brightness
       actions: <Widget>[
         FadeIn(
           child: signOutBtn,
@@ -91,7 +108,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         ),
       ],
       title: Text(''),
-      backgroundColor: theme.primaryColor.withOpacity(.1),
+      backgroundColor: theme.primaryColor,
       elevation: 0,
       textTheme: theme.accentTextTheme,
       iconTheme: theme.accentIconTheme,
@@ -149,6 +166,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     const aniInterval = 0.75;
 
     return GridView.count(
+      physics: new NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(
         horizontal: 32.0,
         vertical: 20,
@@ -157,123 +175,56 @@ class _DashboardScreenState extends State<DashboardScreen>
       // crossAxisSpacing: 5,
       crossAxisCount: 3,
       children: [
-        GestureDetector(
-          onTap: () {
-            _goToGallery(context, 1);
-          },
-          child: ClipRRect(
-            borderRadius: new BorderRadius.circular(10.0),
-            child: Column(
-              children: [
-                Hero(
-                  tag: 'imagesTab',
-                  child: Icon(
-                    FontAwesomeIcons.moneyBillAlt,
-                    size: 20,
-                  ),
-                ),
-                Text('Images')
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            _goToGallery(context, 2);
-          },
-          child: ClipRRect(
-            borderRadius: new BorderRadius.circular(10.0),
-            child: Column(
-              children: [
-                Hero(
-                  tag: 'videosTab',
-                  child: Icon(
-                    FontAwesomeIcons.moneyBillAlt,
-                    size: 20,
-                  ),
-                ),
-                Text('Video')
-              ],
-            ),
-          ),
-        ),
-        FlatButton(
-            onPressed: () => {_goToGallery(context, 2)}, child: Text('Video')),
-        FlatButton(
-            onPressed: () => {_goToHeartbeat(context)}, child: Text('Latido')),
-        FlatButton(
-            onPressed: () => {_goToStreaming(context)},
-            child: Text('Streaming')),
         _buildButton(
-          icon: Container(
-            // fix icon is not centered like others for some reasons
-            padding: const EdgeInsets.only(left: 16.0),
-            alignment: Alignment.centerLeft,
-            child: Icon(
-              FontAwesomeIcons.moneyBillAlt,
-              size: 20,
-            ),
-          ),
-          label: 'Fund Transfer',
+          icon: Icon(FontAwesomeIcons.image),
+          label: 'Imagenes',
+          interval: Interval(step * 2, aniInterval + step * 2),
+          onPressed: () => {_goToImageGallery(context, 1)},
+        ),
+        _buildButton(
+          icon: Icon(FontAwesomeIcons.video),
+          label: 'Video',
+          interval: Interval(step * 2, aniInterval + step * 2),
+          onPressed: () => {_goToImageGallery(context, 2)},
+        ),
+        _buildButton(
+          icon: Icon(const IconData(0xe901, fontFamily: 'Hologram')),
+          label: 'Holo',
+          interval: Interval(0, aniInterval),
+          onPressed: () => {_goToStreaming(context)},
+        ),
+        _buildButton(
+          icon: Icon(FontAwesomeIcons.heartbeat),
+          label: 'Latido',
           interval: Interval(step, aniInterval + step),
+          onPressed: () => {_goToCalculator(context)},
         ),
         _buildButton(
-          icon: Icon(FontAwesomeIcons.handHoldingUsd),
-          label: 'Payment',
+          icon: Icon(const IconData(0xe900, fontFamily: 'Streaming')),
+          label: 'Streaming',
           interval: Interval(step * 2, aniInterval + step * 2),
         ),
         _buildButton(
-          icon: Icon(FontAwesomeIcons.chartLine),
-          label: 'Report',
+          icon: Icon(FontAwesomeIcons.calculator),
+          label: 'Calculadora',
           interval: Interval(0, aniInterval),
         ),
         _buildButton(
-          icon: Icon(Icons.vpn_key),
-          label: 'Register',
+          icon: Icon(FontAwesomeIcons.gift),
+          label: 'Promo',
           interval: Interval(step, aniInterval + step),
         ),
         _buildButton(
-          icon: Icon(FontAwesomeIcons.history),
-          label: 'History',
+          icon: Icon(FontAwesomeIcons.calendarAlt),
+          label: 'Citas ',
           interval: Interval(step * 2, aniInterval + step * 2),
         ),
         _buildButton(
-          icon: Icon(FontAwesomeIcons.ellipsisH),
-          label: 'Other',
-          interval: Interval(0, aniInterval),
-        ),
-        _buildButton(
-          icon: Icon(FontAwesomeIcons.search, size: 20),
-          label: 'Search',
-          interval: Interval(step, aniInterval + step),
-        ),
-        _buildButton(
-          icon: Icon(FontAwesomeIcons.slidersH, size: 20),
-          label: 'Settings',
+          icon: Icon(FontAwesomeIcons.info),
+          label: 'Info ',
           interval: Interval(step * 2, aniInterval + step * 2),
         ),
       ],
-    );
-  }
-
-  Widget _buildDebugButtons() {
-    const textStyle = TextStyle(fontSize: 12, color: Colors.white);
-
-    return Positioned(
-      bottom: 0,
-      right: 0,
-      child: Row(
-        children: <Widget>[
-          RaisedButton(
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            color: Colors.red,
-            child: Text('loading', style: textStyle),
-            onPressed: () => _loadingController.value == 0
-                ? _loadingController.forward()
-                : _loadingController.reverse(),
-          ),
-        ],
-      ),
     );
   }
 
@@ -282,13 +233,17 @@ class _DashboardScreenState extends State<DashboardScreen>
     final theme = Theme.of(context);
 
     return WillPopScope(
-      onWillPop: () => _goToLogin(context),
+      onWillPop: () async {
+        // ToastUtil.makeToast("Usuario no encontrado");
+        return false;
+      },
       child: Scaffold(
         appBar: _buildAppBar(theme),
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          color: theme.primaryColor.withOpacity(.1),
+          //color: theme.primaryColor.withOpacity(.1),
+          color: Colors.lightBlue,
           child: Stack(
             children: <Widget>[
               Column(
@@ -300,29 +255,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                   ),
                   Expanded(
                     flex: 8,
-                    child: ShaderMask(
-                      // blendMode: BlendMode.srcOver,
-                      shaderCallback: (Rect bounds) {
-                        return LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          tileMode: TileMode.clamp,
-                          colors: <Color>[
-                            Colors.deepPurpleAccent.shade100,
-                            Colors.deepPurple.shade100,
-                            Colors.deepPurple.shade100,
-                            Colors.deepPurple.shade100,
-                            // Colors.red,
-                            // Colors.yellow,
-                          ],
-                        ).createShader(bounds);
-                      },
-                      child: _buildDashboardGrid(),
-                    ),
+                    child: _buildDashboardGrid(),
                   ),
                 ],
               ),
-              if (!kReleaseMode) _buildDebugButtons(),
             ],
           ),
         ),
@@ -332,27 +268,25 @@ class _DashboardScreenState extends State<DashboardScreen>
 }
 
 _goToGallery(BuildContext context, int type) {
-  Navigator.pushNamed(
-    context,
-    Gallery.routeName,
-    arguments: type
-  );
+  Navigator.pushNamed(context, ImageGalleryPage.routeName, arguments: type);
 }
 
-_goToImageGallery(BuildContext context) {
-  Navigator.of(context).pushReplacement(MaterialPageRoute(
-    builder: (context) => ImageGalleryPage(),
-  ));
+_goToImageGallery(BuildContext context, int type) {
+  Navigator.pushNamed(context, ImageGalleryPage.routeName, arguments: type);
 }
 
+_goToStreaming(BuildContext context) {
+  Navigator.pushNamed(context, StreamingCodePage.routeName);
+}
+
+_goToCalculator(BuildContext context) {
+  Navigator.pushNamed(context, CalculatorPage.routeName);
+}
+
+/*
 _goToHeartbeat(BuildContext context) {
   Navigator.of(context).pushReplacement(MaterialPageRoute(
     builder: (context) => HeartbeatPage(),
   ));
 }
-
-_goToStreaming(BuildContext context) {
-  Navigator.of(context).pushReplacement(MaterialPageRoute(
-    builder: (context) => StreamingCodePage(),
-  ));
-}
+*/

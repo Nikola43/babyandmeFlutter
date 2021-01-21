@@ -6,7 +6,8 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(backgroundColor: Colors.transparent, elevation: 0.0),
+      appBar: new AppBar(  centerTitle: true, // this is all you need
+          backgroundColor: Colors.transparent, elevation: 0.0),
       body: Container(
         width: double.infinity,
         child: new Column(

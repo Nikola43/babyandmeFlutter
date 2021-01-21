@@ -46,6 +46,8 @@ class _HeartbeatPageState extends State<HeartbeatPage>
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        centerTitle: true, // this is all you need
+
         title: new Text("heartbeat"),
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back),

@@ -10,7 +10,8 @@ class ForgotPasswordPage extends StatelessWidget {
       statusBarIconBrightness: Brightness.dark, //top bar icons
     );
     return Scaffold(
-        appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0.0),
+        appBar: AppBar(  centerTitle: true, // this is all you need
+            backgroundColor: Colors.transparent, elevation: 0.0),
         body: Container(
           width: double.infinity,
           child: new Column(

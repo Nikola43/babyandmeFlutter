@@ -1,5 +1,9 @@
+import 'package:babyandme/on_boarding_page.dart';
+import 'package:babyandme/pages/calculator/calculator_detail.dart';
+import 'package:babyandme/pages/calculator/calculator_page.dart';
 import 'package:babyandme/pages/gallery/gallery.dart';
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
+import 'package:babyandme/pages/login_page.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +17,9 @@ import 'transition_route_observer.dart';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-        statusBarColor: Colors.white, // this one for android
+        statusBarColor: Colors.lightBlue, // this one for android
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark // this one for iOS
         ),
   );
@@ -29,11 +35,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       debugShowCheckedModeBanner: false,
       title: 'Login Demo',
       theme: ThemeData(
         // brightness: Brightness.dark,
+        primaryColor: Colors.lightBlue,
+        secondaryHeaderColor: Colors.blueAccent,
         primarySwatch: Colors.lightBlue,
         accentColor: Colors.orange,
         cursorColor: Colors.orange,
@@ -67,18 +74,7 @@ class _MyAppState extends State<MyApp> {
           overline: TextStyle(fontFamily: 'NotoSans'),
         ),
       ),
-      home: new SplashScreen(
-        seconds: 1,
-        navigateAfterSeconds: DashboardScreen(),
-        image: Image.asset(
-          'assets/images/babyandmebranco.png',
-          filterQuality: FilterQuality.high,
-          height: 50,
-          width: 50,
-        ),
-        backgroundColor: Colors.lightBlue,
-        loaderColor: Colors.red,
-      ),
+      home: _buildFirstScreen(),
       navigatorObservers: [TransitionRouteObserver()],
       routes: {
         LoginScreen.routeName: (context) => LoginScreen(),
@@ -86,10 +82,20 @@ class _MyAppState extends State<MyApp> {
         ImageGalleryPage.routeName: (context) => ImageGalleryPage(),
         Gallery.routeName: (context) => Gallery(),
         FullScreenImage.routeName: (context) => FullScreenImage(),
+        CalculatorPage.routeName: (context) => CalculatorPage(),
+        CalculatorDetailPage.routeName: (context) => CalculatorDetailPage(),
         StreamingCodePage.routeName: (context) => StreamingCodePage(),
         StreamingYoutubeVideo.routeName: (context) => StreamingYoutubeVideo(),
       },
     );
+  }
+}
+
+Widget _buildFirstScreen() {
+  if (3 > 2) {
+    return OnBoardingPage();
+  } else {
+    return LoginScreen();
   }
 }
 

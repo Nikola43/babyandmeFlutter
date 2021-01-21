@@ -32,6 +32,8 @@ class _StreamingYoutubeVideoState extends State<StreamingYoutubeVideo> {
     bool _fullScreen = false;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true, // this is all you need
+
         title: Text(
           "widget.title",
           style: TextStyle(color: Colors.white),

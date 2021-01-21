@@ -5,10 +5,10 @@ import 'package:babyandme/models/calculator.dart';
 import 'package:babyandme/utils/http_request.dart';
 
 class CalculatorService {
-  final apiUrl = "https://ecodadys.app/api/api/calculator/week";
+  final apiUrl = "https://api.babyandme.stelast.com/api/calculator/week";
 
   Future<Calculator> calculatorByWeek(int id, int user_id) async {
-    final Calculator week = Calculator(id: 16, userId: 3);
+    final Calculator week = Calculator(id: id, userId: user_id);
     Calculator week2;
 
     try {
