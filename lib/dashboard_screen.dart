@@ -208,6 +208,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           icon: Icon(FontAwesomeIcons.calculator),
           label: 'Calculadora',
           interval: Interval(0, aniInterval),
+          onPressed: () => {_goToCalculator(context)},
         ),
         _buildButton(
           icon: Icon(FontAwesomeIcons.gift),

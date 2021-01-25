@@ -110,7 +110,7 @@ Widget _loginButton(BuildContext context, LoginService loginService,
                 SharedPreferencesUtil.saveString("token", user.token.string);
                 print(user.token.string);
 
-                ToastUtil.makeToast("Bienvenido a ecodadys");
+                ToastUtil.makeToast("Bienvenido a babyandme");
 
                 Navigator.of(context).pushNamed('/main_menu');
               } else {

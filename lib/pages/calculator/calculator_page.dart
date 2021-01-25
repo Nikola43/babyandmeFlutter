@@ -16,15 +16,30 @@ class CalculatorPage extends StatefulWidget {
 }
 
 class _CalculatorPageState extends State<CalculatorPage> {
-  static DateTime now = DateTime.now();
   Size screenSize;
 
-  String _date = "";
+  DateTime selectedDate = DateTime.now();
+  String _parsedDate = "";
   int _userID = 0;
+
+  DateTime calculateMinDate() {
+    var now = new DateTime.now();
+    var minDate = now.add(new Duration(days: -280));
+    return minDate;
+  }
+
+  int calculateWeekBySetDate(DateTime selectedDate) {
+    var difference = new DateTime.now().difference(selectedDate).inDays / 7;
+    print(difference);
+    if (difference <= 1) {
+      difference = 1;
+    }
+    return difference.toInt();
+  }
 
   @override
   void initState() {
-    _date = formatDate(DateTime.now(), [dd, '-', mm, '-', yyyy]);
+    _parsedDate = formatDate(DateTime.now(), [dd, '-', mm, '-', yyyy]);
 
     super.initState();
     SharedPreferencesUtil.getInt('user_id').then((onValue) {
@@ -40,7 +55,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        centerTitle: true, // this is all you need
+        centerTitle: true,
+        // this is all you need
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         title: Text("Calculadora", style: TextStyle(color: Colors.white)),
@@ -101,12 +117,14 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                             containerHeight: 210.0,
                                           ),
                                           showTitleActions: true,
-                                          minTime: DateTime(2000, 1, 1),
-                                          maxTime: DateTime(2022, 12, 31),
+                                          minTime: calculateMinDate(),
+                                          maxTime: new DateTime.now(),
                                           onConfirm: (date) {
                                         print('confirm $date');
-                                        _date =
+                                        selectedDate = date;
+                                        _parsedDate =
                                             '${date.year} - ${date.month} - ${date.day}';
+                                        calculateWeekBySetDate(date);
                                         setState(() {});
                                       },
                                           currentTime: DateTime.now(),
@@ -130,7 +148,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                                       color: Colors.lightBlue,
                                                     ),
                                                     Text(
-                                                      " $_date",
+                                                      " $_parsedDate",
                                                       style: TextStyle(
                                                           color: Colors.black,
                                                           fontWeight:
@@ -162,9 +180,12 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                       }
 
                                       calculatorService
-                                          .calculatorByWeek(16, 4)
+                                          .calculatorByWeek(
+                                              calculateWeekBySetDate(
+                                                  selectedDate))
                                           .then((val) {
                                         if (val != null) {
+                                          val.selectedDateTime = selectedDate;
                                           Navigator.of(context).pushNamed(
                                               '/calculator_detail',
                                               arguments: val);

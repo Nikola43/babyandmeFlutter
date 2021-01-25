@@ -14,6 +14,24 @@ class CalculatorDetailPage extends StatefulWidget {
 class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
   Size _screenSize;
 
+  int calculateDaysBySetDate(DateTime selectedDate) {
+    var difference = new DateTime.now().difference(selectedDate).inDays % 7;
+    print(difference);
+    if (difference <= 1) {
+      difference = 1;
+    }
+    return difference.toInt();
+  }
+
+  int calculateWeekBySetDate(DateTime selectedDate) {
+    var difference = new DateTime.now().difference(selectedDate).inDays / 7;
+    print(difference);
+    if (difference <= 1) {
+      difference = 1;
+    }
+    return difference.toInt();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Calculator calc = ModalRoute.of(context).settings.arguments;
@@ -47,8 +65,25 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
                 ),
                 child: Center(
                     child: Container(
-                  height: _screenSize.height / 10,
-                  child: Text("df"),
+                  height: _screenSize.height / 20,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Estás de " +
+                              calculateWeekBySetDate(calc.selectedDateTime)
+                                  .toString() +
+                              ' semanas' +
+                              " y " +
+                              calculateDaysBySetDate(calc.selectedDateTime)
+                                  .toString() +
+                              ' dias',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                    ],
+                  ),
                 )),
               ),
               Card(
@@ -59,11 +94,17 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
                     child: Container(
                   child: Column(
                     children: <Widget>[
-                      Text('Semana 4'),
                       Padding(
-                        padding: EdgeInsets.all(50),
+                        padding: EdgeInsets.only(top: 25),
+                        child: Text(
+                          'Semana ' + calc.id.toString(),
+                          style: TextStyle(fontSize: 25),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(25),
                         child: ClipRRect(
-                            borderRadius: new BorderRadius.circular(10.0),
+                            borderRadius: new BorderRadius.circular(50.0),
                             child: FadeInImage(
                               fit: BoxFit.fitHeight,
                               placeholder: AssetImage(
@@ -79,7 +120,9 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
                             )),
                          */
                       ),
-                      Text(calc.text),
+                      Padding(
+                          padding: EdgeInsets.only(left: 25, right: 25),
+                          child: Text(calc.text)),
                     ],
                   ),
                 )),

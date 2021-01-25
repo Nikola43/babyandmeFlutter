@@ -5,12 +5,13 @@ class Calculator {
   int userId;
   String imageUrl;
   String text;
+  DateTime selectedDateTime;
 
   Calculator({
     this.id,
     this.userId,
     this.imageUrl,
-    this.text,
+    this.selectedDateTime,
   });
 
   Calculator.fromJsonMap(Map<String, dynamic> json) {
