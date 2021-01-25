@@ -8,6 +8,7 @@ import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'dashboard_screen.dart';
 import 'login_screen.dart';
@@ -23,10 +24,16 @@ void main() {
         statusBarBrightness: Brightness.dark // this one for iOS
         ),
   );
+
+
+
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
+
+
+
   @override
   _MyAppState createState() => new _MyAppState();
 }
@@ -34,6 +41,22 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+
+    //Remove this method to stop OneSignal Debugging
+    OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+
+    OneSignal.shared.init("0f19ed5b-2b9b-4492-a8ef-298845ce7d21", iOSSettings: {
+      OSiOSSettings.autoPrompt: false,
+      OSiOSSettings.inAppLaunchUrl: false
+    });
+    OneSignal.shared
+        .setInFocusDisplayType(OSNotificationDisplayType.notification);
+
+// The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+    OneSignal.shared
+        .promptUserForPushNotificationPermission(fallbackToSettings: true)
+        .then((value) => {print(value)});
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Login Demo',

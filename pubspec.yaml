@@ -55,6 +55,7 @@ dependencies:
   date_format: ^1.0.9
   another_flushbar: ^1.10.5
   overlay_support: ^1.0.5
+  onesignal_flutter:
 
 dev_dependencies:
   flutter_test:

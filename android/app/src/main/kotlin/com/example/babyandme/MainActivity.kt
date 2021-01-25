@@ -1,4 +1,4 @@
-package com.example.babyandme
+package com.stelast.babyandme
 
 import io.flutter.embedding.android.FlutterActivity
 

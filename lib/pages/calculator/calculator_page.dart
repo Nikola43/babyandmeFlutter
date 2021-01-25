@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../dashboard_screen.dart';
+
 class CalculatorPage extends StatefulWidget {
   static const routeName = '/calculator';
 
@@ -47,7 +49,12 @@ class _CalculatorPageState extends State<CalculatorPage> {
             Icons.arrow_back,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardScreen()),
+            );
+          },
         ),
       ),
       body: Container(

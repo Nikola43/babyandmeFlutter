@@ -1,6 +1,8 @@
 import 'package:babyandme/models/calculator.dart';
 import 'package:flutter/material.dart';
 
+import '../../dashboard_screen.dart';
+
 class CalculatorDetailPage extends StatefulWidget {
   static const routeName = '/calculator_detail';
 
@@ -26,7 +28,12 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
             Icons.arrow_back,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardScreen()),
+            );
+          },
         ),
       ),
       body: Container(
