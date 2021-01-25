@@ -1,4 +1,6 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:babyandme/services/calculator_service.dart';
+import 'package:babyandme/services/streaming_service.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -14,12 +16,26 @@ class StreamingCodePage extends StatefulWidget {
 
 class _StreamingCodePageState extends State<StreamingCodePage> {
   TextEditingController _textFieldController = TextEditingController();
-  CalculatorService calculatorService = CalculatorService();
+  StreamingService streamingService = StreamingService();
   Size screenSize;
+  FocusNode myFocusNode;
 
   @override
   void initState() {
     super.initState();
+    myFocusNode = FocusNode();
+
+    myFocusNode.addListener(() {
+      print('Listener');
+    });
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    myFocusNode.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -29,7 +45,8 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          centerTitle: true, // this is all you need
+          centerTitle: true,
+          // this is all you need
 
           backgroundColor: Colors.transparent,
           elevation: 0.0,
@@ -64,7 +81,6 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                         alignment: Alignment.topCenter,
                       ),
                       SizedBox(height: screenSize.height / 64),
-
                       Text(
                         "Introduzca el código del streaming",
                         style: TextStyle(
@@ -92,11 +108,16 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                              */
                               SizedBox(height: screenSize.height / 32),
                               TextField(
+                                maxLength: 4,
                                 textAlign: TextAlign.center,
                                 controller: _textFieldController,
+                                textCapitalization:
+                                    TextCapitalization.characters,
+                                focusNode: myFocusNode,
+                                autofocus: true,
                                 decoration: InputDecoration(
                                   filled: true,
-
+                                  counterStyle: TextStyle(color: Colors.white),
                                   fillColor: Colors.white,
                                   //Add th Hint text here.
                                   hintText: "Codigo",
@@ -112,7 +133,39 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                                     borderRadius:
                                         new BorderRadius.circular(18.0),
                                     side: BorderSide(color: Colors.lightBlue)),
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (_textFieldController.value.text.length ==
+                                      4) {
+                                    streamingService
+                                        .getStreamingByCode(
+                                            _textFieldController.value.text)
+                                        .then((value) => {
+                                              print(value.url),
+                                              if (value.url != null)
+                                                {print("ok")}
+                                              else
+                                                {
+                                                  Flushbar(
+                                                    title:
+                                                        "Código no encontrado",
+                                                    message: " ",
+                                                    duration:
+                                                        Duration(seconds: 3),
+                                                  )..show(context)
+                                                }
+                                            });
+                                  } else {
+                                    FocusScope.of(context)
+                                        .requestFocus(myFocusNode);
+
+                                    //myFocusNode.requestFocus();
+                                    Flushbar(
+                                      title: "El código debe tener 4 letras",
+                                      message: " ",
+                                      duration: Duration(seconds: 3),
+                                    )..show(context);
+                                  }
+                                },
                                 color: Colors.white,
                                 textColor: Colors.lightBlue,
                                 child: Text("Ver".toUpperCase(),

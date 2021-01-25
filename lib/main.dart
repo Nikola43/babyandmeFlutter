@@ -2,6 +2,7 @@ import 'package:babyandme/on_boarding_page.dart';
 import 'package:babyandme/pages/calculator/calculator_detail.dart';
 import 'package:babyandme/pages/calculator/calculator_page.dart';
 import 'package:babyandme/pages/gallery/gallery.dart';
+import 'package:babyandme/pages/heartbeat_page.dart';
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
 import 'package:babyandme/pages/login_page.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
@@ -109,12 +110,14 @@ class _MyAppState extends State<MyApp> {
         CalculatorDetailPage.routeName: (context) => CalculatorDetailPage(),
         StreamingCodePage.routeName: (context) => StreamingCodePage(),
         StreamingYoutubeVideo.routeName: (context) => StreamingYoutubeVideo(),
+        HeartbeatPage.routeName: (context) => HeartbeatPage(),
       },
     );
   }
 }
 
 Widget _buildFirstScreen() {
+  return DashboardScreen();
   if (3 > 2) {
     return OnBoardingPage();
   } else {

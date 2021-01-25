@@ -17,7 +17,7 @@ class ImageProvider {
       switch(type) {
         case 1: mode = "images"; break;
         case 2: mode = "videos"; break;
-        case 3: mode = "holo"; break;
+        case 3: mode = "holographies"; break;
       }
       final response = await HttpRequestUtil.makeSecureGetRequest(apiUrl + mode  + '/' + userId.toString(), token);
       //print("resp");

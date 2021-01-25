@@ -1,10 +1,13 @@
 import 'package:babyandme/providers/audio_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayer/audioplayer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../dashboard_screen.dart';
 
 class HeartbeatPage extends StatefulWidget {
+  static const routeName = '/heartbeat';
+
   HeartbeatPage({Key key, this.title}) : super(key: key);
   final String title;
 
@@ -14,14 +17,61 @@ class HeartbeatPage extends StatefulWidget {
 
 class _HeartbeatPageState extends State<HeartbeatPage>
     with SingleTickerProviderStateMixin {
-  AnimationController animationController1;
-  Animation<double> animation;
+  //AnimationController animationController1;
+  //Animation<double> animation;
 
   bool isPlaying = false;
   static String url =
-      'https://codingwithjoe.com/wp-content/uploads/2018/03/applause.mp3';
+      'https://s3.eu-central-1.wasabisys.com/stela/3/heartbeat/dvr_20200729_1118.mpg_latido_.mp3';
   AudioPlayer audioPlayer = new AudioPlayer();
   AudioProvider audioProvider = new AudioProvider(url);
+
+  AnimationController motionController;
+  Animation motionAnimation;
+  double size = 125;
+  void initState() {
+    super.initState();
+
+    motionController = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+      lowerBound: 0.5,
+    );
+
+    motionAnimation = CurvedAnimation(
+      parent: motionController,
+      curve: Curves.ease,
+    );
+
+    motionController.forward();
+    motionController.addStatusListener((status) {
+      setState(() {
+        if (status == AnimationStatus.completed) {
+          motionController.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          motionController.forward();
+        }
+      });
+    });
+
+    motionController.addListener(() {
+      setState(() {
+        size = motionController.value * 250;
+      });
+    });
+
+    motionController.stop(canceled: true);
+
+    // motionController.repeat();
+  }
+
+  @override
+  void dispose() {
+    motionController.dispose();
+    super.dispose();
+  }
+
+  /*
 
   @override
   void initState() {
@@ -38,9 +88,12 @@ class _HeartbeatPageState extends State<HeartbeatPage>
     animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         animationController1.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        animationController1.forward();
       }
     });
   }
+  */
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +101,14 @@ class _HeartbeatPageState extends State<HeartbeatPage>
       appBar: new AppBar(
         centerTitle: true, // this is all you need
 
-        title: new Text("heartbeat"),
+        title: Text("Calculadora", style: TextStyle(color: Colors.white)),
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back),
           onPressed: () {
+            if (!isPlaying) {
+              isPlaying = false;
+              audioPlayer.stop();
+            }
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => DashboardScreen()),
@@ -68,9 +125,14 @@ class _HeartbeatPageState extends State<HeartbeatPage>
                 play();
               },
               child: Container(
-                color: Colors.red,
-                height: animation.value,
-                width: animation.value,
+                color: Colors.blue,
+                height: size,
+                width: size,
+                child: Icon(
+                  FontAwesomeIcons.solidHeart,
+                  size: size,
+                  color: Colors.red,
+                ),
               ),
             ),
           ],
@@ -84,11 +146,12 @@ class _HeartbeatPageState extends State<HeartbeatPage>
       isPlaying = true;
       String localUrl = await audioProvider.load();
       audioPlayer.play(localUrl, isLocal: true);
-      animationController1.forward();
+      motionController.forward();
     } else {
       isPlaying = false;
       audioPlayer.stop();
-      animationController1.reset();
+      motionController.stop(canceled: true);
+      //animationController1.reset();
     }
   }
 }

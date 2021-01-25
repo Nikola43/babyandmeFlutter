@@ -3,6 +3,7 @@ import 'package:babyandme/models/images.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:babyandme/providers/image_provider.dart' as p;
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ImageGalleryPage extends StatefulWidget {
   static const routeName = '/image_gallery';
@@ -103,14 +104,40 @@ Widget _drawImage(
             Navigator.of(context)
                 .pushNamed('/full_screen_image_screen', arguments: images);
           },
-          child: new ClipRRect(
-            borderRadius: new BorderRadius.circular(10.0),
-            child: FadeInImage(
-              fit: BoxFit.fitHeight,
-              placeholder:
-                  AssetImage("assets/images/9619-loading-dots-in-yellow.gif"),
-              image: NetworkImage(
-                  type == 1 ? list[index].url : list[index].thumbnail),
-            ),
-          )));
+          child: type == 1
+              ? ClipRRect(
+                  borderRadius: new BorderRadius.circular(10.0),
+                  child: FadeInImage(
+                    fit: BoxFit.fitHeight,
+                    placeholder: AssetImage(
+                        "assets/images/9619-loading-dots-in-yellow.gif"),
+                    image: NetworkImage(
+                        type == 1 ? list[index].url : list[index].thumbnail),
+                  ),
+                )
+              : Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: 400,
+                      height: 200,
+                      child: ClipRRect(
+                        borderRadius: new BorderRadius.circular(10.0),
+                        child: FadeInImage(
+                          fit: BoxFit.fitHeight,
+                          placeholder: AssetImage(
+                              "assets/images/9619-loading-dots-in-yellow.gif"),
+                          image: NetworkImage(type == 1
+                              ? list[index].url
+                              : list[index].thumbnail),
+                        ),
+                      ),
+                    ),
+                    Icon(
+                      FontAwesomeIcons.play,
+                      size: 25,
+                      color: Colors.white,
+                    ),
+                  ],
+                )));
 }

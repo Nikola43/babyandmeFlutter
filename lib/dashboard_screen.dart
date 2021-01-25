@@ -1,5 +1,6 @@
 import 'package:babyandme/login_screen.dart';
 import 'package:babyandme/pages/calculator/calculator_page.dart';
+import 'package:babyandme/pages/heartbeat_page.dart';
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:flutter/foundation.dart';
@@ -191,18 +192,23 @@ class _DashboardScreenState extends State<DashboardScreen>
           icon: Icon(const IconData(0xe901, fontFamily: 'Hologram')),
           label: 'Holo',
           interval: Interval(0, aniInterval),
-          onPressed: () => {_goToStreaming(context)},
+          onPressed: () => {_goToImageGallery(context, 3)},
         ),
         _buildButton(
           icon: Icon(FontAwesomeIcons.heartbeat),
           label: 'Latido',
           interval: Interval(step, aniInterval + step),
-          onPressed: () => {_goToCalculator(context)},
+          onPressed: () => {
+          Navigator.pushNamed(context, HeartbeatPage.routeName)
+        },
         ),
         _buildButton(
           icon: Icon(const IconData(0xe900, fontFamily: 'Streaming')),
           label: 'Streaming',
           interval: Interval(step * 2, aniInterval + step * 2),
+          onPressed: () => {
+            Navigator.pushNamed(context, StreamingCodePage.routeName)
+          },
         ),
         _buildButton(
           icon: Icon(FontAwesomeIcons.calculator),
@@ -283,6 +289,8 @@ _goToStreaming(BuildContext context) {
 _goToCalculator(BuildContext context) {
   Navigator.pushNamed(context, CalculatorPage.routeName);
 }
+
+
 
 /*
 _goToHeartbeat(BuildContext context) {
