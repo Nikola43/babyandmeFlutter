@@ -1,5 +1,5 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:babyandme/services/calculator_service.dart';
+import 'package:babyandme/pages/streaming/streaming_video_page.dart';
 import 'package:babyandme/services/streaming_service.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -142,7 +142,11 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                                         .then((value) => {
                                               print(value.url),
                                               if (value.url != null)
-                                                {print("ok")}
+                                                {
+                                                  print("ok"),
+                                                  Navigator.pushNamed(context,
+                                                      StreamingYoutubeVideo.routeName, arguments: value.url)
+                                                }
                                               else
                                                 {
                                                   Flushbar(

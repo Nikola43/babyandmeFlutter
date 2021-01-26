@@ -4,16 +4,16 @@ import 'package:babyandme/pages/calculator/calculator_page.dart';
 import 'package:babyandme/pages/gallery/gallery.dart';
 import 'package:babyandme/pages/heartbeat_page.dart';
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
-import 'package:babyandme/pages/login_page.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:splashscreen/splashscreen.dart';
 import 'dashboard_screen.dart';
 import 'login_screen.dart';
 import 'pages/images_gallery/full_screen_image_screen.dart';
+import 'pages/promos_page.dart';
+import 'pages/videos_gallery/video_player.dart';
 import 'transition_route_observer.dart';
 
 void main() {
@@ -26,15 +26,10 @@ void main() {
         ),
   );
 
-
-
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-
-
-
   @override
   _MyAppState createState() => new _MyAppState();
 }
@@ -42,7 +37,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-
     //Remove this method to stop OneSignal Debugging
     OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
@@ -111,18 +105,22 @@ class _MyAppState extends State<MyApp> {
         StreamingCodePage.routeName: (context) => StreamingCodePage(),
         StreamingYoutubeVideo.routeName: (context) => StreamingYoutubeVideo(),
         HeartbeatPage.routeName: (context) => HeartbeatPage(),
+        VideoAppPage.routeName: (context) => VideoAppPage(),
+        PromosPage.routeName: (context) => PromosPage(),
       },
     );
   }
 }
 
+class VideoPlayerPage {
+}
+
 Widget _buildFirstScreen() {
   return DashboardScreen();
-  if (3 > 2) {
-    return OnBoardingPage();
-  } else {
-    return LoginScreen();
-  }
+
+  //return OnBoardingPage();
+
+  // return LoginScreen();
 }
 
 Map<int, Color> colorCodes = {

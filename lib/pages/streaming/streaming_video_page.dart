@@ -4,6 +4,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class StreamingYoutubeVideo extends StatefulWidget {
   static const routeName = '/streaming_video';
+
   StreamingYoutubeVideo({Key key, this.title}) : super(key: key);
   final String title;
 
@@ -12,11 +13,42 @@ class StreamingYoutubeVideo extends StatefulWidget {
 }
 
 class _StreamingYoutubeVideoState extends State<StreamingYoutubeVideo> {
-  YoutubePlayerController _controller = YoutubePlayerController(initialVideoId: '');
+  String url;
+  YoutubePlayerController _controller = YoutubePlayerController(initialVideoId: '33lGm3AEzjY');
 
-  String _videoId = "50kklGefAcs";
 
   void listener() {}
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        url = ModalRoute.of(context).settings.arguments;
+        print(url);
+        String videoId = url.split('=')[1];
+        print(videoId);
+        initializePlayer(url);
+        _controller.load(videoId);
+
+        //_controller.toggleFullScreenMode();
+      });
+    });
+  }
+
+  Future<void> initializePlayer(String url) async {
+    String videoId = url.split('=')[1];
+    print(videoId);
+    _controller = YoutubePlayerController(initialVideoId: videoId);
+  }
+
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   void deactivate() {
@@ -27,39 +59,33 @@ class _StreamingYoutubeVideoState extends State<StreamingYoutubeVideo> {
 
   @override
   Widget build(BuildContext context) {
-    // _controller.enterFullScreen();
-    final calc = ModalRoute.of(context).settings.arguments;
-    bool _fullScreen = false;
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true, // this is all you need
+    String videoId = url.split('=')[1];
+    print(videoId);
+    //initializePlayer(url);
+    _controller.load(videoId);
+    _controller.toggleFullScreenMode();
 
-        title: Text(
-          "widget.title",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            YoutubePlayer(
-
-              progressIndicatorColor: Color(0xFFFF0000),
-              topActions: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.white,
-                    size: 20.0,
-                  ),
-                  onPressed: () {
-                    //_controller.exitFullScreenMode();
-                  },
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          YoutubePlayer(
+            controller: _controller,
+            progressIndicatorColor: Color(0xFFFF0000),
+            topActions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                  size: 20.0,
                 ),
-              ],
-            ),
-          ],
-        ),
+                onPressed: () {
+                  _controller.toggleFullScreenMode();
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

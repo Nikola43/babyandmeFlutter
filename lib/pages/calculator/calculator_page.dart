@@ -92,7 +92,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     ),
                     SizedBox(height: screenSize.height / 32),
                     Text(
-                      "Seleccione la fecha de su ultima menstruación",
+                      "Seleccione la fecha de su ultima ",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

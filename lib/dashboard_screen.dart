@@ -2,6 +2,7 @@ import 'package:babyandme/login_screen.dart';
 import 'package:babyandme/pages/calculator/calculator_page.dart';
 import 'package:babyandme/pages/heartbeat_page.dart';
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
+import 'package:babyandme/pages/promos_page.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -198,17 +199,15 @@ class _DashboardScreenState extends State<DashboardScreen>
           icon: Icon(FontAwesomeIcons.heartbeat),
           label: 'Latido',
           interval: Interval(step, aniInterval + step),
-          onPressed: () => {
-          Navigator.pushNamed(context, HeartbeatPage.routeName)
-        },
+          onPressed: () =>
+              {Navigator.pushNamed(context, HeartbeatPage.routeName)},
         ),
         _buildButton(
           icon: Icon(const IconData(0xe900, fontFamily: 'Streaming')),
           label: 'Streaming',
           interval: Interval(step * 2, aniInterval + step * 2),
-          onPressed: () => {
-            Navigator.pushNamed(context, StreamingCodePage.routeName)
-          },
+          onPressed: () =>
+              {Navigator.pushNamed(context, StreamingCodePage.routeName)},
         ),
         _buildButton(
           icon: Icon(FontAwesomeIcons.calculator),
@@ -220,6 +219,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           icon: Icon(FontAwesomeIcons.gift),
           label: 'Promo',
           interval: Interval(step, aniInterval + step),
+          onPressed: () => {Navigator.pushNamed(context, PromosPage.routeName)},
         ),
         _buildButton(
           icon: Icon(FontAwesomeIcons.calendarAlt),
@@ -289,8 +289,6 @@ _goToStreaming(BuildContext context) {
 _goToCalculator(BuildContext context) {
   Navigator.pushNamed(context, CalculatorPage.routeName);
 }
-
-
 
 /*
 _goToHeartbeat(BuildContext context) {

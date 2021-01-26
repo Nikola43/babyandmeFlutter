@@ -1,12 +1,9 @@
 import 'package:babyandme/services/recovery_password_service.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_login/flutter_login.dart';
-import 'constants.dart';
 import 'dashboard_screen.dart';
 import 'services/login_service.dart';
-import 'users.dart';
 import 'package:babyandme/utils/toast_util.dart';
 
 import 'utils/shared_preferences.dart';
@@ -25,6 +22,7 @@ class LoginScreen extends StatelessWidget {
     if (user != null) {
       SharedPreferencesUtil.saveInt("user_id", user.id);
       SharedPreferencesUtil.saveString("token", user.token.string);
+      SharedPreferencesUtil.saveInt("week", user.week);
 
       ToastUtil.makeToast("Bienvenido a baby&me");
       return null;
@@ -58,8 +56,6 @@ class LoginScreen extends StatelessWidget {
         child: FlutterLogin(
           title: null,
           logo: 'assets/images/babyandmebranco.png',
-          logoTag: Constants.logoTag,
-          titleTag: Constants.titleTag,
           messages: LoginMessages(
             usernameHint: 'Correio eletrônico',
             passwordHint: 'Senha',
