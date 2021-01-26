@@ -11,6 +11,7 @@ class User {
   NullString firebaseToken;
   NullString pushToken;
   NullString deviceType;
+  int week;
   User({
     this.id,
     this.username,
@@ -19,6 +20,7 @@ class User {
     this.firebaseToken,
     this.pushToken,
     this.deviceType,
+    this.week,
   });
 
   User.fromJsonMap(Map<String, dynamic> json) {
@@ -29,5 +31,6 @@ class User {
     firebaseToken = NullString.fromJsonMap(json['firebase_token']);
     pushToken = NullString.fromJsonMap(json['push_token']);
     deviceType = NullString.fromJsonMap(json['device_type']);
+    week = json['week'];
   }
 }

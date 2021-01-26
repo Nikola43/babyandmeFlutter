@@ -12,6 +12,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'dashboard_screen.dart';
 import 'login_screen.dart';
 import 'pages/images_gallery/full_screen_image_screen.dart';
+import 'pages/promos_page.dart';
 import 'pages/videos_gallery/video_player.dart';
 import 'transition_route_observer.dart';
 
@@ -105,6 +106,7 @@ class _MyAppState extends State<MyApp> {
         StreamingYoutubeVideo.routeName: (context) => StreamingYoutubeVideo(),
         HeartbeatPage.routeName: (context) => HeartbeatPage(),
         VideoAppPage.routeName: (context) => VideoAppPage(),
+        PromosPage.routeName: (context) => PromosPage(),
       },
     );
   }

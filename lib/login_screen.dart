@@ -22,6 +22,7 @@ class LoginScreen extends StatelessWidget {
     if (user != null) {
       SharedPreferencesUtil.saveInt("user_id", user.id);
       SharedPreferencesUtil.saveString("token", user.token.string);
+      SharedPreferencesUtil.saveInt("week", user.week);
 
       ToastUtil.makeToast("Bienvenido a baby&me");
       return null;
