@@ -9,11 +9,9 @@ import 'package:babyandme/pages/streaming/streaming_video_page.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:provider/provider.dart';
 import 'dashboard_screen.dart';
 import 'login_screen.dart';
 import 'pages/images_gallery/full_screen_image_screen.dart';
-import 'providers/download_provider.dart';
 import 'transition_route_observer.dart';
 
 void main() {

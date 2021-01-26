@@ -5,6 +5,8 @@ PODS:
     - Flutter
   - auto_orientation (0.0.1):
     - Flutter
+  - esys_flutter_share (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - flutter_inappwebview (0.0.1):
     - Flutter
@@ -35,6 +37,7 @@ DEPENDENCIES:
   - another_flushbar (from `.symlinks/plugins/another_flushbar/ios`)
   - audioplayer (from `.symlinks/plugins/audioplayer/ios`)
   - auto_orientation (from `.symlinks/plugins/auto_orientation/ios`)
+  - esys_flutter_share (from `.symlinks/plugins/esys_flutter_share/ios`)
   - Flutter (from `Flutter`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
@@ -59,6 +62,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/audioplayer/ios"
   auto_orientation:
     :path: ".symlinks/plugins/auto_orientation/ios"
+  esys_flutter_share:
+    :path: ".symlinks/plugins/esys_flutter_share/ios"
   Flutter:
     :path: Flutter
   flutter_inappwebview:
@@ -86,6 +91,7 @@ SPEC CHECKSUMS:
   another_flushbar: 3bb0a50768cc547ba9dd82cbb92129bf5ca7440c
   audioplayer: 0584f31a697e4b0bbad405ae7903d7a93585e784
   auto_orientation: 2941c44ebe5c3d41016001597ab03e81a92a26ce
+  esys_flutter_share: 403498dab005b36ce1f8d7aff377e81f0621b0b4
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_inappwebview: 69dfbac46157b336ffbec19ca6dfd4638c7bf189
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58

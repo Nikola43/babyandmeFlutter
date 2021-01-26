@@ -1,14 +1,10 @@
-import 'dart:typed_data';
 import 'package:babyandme/models/image.dart';
 import 'package:babyandme/models/images.dart';
-import 'package:babyandme/providers/download_provider.dart';
 import 'package:babyandme/utils/donwload_file_util.dart';
 import 'package:babyandme/utils/toast_util.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:provider/provider.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class FullScreenImage extends StatefulWidget {
   static const routeName = '/full_screen_image_screen';
@@ -28,9 +24,6 @@ class _FullScreenImageState extends State<FullScreenImage> {
 
   @override
   Widget build(BuildContext context) {
-    var fileDownloaderProvider =
-        Provider.of<FileDownloaderProvider>(context, listen: false);
-
     final Images images = ModalRoute.of(context).settings.arguments;
 
     pageController =
@@ -57,12 +50,14 @@ class _FullScreenImageState extends State<FullScreenImage> {
               ToastUtil.makeToast("Descargando....");
               var downloadResult;
               images.list[images.index].thumbnail.length > 0
-                  ? downloadResult = await DownloadFileUtil.downloadVideo(images.list[images.index].url)
-                  : downloadResult = await DownloadFileUtil.downloadImage(images.list[images.index].url);
+                  ? downloadResult = await DownloadFileUtil.downloadVideo(
+                      images.list[images.index].url)
+                  : downloadResult = await DownloadFileUtil.downloadImage(
+                      images.list[images.index].url);
 
               print('downloadResult');
               print(downloadResult);
-              if(downloadResult == true) {
+              if (downloadResult == true) {
                 ToastUtil.makeToast("Descarga completada");
               }
 
@@ -91,7 +86,10 @@ class _FullScreenImageState extends State<FullScreenImage> {
               color: Colors.white,
             ),
             onPressed: () {
-              // do something
+              var type = images.list[images.index].thumbnail.length > 0
+                  ? 'video/mp4'
+                  : 'image/jpg';
+              DownloadFileUtil.shareFile(images.list[images.index].url, type);
             },
           )
         ],
@@ -129,13 +127,61 @@ class _FullScreenImageState extends State<FullScreenImage> {
         return widget;
       },
       child: Container(
-          width: width,
-          height: height,
-          child: PhotoView(
-            imageProvider: NetworkImage(images[index].thumbnail.length > 0
-                ? images[index].thumbnail
-                : images[index].url),
-          )),
+        width: width,
+        height: height,
+        child: images[index].thumbnail.length > 0
+            ? Stack(
+                alignment: Alignment.center,
+                children: [
+                  PhotoView(
+                    imageProvider: NetworkImage(images[index].thumbnail),
+                  ),
+                  Icon(
+                    FontAwesomeIcons.play,
+                    size: 25,
+                    color: Colors.white,
+                  ),
+                ],
+              )
+            : PhotoView(
+                imageProvider: NetworkImage(images[index].url),
+              ),
+      ),
     );
   }
 }
+
+/*
+PhotoView(
+            imageProvider: NetworkImage(images[index].thumbnail.length > 0
+                ? images[index].thumbnail
+                : images[index].url),
+          )
+
+
+Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: 200,
+                      height: 200,
+                      child: ClipRRect(
+                        borderRadius: new BorderRadius.circular(10.0),
+                        child: FadeInImage(
+                          fit: BoxFit.fitHeight,
+                          placeholder: AssetImage(
+                              "assets/images/9619-loading-dots-in-yellow.gif"),
+                          image: NetworkImage(type == 1
+                              ? list[index].url
+                              : list[index].thumbnail),
+                        ),
+                      ),
+                    ),
+                    Icon(
+                      FontAwesomeIcons.play,
+                      size: 25,
+                      color: Colors.white,
+                    ),
+                  ],
+                )
+ */
