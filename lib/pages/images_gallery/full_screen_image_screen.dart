@@ -1,7 +1,12 @@
+import 'dart:typed_data';
 import 'package:babyandme/models/image.dart';
 import 'package:babyandme/models/images.dart';
+import 'package:babyandme/providers/download_provider.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:provider/provider.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class FullScreenImage extends StatefulWidget {
   static const routeName = '/full_screen_image_screen';
@@ -21,6 +26,9 @@ class _FullScreenImageState extends State<FullScreenImage> {
 
   @override
   Widget build(BuildContext context) {
+    var fileDownloaderProvider =
+        Provider.of<FileDownloaderProvider>(context, listen: false);
+
     final Images images = ModalRoute.of(context).settings.arguments;
 
     pageController =
@@ -29,22 +37,49 @@ class _FullScreenImageState extends State<FullScreenImage> {
     print(images.index);
 
     Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true, // this is all you need
 
         leading: new IconButton(
-              icon: new Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => {Navigator.pop(context)}
-              ),
+            icon: new Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => {Navigator.pop(context)}),
         actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.cloud_download,
               color: Colors.white,
             ),
-            onPressed: () {
-              // do something
+            onPressed: () async {
+              String a = "https://s3.eu-central-1.wasabisys.com/stela/4/image/IMG_20200729_1_52.jpg-compress.jpg";
+
+              var response = await Dio().get(a,
+                  options: Options(responseType: ResponseType.bytes));
+              final result = await ImageGallerySaver.saveImage(
+                  Uint8List.fromList(response.data),
+                  quality: 60,
+                  name: "hello");
+              print(result);
+
+
+              /*GallerySaver.saveImage(a
+                      )
+                  .then((value) => {
+                        print(value),
+                      });
+              */
+              /*
+                  fileDownloaderProvider
+                      .downloadFile(
+                          "https://s3.eu-central-1.wasabisys.com/stela/4/image/IMG_20200729_1_52.jpg-compress.jpg",
+                          "My File.jpg")
+                      .then((onValue) {
+                    print(onValue);
+
+                  }),
+
+                   */
             },
           ),
           IconButton(
@@ -61,7 +96,8 @@ class _FullScreenImageState extends State<FullScreenImage> {
       body: Stack(
         children: <Widget>[
           Hero(
-            tag: images.list[images.index].id.toString() + String.fromCharCode(images.index),
+            tag: images.list[images.index].id.toString() +
+                String.fromCharCode(images.index),
             child: PageView.builder(
                 controller: pageController,
                 itemCount: images.list.length,
@@ -93,7 +129,9 @@ class _FullScreenImageState extends State<FullScreenImage> {
           width: width,
           height: height,
           child: PhotoView(
-            imageProvider: NetworkImage(images[index].thumbnail.length > 0 ? images[index].thumbnail : images[index].url),
+            imageProvider: NetworkImage(images[index].thumbnail.length > 0
+                ? images[index].thumbnail
+                : images[index].url),
           )),
     );
   }

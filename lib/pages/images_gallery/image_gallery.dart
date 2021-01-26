@@ -119,7 +119,7 @@ Widget _drawImage(
                   alignment: Alignment.center,
                   children: [
                     Container(
-                      width: 400,
+                      width: 200,
                       height: 200,
                       child: ClipRRect(
                         borderRadius: new BorderRadius.circular(10.0),
