@@ -58,7 +58,8 @@
     <key>NSPhotoLibraryUsageDescription</key>
     <string>photos</string>
 
-
+    <key>io.flutter.embedded_views_preview</key>
+    <true/>
 
 </dict>
 </plist>
