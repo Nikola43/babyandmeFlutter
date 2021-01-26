@@ -2,6 +2,8 @@ import 'dart:typed_data';
 import 'package:babyandme/models/image.dart';
 import 'package:babyandme/models/images.dart';
 import 'package:babyandme/providers/download_provider.dart';
+import 'package:babyandme/utils/donwload_file_util.dart';
+import 'package:babyandme/utils/toast_util.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
@@ -52,16 +54,17 @@ class _FullScreenImageState extends State<FullScreenImage> {
               color: Colors.white,
             ),
             onPressed: () async {
-              String a = "https://s3.eu-central-1.wasabisys.com/stela/4/image/IMG_20200729_1_52.jpg-compress.jpg";
+              ToastUtil.makeToast("Descargando....");
+              var downloadResult;
+              images.list[images.index].thumbnail.length > 0
+                  ? downloadResult = await DownloadFileUtil.downloadVideo(images.list[images.index].url)
+                  : downloadResult = await DownloadFileUtil.downloadImage(images.list[images.index].url);
 
-              var response = await Dio().get(a,
-                  options: Options(responseType: ResponseType.bytes));
-              final result = await ImageGallerySaver.saveImage(
-                  Uint8List.fromList(response.data),
-                  quality: 60,
-                  name: "hello");
-              print(result);
-
+              print('downloadResult');
+              print(downloadResult);
+              if(downloadResult == true) {
+                ToastUtil.makeToast("Descarga completada");
+              }
 
               /*GallerySaver.saveImage(a
                       )
