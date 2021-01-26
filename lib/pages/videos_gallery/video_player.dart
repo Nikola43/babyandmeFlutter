@@ -67,7 +67,6 @@ class _VideoAppPageState extends State<VideoAppPage> {
 
   @override
   Widget build(BuildContext context) {
-    //String url = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
         appBar: AppBar(),

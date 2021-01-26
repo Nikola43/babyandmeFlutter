@@ -114,9 +114,9 @@ class VideoPlayerPage {
 }
 
 Widget _buildFirstScreen() {
-  //return DashboardScreen();
+  return DashboardScreen();
 
-  return OnBoardingPage();
+  //return OnBoardingPage();
 
   // return LoginScreen();
 }

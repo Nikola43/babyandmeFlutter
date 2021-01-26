@@ -145,7 +145,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                                                 {
                                                   print("ok"),
                                                   Navigator.pushNamed(context,
-                                                      StreamingYoutubeVideo.routeName)
+                                                      StreamingYoutubeVideo.routeName, arguments: value.url)
                                                 }
                                               else
                                                 {

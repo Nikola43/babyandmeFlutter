@@ -13,12 +13,42 @@ class StreamingYoutubeVideo extends StatefulWidget {
 }
 
 class _StreamingYoutubeVideoState extends State<StreamingYoutubeVideo> {
-  YoutubePlayerController _controller =
-      YoutubePlayerController(initialVideoId: 'nPt8bK2gbaU');
+  String url;
+  YoutubePlayerController _controller = YoutubePlayerController(initialVideoId: '33lGm3AEzjY');
 
-  String _videoId = "nPt8bK2gbaU";
 
   void listener() {}
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration.zero, () {
+      setState(() {
+        url = ModalRoute.of(context).settings.arguments;
+        print(url);
+        String videoId = url.split('=')[1];
+        print(videoId);
+        initializePlayer(url);
+        _controller.load(videoId);
+
+        //_controller.toggleFullScreenMode();
+      });
+    });
+  }
+
+  Future<void> initializePlayer(String url) async {
+    String videoId = url.split('=')[1];
+    print(videoId);
+    _controller = YoutubePlayerController(initialVideoId: videoId);
+  }
+
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   void deactivate() {
@@ -29,8 +59,12 @@ class _StreamingYoutubeVideoState extends State<StreamingYoutubeVideo> {
 
   @override
   Widget build(BuildContext context) {
+    String videoId = url.split('=')[1];
+    print(videoId);
+    //initializePlayer(url);
+    _controller.load(videoId);
     _controller.toggleFullScreenMode();
-    bool _fullScreen = false;
+
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
