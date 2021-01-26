@@ -1,5 +1,6 @@
 import 'package:babyandme/models/image.dart';
 import 'package:babyandme/models/images.dart';
+import 'package:babyandme/pages/videos_gallery/video_player.dart';
 import 'package:babyandme/utils/donwload_file_util.dart';
 import 'package:babyandme/utils/toast_util.dart';
 import 'package:flutter/material.dart';
@@ -130,19 +131,24 @@ class _FullScreenImageState extends State<FullScreenImage> {
         width: width,
         height: height,
         child: images[index].thumbnail.length > 0
-            ? Stack(
-                alignment: Alignment.center,
-                children: [
-                  PhotoView(
-                    imageProvider: NetworkImage(images[index].thumbnail),
-                  ),
-                  Icon(
-                    FontAwesomeIcons.play,
-                    size: 25,
-                    color: Colors.white,
-                  ),
-                ],
-              )
+            ? GestureDetector(
+                onTap: () =>
+                    {
+                      Navigator.pushNamed(context, VideoAppPage.routeName, arguments: images[index].url)
+                    },
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    PhotoView(
+                      imageProvider: NetworkImage(images[index].thumbnail),
+                    ),
+                    Icon(
+                      FontAwesomeIcons.play,
+                      size: 25,
+                      color: Colors.white,
+                    ),
+                  ],
+                ))
             : PhotoView(
                 imageProvider: NetworkImage(images[index].url),
               ),

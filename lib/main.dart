@@ -12,6 +12,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'dashboard_screen.dart';
 import 'login_screen.dart';
 import 'pages/images_gallery/full_screen_image_screen.dart';
+import 'pages/videos_gallery/video_player.dart';
 import 'transition_route_observer.dart';
 
 void main() {
@@ -103,9 +104,13 @@ class _MyAppState extends State<MyApp> {
         StreamingCodePage.routeName: (context) => StreamingCodePage(),
         StreamingYoutubeVideo.routeName: (context) => StreamingYoutubeVideo(),
         HeartbeatPage.routeName: (context) => HeartbeatPage(),
+        VideoAppPage.routeName: (context) => VideoAppPage(),
       },
     );
   }
+}
+
+class VideoPlayerPage {
 }
 
 Widget _buildFirstScreen() {
