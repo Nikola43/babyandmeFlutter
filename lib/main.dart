@@ -4,6 +4,7 @@ import 'package:babyandme/pages/calculator/calculator_page.dart';
 import 'package:babyandme/pages/gallery/gallery.dart';
 import 'package:babyandme/pages/heartbeat_page.dart';
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
+import 'package:babyandme/pages/promos/promo_detail.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +13,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'dashboard_screen.dart';
 import 'login_screen.dart';
 import 'pages/images_gallery/full_screen_image_screen.dart';
-import 'pages/promos_page.dart';
+import 'pages/promos/promos_page.dart';
 import 'pages/videos_gallery/video_player.dart';
 import 'transition_route_observer.dart';
 
@@ -107,18 +108,18 @@ class _MyAppState extends State<MyApp> {
         HeartbeatPage.routeName: (context) => HeartbeatPage(),
         VideoAppPage.routeName: (context) => VideoAppPage(),
         PromosPage.routeName: (context) => PromosPage(),
+        PromoDetail.routeName: (context) => PromoDetail(),
       },
     );
   }
 }
 
-class VideoPlayerPage {
-}
+class VideoPlayerPage {}
 
 Widget _buildFirstScreen() {
-  return DashboardScreen();
+  //return DashboardScreen();
 
-  //return OnBoardingPage();
+  return OnBoardingPage();
 
   // return LoginScreen();
 }

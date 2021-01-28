@@ -16,6 +16,7 @@ class ImageGalleryPage extends StatefulWidget {
 
 class ImageGalleryPageState extends State<ImageGalleryPage> {
   final imageProvider = p.ImageProvider();
+  String label = "";
 
   //State must have "build" => return Widget
   @override
@@ -25,7 +26,6 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
     if (type < 0) {
       type = 1;
     }
-    String label = "";
 
     switch (type) {
       case 1:
@@ -52,7 +52,7 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
                 onPressed: () => {Navigator.pop(context)})),
         body: Container(
           color: Colors.white,
-          child: _buildGridTiles(context, imageProvider, type),
+          child: _buildGridTiles(context, imageProvider, type, label),
         ));
   }
 }
@@ -69,12 +69,12 @@ _getUserId() {
       });
 }
 
-Widget _buildGridTiles(
-    BuildContext context, p.ImageProvider imageProvider, int type) {
+Widget _buildGridTiles(BuildContext context, p.ImageProvider imageProvider,
+    int type, String label) {
   return new FutureBuilder<List<ImageModel>>(
     future: imageProvider.getImages(type),
     builder: (BuildContext context, AsyncSnapshot<List<ImageModel>> snapshot) {
-      if (snapshot.hasData) {
+      if (snapshot.hasData && snapshot.data.length > 0) {
         print(snapshot.data);
         List<Widget> list = [];
 
@@ -87,8 +87,11 @@ Widget _buildGridTiles(
             crossAxisSpacing: 5.0,
             padding: const EdgeInsets.all(5.0),
             children: list);
+      } else {
+        return Center(
+          child: Text("No hay " + label + " disponibles"),
+        );
       }
-      return Container(); // unreachable
     },
   );
 }

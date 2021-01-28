@@ -48,7 +48,7 @@ class HttpRequestUtil {
     };
 
     Response response = await get(url, headers: headers);
-    List<dynamic> map = jsonDecode(response.body);
+    Map<String, dynamic> map = jsonDecode(response.body);
     print("resp");
     print(response.body);
     // int statusCode = response.statusCode;

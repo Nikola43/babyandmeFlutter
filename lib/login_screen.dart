@@ -20,9 +20,9 @@ class LoginScreen extends StatelessWidget {
     var user = await loginService.login(data.name, data.password);
 
     if (user != null) {
-      SharedPreferencesUtil.saveInt("user_id", user.id);
-      SharedPreferencesUtil.saveString("token", user.token.string);
-      SharedPreferencesUtil.saveInt("week", user.week);
+      await SharedPreferencesUtil.saveInt("user_id", user.id);
+      await SharedPreferencesUtil.saveString("token", user.token.string);
+      await SharedPreferencesUtil.saveInt("currentWeek", user.week);
 
       ToastUtil.makeToast("Bienvenido a baby&me");
       return null;

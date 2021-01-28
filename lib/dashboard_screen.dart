@@ -2,7 +2,7 @@ import 'package:babyandme/login_screen.dart';
 import 'package:babyandme/pages/calculator/calculator_page.dart';
 import 'package:babyandme/pages/heartbeat_page.dart';
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
-import 'package:babyandme/pages/promos_page.dart';
+import 'package:babyandme/pages/promos/promos_page.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

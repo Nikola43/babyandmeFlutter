@@ -1,21 +1,20 @@
-import 'package:babyandme/services/calculator_service.dart';
+import 'package:babyandme/models/promo.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../dashboard_screen.dart';
 
-class CalculatorPage extends StatefulWidget {
-  static const routeName = '/calculator';
+class PromoDetail extends StatefulWidget {
+  static const routeName = '/promo_detail';
 
-  CalculatorPage({Key key}) : super(key: key);
+  PromoDetail({Key key}) : super(key: key);
 
-  _CalculatorPageState createState() => _CalculatorPageState();
+  _PromoDetailState createState() => _PromoDetailState();
 }
 
-class _CalculatorPageState extends State<CalculatorPage> {
+class _PromoDetailState extends State<PromoDetail> {
   Size screenSize;
 
   DateTime selectedDate = DateTime.now();
@@ -52,7 +51,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
-    final CalculatorService calculatorService = CalculatorService();
+    Promo promo = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -68,7 +67,10 @@ class _CalculatorPageState extends State<CalculatorPage> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardScreen()),
+            );
           },
         ),
       ),
@@ -177,19 +179,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
                                         print(_userID);
                                       }
-
-                                      calculatorService
-                                          .calculatorByWeek(
-                                              calculateWeekBySetDate(
-                                                  selectedDate))
-                                          .then((val) {
-                                        if (val != null) {
-                                          val.selectedDateTime = selectedDate;
-                                          Navigator.of(context).pushNamed(
-                                              '/calculator_detail',
-                                              arguments: val);
-                                        }
-                                      });
                                     },
                                     color: Colors.white,
                                     textColor: Colors.lightBlue,

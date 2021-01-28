@@ -11,12 +11,12 @@ class PromoService {
 
   Future<List<Promo>> getPromosByWeek() async {
     var token = await SharedPreferencesUtil.getString('token');
-    var week = await SharedPreferencesUtil.getInt('week');
+    var currentWeek = await SharedPreferencesUtil.getInt('currentWeek');
+    print(currentWeek);
     List<Promo> promos = [];
     try {
       final response = await HttpRequestUtil.makeSecureGetRequest(
-          apiUrl + week.toString(), token);
-      print(response);
+          apiUrl + currentWeek.toString(), token);
       for (int i = 0; i < response.length; i++) {
         final promo = Promo.fromJsonMap(response[i]);
         promos.add(promo);

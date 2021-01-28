@@ -1,7 +1,12 @@
+import 'package:babyandme/models/heartbeat.dart';
 import 'package:babyandme/providers/audio_provider.dart';
+import 'package:babyandme/services/heartbeat_service.dart';
+import 'package:babyandme/utils/toast_util.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayer/audioplayer.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 
 import '../dashboard_screen.dart';
 
@@ -17,20 +22,32 @@ class HeartbeatPage extends StatefulWidget {
 
 class _HeartbeatPageState extends State<HeartbeatPage>
     with SingleTickerProviderStateMixin {
-  //AnimationController animationController1;
-  //Animation<double> animation;
-
   bool isPlaying = false;
-  static String url =
-      'https://s3.eu-central-1.wasabisys.com/stela/3/heartbeat/dvr_20200729_1118.mpg_latido_.mp3';
   AudioPlayer audioPlayer = new AudioPlayer();
-  AudioProvider audioProvider = new AudioProvider(url);
+  AudioProvider audioProvider;
 
   AnimationController motionController;
   Animation motionAnimation;
-  double size = 125;
+  double size = 300;
+  Heartbeat heartbeat;
+  Size screenSize;
+
+  HeartbeatService heartbeatService = new HeartbeatService();
+
   void initState() {
     super.initState();
+
+    heartbeatService.getHeartbeat().then((value) => {
+          if (value != null)
+            {
+              heartbeat = value,
+              Future.delayed(Duration.zero, () {
+                setState(() {
+                  audioProvider = new AudioProvider(heartbeat.url);
+                });
+              })
+            }
+        });
 
     motionController = AnimationController(
       duration: Duration(seconds: 1),
@@ -61,8 +78,6 @@ class _HeartbeatPageState extends State<HeartbeatPage>
     });
 
     motionController.stop(canceled: true);
-
-    // motionController.repeat();
   }
 
   @override
@@ -71,69 +86,60 @@ class _HeartbeatPageState extends State<HeartbeatPage>
     super.dispose();
   }
 
-  /*
-
-  @override
-  void initState() {
-    super.initState();
-    animationController1 = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 1000),
-    )..addListener(() => setState(() {}));
-    animation = Tween<double>(
-      begin: 50.0,
-      end: 120.0,
-    ).animate(animationController1);
-
-    animation.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        animationController1.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-        animationController1.forward();
-      }
-    });
-  }
-  */
-
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        centerTitle: true, // this is all you need
+    screenSize = MediaQuery.of(context).size;
 
-        title: Text("Calculadora", style: TextStyle(color: Colors.white)),
+    return new Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        centerTitle: true,
+        // this is all you need
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        title: Text("Latido", style: TextStyle(color: Colors.white)),
         leading: new IconButton(
-          icon: new Icon(Icons.arrow_back),
+          icon: new Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
           onPressed: () {
-            if (!isPlaying) {
-              isPlaying = false;
-              audioPlayer.stop();
-            }
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DashboardScreen()),
-            );
+            Navigator.pop(context);
           },
         ),
       ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new GestureDetector(
-              onTap: () {
-                play();
-              },
-              child: Container(
-                color: Colors.blue,
-                height: size,
-                width: size,
-                child: Icon(
-                  FontAwesomeIcons.solidHeart,
-                  size: size,
-                  color: Colors.red,
+      body: Container(
+        color: Colors.lightBlue,
+        child: Column(
+          children: [
+            SizedBox(height: screenSize.height / 8),
+            Stack(
+              children: <Widget>[
+                Align(
+                  child: SvgPicture.asset('assets/images/LATIDO.svg',
+                      height: 300.0,
+                      width: 300.0,
+                      allowDrawingOutsideViewBox: true,
+                      semanticsLabel: 'Acme Logo'),
                 ),
-              ),
+                Positioned(
+                  left: 20,
+                  child: GestureDetector(
+                    onTap: () {
+                      play();
+                    },
+                    child: Container(
+                      height: size,
+                      width: size,
+                      child: Icon(
+                        FontAwesomeIcons.solidHeart,
+                        size: size,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -143,10 +149,14 @@ class _HeartbeatPageState extends State<HeartbeatPage>
 
   play() async {
     if (!isPlaying) {
-      isPlaying = true;
-      String localUrl = await audioProvider.load();
-      audioPlayer.play(localUrl, isLocal: true);
-      motionController.forward();
+      if (heartbeat != null && heartbeat.url != null) {
+        isPlaying = true;
+        String localUrl = await audioProvider.load();
+        audioPlayer.play(localUrl, isLocal: true);
+        motionController.forward();
+      } else {
+        ToastUtil.makeToast("No tiene latido");
+      }
     } else {
       isPlaying = false;
       audioPlayer.stop();

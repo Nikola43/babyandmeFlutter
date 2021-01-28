@@ -3,12 +3,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPreferencesUtil {
   static Future<bool> saveInt(String key, int value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setInt("user_id", value);
+    return prefs.setInt(key, value);
   }
 
   static Future<bool> saveString(String key, String value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString("token", value);
+    return prefs.setString(key, value);
   }
 
   static Future<int> getInt(String key) async {
