@@ -54,13 +54,14 @@ class _InfoPageState extends State<InfoPage> {
     Promo promo = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
         // this is all you need
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: Text("Citas", style: TextStyle(color: Colors.white)),
+        title: Text("Info", style: TextStyle(color: Colors.white)),
         leading: new IconButton(
           icon: new Icon(
             Icons.arrow_back,
@@ -89,29 +90,46 @@ class _InfoPageState extends State<InfoPage> {
                     Align(
                       child: Lottie.asset(
                           'assets/images/16367-madre-embarazada.json',
-                          width: 300.0),
+                          width: 250.0),
                       //child: Image.asset('assets/$assetName.jpg', width: 350.0),
                       alignment: Alignment.topCenter,
                     ),
                     SizedBox(height: screenSize.height / 32),
-                    Text(
-                      "Introduzca sus datos para pedir cita",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0),
-                    ),
-                    SizedBox(height: screenSize.height / 32),
                     Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Container(
-                            width: screenSize.width / 1.5,
-                            child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  
-                                ]))),
+                        child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                "Email: info@babyandme.pt",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.0),
+                              ),
+                              Text(
+                                "Telefone: +351217960548",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.0),
+                              ),
+                              Text(
+                                "Telemóvel: +351924244293",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.0),
+                              ),
+                              Text(
+                                "Morada: Rua da Nau Catrineta, 1D, 1990-183 Lisboa",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.0),
+                              ),
+                            ])),
                   ],
                 ),
               ],

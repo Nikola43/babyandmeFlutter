@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
       return null;
     } else {
       ToastUtil.makeToast("Usuario no encontrado");
-      return 'error';
+      return 'Usuario o contraseña incorrectos';
     }
   }
 

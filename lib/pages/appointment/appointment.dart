@@ -16,6 +16,10 @@ class AppointmentPage extends StatefulWidget {
 
 class _AppointmentPageState extends State<AppointmentPage> {
   Size screenSize;
+  TextEditingController _nameTextEditingController = TextEditingController();
+  TextEditingController _phoneTextEditingController = TextEditingController();
+  FocusNode _nameTextEditingFocusNode;
+  FocusNode _phoneTextEditingFocusNode;
 
   DateTime selectedDate = DateTime.now();
   String _parsedDate = "";
@@ -54,6 +58,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
     Promo promo = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
@@ -89,7 +94,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     Align(
                       child: Lottie.asset(
                           'assets/images/16367-madre-embarazada.json',
-                          width: 300.0),
+                          width: 250.0),
                       //child: Image.asset('assets/$assetName.jpg', width: 350.0),
                       alignment: Alignment.topCenter,
                     ),
@@ -111,35 +116,41 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   TextFormField(
+                                    controller: _nameTextEditingController,
+                                    focusNode: _nameTextEditingFocusNode,
                                     style: TextStyle(color: Colors.white),
                                     cursorColor: Colors.white,
                                     decoration: new InputDecoration(
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                      ),
-                                      hintText: 'Nombre',
-                                    ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 2),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 1),
+                                        ),
+                                        hintText: 'Nombre',
+                                        hintStyle:
+                                            TextStyle(color: Colors.white)),
                                   ),
                                   SizedBox(height: screenSize.height / 64),
                                   TextFormField(
+                                    controller: _phoneTextEditingController,
+                                    focusNode: _phoneTextEditingFocusNode,
                                     style: TextStyle(color: Colors.white),
                                     cursorColor: Colors.white,
                                     decoration: new InputDecoration(
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                      ),
-                                      hintText: 'Teléfono',
-                                    ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 2),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 1),
+                                        ),
+                                        hintText: 'Teléfono',
+                                        hintStyle:
+                                            TextStyle(color: Colors.white)),
                                   ),
                                   SizedBox(height: screenSize.height / 64),
                                   RaisedButton(

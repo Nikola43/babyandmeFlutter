@@ -91,6 +91,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
     screenSize = MediaQuery.of(context).size;
 
     return new Scaffold(
+      resizeToAvoidBottomPadding: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,

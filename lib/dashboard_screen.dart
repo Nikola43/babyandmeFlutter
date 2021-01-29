@@ -251,6 +251,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         return false;
       },
       child: Scaffold(
+        resizeToAvoidBottomPadding: false,
         appBar: _buildAppBar(theme),
         body: Container(
           width: double.infinity,

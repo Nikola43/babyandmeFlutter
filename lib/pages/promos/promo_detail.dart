@@ -54,6 +54,7 @@ class _PromoDetailState extends State<PromoDetail> {
     Promo promo = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
@@ -87,7 +88,7 @@ class _PromoDetailState extends State<PromoDetail> {
                     Align(
                       child: Lottie.asset(
                           'assets/images/16367-madre-embarazada.json',
-                          width: 300.0),
+                          width: 250.0),
                       //child: Image.asset('assets/$assetName.jpg', width: 350.0),
                       alignment: Alignment.topCenter,
                     ),

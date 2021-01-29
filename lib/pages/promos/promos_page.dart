@@ -42,6 +42,7 @@ class _PromosPageState extends State<PromosPage> {
     );
 
     return new Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
           centerTitle: true,
           title: Text(

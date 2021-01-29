@@ -40,6 +40,7 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
     }
 
     return Scaffold(
+        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
             centerTitle: true, // this is all you need
 
@@ -74,23 +75,34 @@ Widget _buildGridTiles(BuildContext context, p.ImageProvider imageProvider,
   return new FutureBuilder<List<ImageModel>>(
     future: imageProvider.getImages(type),
     builder: (BuildContext context, AsyncSnapshot<List<ImageModel>> snapshot) {
-      if (snapshot.hasData && snapshot.data.length > 0) {
-        print(snapshot.data);
-        List<Widget> list = [];
+      switch (snapshot.connectionState) {
+        case ConnectionState.none:
+        case ConnectionState.waiting:
+          return new Center(
+            child: CircularProgressIndicator(
+                valueColor:
+                    new AlwaysStoppedAnimation<Color>(Colors.lightBlue)),
+          );
+        default:
+          if (snapshot.hasError) {
+            return new Text('Error: ${snapshot.error}');
+          } else if (snapshot.hasData && snapshot.data.length > 0) {
+            List<Widget> list = [];
 
-        for (int i = 0; i < snapshot.data.length; i++) {
-          list.add(_drawImage(context, snapshot.data, i, type));
-        }
-        return GridView.extent(
-            maxCrossAxisExtent: 150.0,
-            mainAxisSpacing: 5.0,
-            crossAxisSpacing: 5.0,
-            padding: const EdgeInsets.all(5.0),
-            children: list);
-      } else {
-        return Center(
-          child: Text("No hay " + label + " disponibles"),
-        );
+            for (int i = 0; i < snapshot.data.length; i++) {
+              list.add(_drawImage(context, snapshot.data, i, type));
+            }
+            return GridView.extent(
+                maxCrossAxisExtent: 150.0,
+                mainAxisSpacing: 5.0,
+                crossAxisSpacing: 5.0,
+                padding: const EdgeInsets.all(5.0),
+                children: list);
+          } else {
+            return Center(
+              child: Text("No hay " + label + " disponibles"),
+            );
+          }
       }
     },
   );
