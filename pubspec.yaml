@@ -84,6 +84,8 @@ flutter:
     - assets/images/babyandmebranco.png
     - assets/images/ecorp-lightgreen.png
     - assets/images/LATIDO.svg
+    - assets/images/CALCULADORA.svg
+    - assets/images/CITA.svg
 
 
   fonts:

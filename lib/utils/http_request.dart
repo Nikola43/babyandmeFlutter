@@ -48,7 +48,9 @@ class HttpRequestUtil {
     };
 
     Response response = await get(url, headers: headers);
-    Map<String, dynamic> map = jsonDecode(response.body);
+    List<dynamic> map = json.decode(response.body);
+    // todo no funciona en latido
+    //Map<String, dynamic> map = jsonDecode(response.body);
     print("resp");
     print(response.body);
     // int statusCode = response.statusCode;

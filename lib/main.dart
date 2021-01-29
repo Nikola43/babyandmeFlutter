@@ -1,9 +1,11 @@
 import 'package:babyandme/on_boarding_page.dart';
+import 'package:babyandme/pages/appointment/appointment.dart';
 import 'package:babyandme/pages/calculator/calculator_detail.dart';
 import 'package:babyandme/pages/calculator/calculator_page.dart';
 import 'package:babyandme/pages/gallery/gallery.dart';
 import 'package:babyandme/pages/heartbeat_page.dart';
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
+import 'package:babyandme/pages/info/info.dart';
 import 'package:babyandme/pages/promos/promo_detail.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
@@ -109,6 +111,8 @@ class _MyAppState extends State<MyApp> {
         VideoAppPage.routeName: (context) => VideoAppPage(),
         PromosPage.routeName: (context) => PromosPage(),
         PromoDetail.routeName: (context) => PromoDetail(),
+        AppointmentPage.routeName: (context) => AppointmentPage(),
+        InfoPage.routeName: (context) => InfoPage(),
       },
     );
   }

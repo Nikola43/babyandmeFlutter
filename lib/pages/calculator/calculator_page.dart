@@ -3,6 +3,7 @@ import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../dashboard_screen.dart';
@@ -83,9 +84,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   children: <Widget>[
                     SizedBox(height: screenSize.height / 64),
                     Align(
-                      child: Lottie.asset(
-                          'assets/images/16367-madre-embarazada.json',
-                          width: 300.0),
+                      child: SvgPicture.asset('assets/images/CALCULADORA.svg',
+                          height: 300.0, width: 300.0),
                       //child: Image.asset('assets/$assetName.jpg', width: 350.0),
                       alignment: Alignment.topCenter,
                     ),
