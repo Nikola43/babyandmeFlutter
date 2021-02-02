@@ -7,9 +7,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:label="babyandme"
+        android:label="baby&amp;me (by Ecox Lisboa)"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+                   android:value="AIzaSyAS6JKlmt1a0-lX_yNSNsZqr2LEa9JZmLY"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

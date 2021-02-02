@@ -20,14 +20,16 @@ import 'pages/videos_gallery/video_player.dart';
 import 'transition_route_observer.dart';
 
 void main() {
+  /*
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-        statusBarColor: Colors.orange, // this one for android
+        statusBarColor: Colors.orangeAccent, // this one for android
         statusBarIconBrightness: Brightness.dark,
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark // this one for iOS
         ),
   );
+  */
 
   runApp(MyApp());
 }
@@ -50,7 +52,8 @@ class _MyAppState extends State<MyApp> {
     OneSignal.shared
         .setInFocusDisplayType(OSNotificationDisplayType.notification);
 
-// The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+// The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt.
+//We recommend removing the following code and instead using an In-App Message to prompt for notification permission
     OneSignal.shared
         .promptUserForPushNotificationPermission(fallbackToSettings: true)
         .then((value) => {print(value)});
@@ -60,7 +63,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Login Demo',
       theme: ThemeData(
         // brightness: Brightness.dark,
-        primaryColor: Colors.orange,
+        primaryColor: Colors.orangeAccent,
         secondaryHeaderColor: Colors.grey,
         primarySwatch: Colors.grey,
         accentColor: Colors.grey,

@@ -133,14 +133,16 @@ class _FullScreenImageState extends State<FullScreenImage> {
         height: height,
         child: images[index].thumbnail.length > 0
             ? GestureDetector(
-                onTap: () =>
-                    {
-                      Navigator.pushNamed(context, VideoAppPage.routeName, arguments: images[index].url)
+                onTap: () => {
+                      Navigator.pushNamed(context, VideoAppPage.routeName,
+                          arguments: images[index].url)
                     },
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
                     PhotoView(
+                      disableGestures: true,
+                      initialScale: PhotoViewComputedScale.contained * 1.8,
                       imageProvider: NetworkImage(images[index].thumbnail),
                     ),
                     Icon(
@@ -151,6 +153,9 @@ class _FullScreenImageState extends State<FullScreenImage> {
                   ],
                 ))
             : PhotoView(
+                minScale: PhotoViewComputedScale.contained * 1.8,
+                maxScale: PhotoViewComputedScale.covered * 2,
+                initialScale: PhotoViewComputedScale.contained * 1.8,
                 imageProvider: NetworkImage(images[index].url),
               ),
       ),

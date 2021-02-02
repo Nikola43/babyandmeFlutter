@@ -1,3 +1,5 @@
+import 'package:another_flushbar/flushbar.dart';
+import 'package:babyandme/login_screen.dart';
 import 'package:babyandme/models/promo.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:date_format/date_format.dart';
@@ -55,7 +57,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
-    Promo promo = ModalRoute.of(context).settings.arguments;
+    final openFrom = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       resizeToAvoidBottomPadding: false,
@@ -72,15 +74,22 @@ class _AppointmentPageState extends State<AppointmentPage> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DashboardScreen()),
-            );
+            if (openFrom != null && openFrom == 'login') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DashboardScreen()),
+              );
+            }
           },
         ),
       ),
       body: Container(
-        color: Colors.orange,
+        color: Colors.orangeAccent,
         child: Column(
           children: [
             SizedBox(height: screenSize.height / 8),
@@ -157,11 +166,27 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     shape: new RoundedRectangleBorder(
                                         borderRadius:
                                             new BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Colors.orange)),
-                                    onPressed: () {},
+                                        side: BorderSide(color: Colors.orangeAccent)),
+                                    onPressed: () {
+                                      Flushbar(
+                                        title: "Solicitud enviada correctamente",
+                                        message: " ",
+                                        duration: Duration(seconds: 3),
+                                      )..show(context);
+
+                                      Future.delayed(Duration(seconds: 4), () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LoginScreen()),
+                                        );
+                                      });
+
+
+                                    },
                                     color: Colors.white,
-                                    textColor: Colors.orange,
+                                    textColor: Colors.orangeAccent,
                                     child: Text("Enviar".toUpperCase(),
                                         style: TextStyle(fontSize: 20)),
                                   )

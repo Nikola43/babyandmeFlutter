@@ -110,7 +110,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
         ),
       ),
       body: Container(
-        color: Colors.orange,
+        color: Colors.orangeAccent,
         child: Column(
           children: [
             SizedBox(height: screenSize.height / 8),

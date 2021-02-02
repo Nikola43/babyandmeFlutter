@@ -8,6 +8,7 @@ import 'package:babyandme/pages/promos/promos_page.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'transition_route_observer.dart';
 import 'widgets/fade_in.dart';
@@ -57,6 +58,17 @@ class _DashboardScreenState extends State<DashboardScreen>
   @override
   void initState() {
     super.initState();
+
+    /*
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+          statusBarColor: Colors.orangeAccent, // this one for android
+          statusBarIconBrightness: Brightness.dark,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.dark // this one for iOS
+      ),
+    );
+    */
 
     _loadingController = AnimationController(
       vsync: this,
@@ -120,14 +132,12 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildHeader(ThemeData theme) {
-    final primaryColor =
-        Colors.primaries.where((c) => c == theme.primaryColor).first;
-    final accentColor =
-        Colors.primaries.where((c) => c == theme.accentColor).first;
-    final linearGradient = LinearGradient(colors: [
-      primaryColor.shade800,
-      primaryColor.shade200,
+    /*
+    final primaryColor = Colors.primaries.where((c) => c == theme.primaryColor).first;
+    final accentColor = Colors.primaries.where((c) => c == theme.accentColor).first;
+    final linearGradient = LinearGradient(colors: [primaryColor.shade800, primaryColor.shade200,
     ]).createShader(Rect.fromLTWH(0.0, 0.0, 418.0, 78.0));
+    */
 
     return ScaleTransition(
       scale: _headerScaleAnimation,
@@ -244,7 +254,14 @@ class _DashboardScreenState extends State<DashboardScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+          statusBarColor: Colors.orangeAccent, // this one for android
+          statusBarIconBrightness: Brightness.dark,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.dark // this one for iOS
+      ),
+    );
     return WillPopScope(
       onWillPop: () async {
         // ToastUtil.makeToast("Usuario no encontrado");
@@ -257,7 +274,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           width: double.infinity,
           height: double.infinity,
           //color: theme.primaryColor.withOpacity(.1),
-          color: Colors.orange,
+          color: Colors.orangeAccent,
           child: Stack(
             children: <Widget>[
               Column(

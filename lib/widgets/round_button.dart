@@ -88,7 +88,7 @@ class _RoundButtonState extends State<RoundButton>
                             });
                             widget.onPressed();
                           },
-                          foregroundColor: Colors.orange,
+                          foregroundColor: Colors.orangeAccent,
                         ),
                     ),
                      ),

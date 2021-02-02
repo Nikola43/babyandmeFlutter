@@ -81,7 +81,7 @@ Widget _buildGridTiles(BuildContext context, p.ImageProvider imageProvider,
           return new Center(
             child: CircularProgressIndicator(
                 valueColor:
-                    new AlwaysStoppedAnimation<Color>(Colors.orange)),
+                    new AlwaysStoppedAnimation<Color>(Colors.orangeAccent)),
           );
         default:
           if (snapshot.hasError) {
@@ -93,7 +93,7 @@ Widget _buildGridTiles(BuildContext context, p.ImageProvider imageProvider,
               list.add(_drawImage(context, snapshot.data, i, type));
             }
             return GridView.extent(
-                maxCrossAxisExtent: 150.0,
+                maxCrossAxisExtent: 100.0,
                 mainAxisSpacing: 5.0,
                 crossAxisSpacing: 5.0,
                 padding: const EdgeInsets.all(5.0),

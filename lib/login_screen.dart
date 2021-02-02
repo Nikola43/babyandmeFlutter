@@ -1,5 +1,6 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:babyandme/services/recovery_password_service.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:flutter/scheduler.dart' show SchedulerBinding, timeDilation;
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'dashboard_screen.dart';
@@ -8,11 +9,23 @@ import 'package:babyandme/utils/toast_util.dart';
 
 import 'utils/shared_preferences.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static const routeName = '/auth';
 
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Duration get loginTime => Duration(milliseconds: timeDilation.ceil() * 2250);
+
   final LoginService loginService = LoginService();
+
   final RecoveryPasswordService recoveryPasswordService =
       RecoveryPasswordService();
 
@@ -43,7 +56,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final inputBorder = BorderRadius.vertical(
       bottom: Radius.circular(10.0),
       top: Radius.circular(20.0),
@@ -89,7 +101,7 @@ class LoginScreen extends StatelessWidget {
           //     decoration: TextDecoration.underline,
           //   ),
           //   textFieldStyle: TextStyle(
-          //     color: Colors.orange,
+          //     color: Colors.orangeAccent,
           //     shadows: [Shadow(color: Colors.yellow, blurRadius: 2)],
           //   ),
           //   buttonStyle: TextStyle(
@@ -108,7 +120,7 @@ class LoginScreen extends StatelessWidget {
           //     fillColor: Colors.purple.withOpacity(.1),
           //     contentPadding: EdgeInsets.zero,
           //     errorStyle: TextStyle(
-          //       backgroundColor: Colors.orange,
+          //       backgroundColor: Colors.orangeAccent,
           //       color: Colors.white,
           //     ),
           //     labelStyle: TextStyle(fontSize: 12),

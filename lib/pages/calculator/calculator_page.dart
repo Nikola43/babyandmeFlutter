@@ -75,7 +75,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
         ),
       ),
       body: Container(
-        color: Colors.orange,
+        color: Colors.orangeAccent,
         child: Column(
           children: [
             SizedBox(height: screenSize.height / 8),
@@ -145,7 +145,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                                     Icon(
                                                       Icons.date_range,
                                                       size: 18.0,
-                                                      color: Colors.orange,
+                                                      color: Colors.orangeAccent,
                                                     ),
                                                     Text(
                                                       " $_parsedDate",
@@ -171,7 +171,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                         borderRadius:
                                             new BorderRadius.circular(18.0),
                                         side: BorderSide(
-                                            color: Colors.orange)),
+                                            color: Colors.orangeAccent)),
                                     onPressed: () {
                                       if (_userID != 0) {
                                         print('userid');
@@ -193,7 +193,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                       });
                                     },
                                     color: Colors.white,
-                                    textColor: Colors.orange,
+                                    textColor: Colors.orangeAccent,
                                     child: Text("Calcular".toUpperCase(),
                                         style: TextStyle(fontSize: 20)),
                                   )

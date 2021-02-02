@@ -31,7 +31,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-          statusBarColor: Colors.orange, // this one for android
+          statusBarColor: Colors.orangeAccent, // this one for android
           statusBarIconBrightness: Brightness.dark,
           systemNavigationBarIconBrightness: Brightness.dark,
           statusBarBrightness: Brightness.dark // this one for iOS
@@ -44,7 +44,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           fontSize: 28.0, fontWeight: FontWeight.w700, color: Colors.white),
       bodyTextStyle: bodyStyle,
       descriptionPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-      pageColor: Colors.orange,
+      pageColor: Colors.orangeAccent,
       imagePadding: EdgeInsets.zero,
     );
 
