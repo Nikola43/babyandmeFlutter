@@ -76,7 +76,7 @@ class _InfoPageState extends State<InfoPage> {
         ),
       ),
       body: Container(
-        color: Colors.lightBlue,
+        color: Colors.orange,
         child: Column(
           children: [
             SizedBox(height: screenSize.height / 8),

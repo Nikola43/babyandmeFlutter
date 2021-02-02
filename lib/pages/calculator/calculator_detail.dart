@@ -56,7 +56,7 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
         ),
       ),
       body: Container(
-        color: Colors.lightBlue,
+        color: Colors.orange,
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[

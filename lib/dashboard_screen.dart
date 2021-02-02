@@ -257,7 +257,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           width: double.infinity,
           height: double.infinity,
           //color: theme.primaryColor.withOpacity(.1),
-          color: Colors.lightBlue,
+          color: Colors.orange,
           child: Stack(
             children: <Widget>[
               Column(

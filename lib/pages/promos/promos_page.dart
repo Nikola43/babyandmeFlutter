@@ -29,7 +29,7 @@ class _PromosPageState extends State<PromosPage> {
             return new Center(
               child: CircularProgressIndicator(
                   valueColor:
-                      new AlwaysStoppedAnimation<Color>(Colors.lightBlue)),
+                      new AlwaysStoppedAnimation<Color>(Colors.orange)),
             );
           default:
             if (snapshot.hasError) {
@@ -72,11 +72,11 @@ class _PromosPageState extends State<PromosPage> {
                 child: new ListTile(
                   leading: Icon(
                     FontAwesomeIcons.gift,
-                    color: Colors.lightBlue,
+                    color: Colors.orange,
                   ),
                   title: new Text(
                     values[index].title,
-                    style: TextStyle(color: Colors.lightBlue),
+                    style: TextStyle(color: Colors.orange),
                   ),
                   subtitle: new Text(
                     values[index].text,

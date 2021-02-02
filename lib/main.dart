@@ -22,7 +22,7 @@ import 'transition_route_observer.dart';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-        statusBarColor: Colors.lightBlue, // this one for android
+        statusBarColor: Colors.orange, // this one for android
         statusBarIconBrightness: Brightness.dark,
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark // this one for iOS
@@ -60,11 +60,11 @@ class _MyAppState extends State<MyApp> {
       title: 'Login Demo',
       theme: ThemeData(
         // brightness: Brightness.dark,
-        primaryColor: Colors.lightBlue,
-        secondaryHeaderColor: Colors.blueAccent,
-        primarySwatch: Colors.lightBlue,
-        accentColor: Colors.orange,
-        cursorColor: Colors.orange,
+        primaryColor: Colors.orange,
+        secondaryHeaderColor: Colors.grey,
+        primarySwatch: Colors.grey,
+        accentColor: Colors.grey,
+        cursorColor: Colors.grey,
         // fontFamily: 'SourceSansPro',
         textTheme: TextTheme(
           display2: TextStyle(

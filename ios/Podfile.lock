@@ -15,8 +15,6 @@ PODS:
     - Toast
   - image_gallery_saver (1.5.0):
     - Flutter
-  - integration_test (0.0.1):
-    - Flutter
   - OneSignal (2.16.1)
   - onesignal_flutter (2.6.2):
     - Flutter
@@ -42,7 +40,6 @@ DEPENDENCIES:
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
-  - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - onesignal_flutter (from `.symlinks/plugins/onesignal_flutter/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
@@ -72,8 +69,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluttertoast/ios"
   image_gallery_saver:
     :path: ".symlinks/plugins/image_gallery_saver/ios"
-  integration_test:
-    :path: ".symlinks/plugins/integration_test/ios"
   onesignal_flutter:
     :path: ".symlinks/plugins/onesignal_flutter/ios"
   path_provider:
@@ -92,11 +87,10 @@ SPEC CHECKSUMS:
   audioplayer: 0584f31a697e4b0bbad405ae7903d7a93585e784
   auto_orientation: 2941c44ebe5c3d41016001597ab03e81a92a26ce
   esys_flutter_share: 403498dab005b36ce1f8d7aff377e81f0621b0b4
-  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_inappwebview: 69dfbac46157b336ffbec19ca6dfd4638c7bf189
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
-  integration_test: 6eb66a19f7104200dcfdd62bc0077e1b09686e4f
   OneSignal: 5f6514ec2b931306eb067acb124afbb2e49970af
   onesignal_flutter: 260bb95c0a2d791c990c7bd8749525c9834d43fc
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c

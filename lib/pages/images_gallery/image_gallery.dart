@@ -81,7 +81,7 @@ Widget _buildGridTiles(BuildContext context, p.ImageProvider imageProvider,
           return new Center(
             child: CircularProgressIndicator(
                 valueColor:
-                    new AlwaysStoppedAnimation<Color>(Colors.lightBlue)),
+                    new AlwaysStoppedAnimation<Color>(Colors.orange)),
           );
         default:
           if (snapshot.hasError) {

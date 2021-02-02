@@ -66,7 +66,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
           ),
         ),
         body: Container(
-          color: Colors.lightBlue,
+          color: Colors.orange,
           child: Column(
             children: <Widget>[
               SizedBox(height: screenSize.height / 8),
@@ -126,7 +126,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                       RaisedButton(
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.lightBlue)),
+                            side: BorderSide(color: Colors.orange)),
                         onPressed: () {
                           if (_textFieldController.value.text.length == 4) {
                             streamingService
@@ -162,7 +162,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                           }
                         },
                         color: Colors.white,
-                        textColor: Colors.lightBlue,
+                        textColor: Colors.orange,
                         child: Text("Ver".toUpperCase(),
                             style: TextStyle(fontSize: 20)),
                       )

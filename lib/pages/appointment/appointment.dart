@@ -80,7 +80,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
         ),
       ),
       body: Container(
-        color: Colors.lightBlue,
+        color: Colors.orange,
         child: Column(
           children: [
             SizedBox(height: screenSize.height / 8),
@@ -158,10 +158,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                         borderRadius:
                                             new BorderRadius.circular(18.0),
                                         side: BorderSide(
-                                            color: Colors.lightBlue)),
+                                            color: Colors.orange)),
                                     onPressed: () {},
                                     color: Colors.white,
-                                    textColor: Colors.lightBlue,
+                                    textColor: Colors.orange,
                                     child: Text("Enviar".toUpperCase(),
                                         style: TextStyle(fontSize: 20)),
                                   )
