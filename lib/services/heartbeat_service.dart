@@ -15,7 +15,7 @@ class HeartbeatService {
     Heartbeat heartbeat;
 
     try {
-      final response = await HttpRequestUtil.makeSecureGetRequest(
+      final response = await HttpRequestUtil.makeHeartBeatSecureGetRequest(
           apiUrl + userId.toString(), token);
       heartbeat = Heartbeat.fromJsonMap(response);
     } on NoSuchMethodError catch (e) {

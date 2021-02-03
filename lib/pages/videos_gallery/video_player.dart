@@ -69,7 +69,7 @@ class _VideoAppPageState extends State<VideoAppPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+
         appBar: AppBar(),
         body: Column(
           children: <Widget>[

@@ -38,7 +38,7 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+
       appBar: AppBar(
         centerTitle: true,
         title: Text("Calculadora", style: TextStyle(color: Colors.white)),

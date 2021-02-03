@@ -24,37 +24,10 @@ class _InfoPageState extends State<InfoPage> {
   Completer<maps.GoogleMapController> _controller = Completer();
   Map<maps.MarkerId, maps.Marker> markers = <maps.MarkerId, maps.Marker>{};
 
-  DateTime selectedDate = DateTime.now();
-  String _parsedDate = "";
-  int _userID = 0;
-
-  DateTime calculateMinDate() {
-    var now = new DateTime.now();
-    var minDate = now.add(new Duration(days: -280));
-    return minDate;
-  }
-
-  int calculateWeekBySetDate(DateTime selectedDate) {
-    var difference = new DateTime.now().difference(selectedDate).inDays / 7;
-    print(difference);
-    if (difference <= 1) {
-      difference = 1;
-    }
-    SharedPreferencesUtil.saveInt("currentWeek", difference.toInt());
-
-    return difference.toInt();
-  }
-
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((_) => {_add()});
-    _parsedDate = formatDate(DateTime.now(), [dd, '-', mm, '-', yyyy]);
-
-    SharedPreferencesUtil.getInt('user_id').then((onValue) {
-      _userID = onValue;
-    });
   }
 
   Future<void> _makeEmail(String contact, bool direct) async {
@@ -116,10 +89,9 @@ class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
-    Promo promo = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
@@ -153,13 +125,14 @@ class _InfoPageState extends State<InfoPage> {
                   children: <Widget>[
                     Align(
                       child: Padding(
-                        padding: const EdgeInsets.only(left:32.0, right: 32.0, top: 32),
+                        padding: const EdgeInsets.only(top: 40),
                         child: ClipRRect(
                           borderRadius: new BorderRadius.circular(10.0),
                           child: Container(
                             width: screenSize.width,
                             height: screenSize.height / 2,
                             child: maps.GoogleMap(
+                              myLocationButtonEnabled: false,
                               markers: Set<maps.Marker>.of(markers.values),
                               mapType: maps.MapType.normal,
                               initialCameraPosition: maps.CameraPosition(
@@ -201,7 +174,7 @@ class _InfoPageState extends State<InfoPage> {
                                         _makePhoneCall('+351217960548', false),
                                       },
                                   child: Text(
-                                    "Telemóvel: +351217960548",
+                                    "Telefone: +351217960548",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,

@@ -54,7 +54,7 @@ class _PromoDetailState extends State<PromoDetail> {
     Promo promo = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,

@@ -35,7 +35,7 @@ class _FullScreenImageState extends State<FullScreenImage> {
     Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+
       appBar: AppBar(
         centerTitle: true, // this is all you need
 
@@ -142,7 +142,6 @@ class _FullScreenImageState extends State<FullScreenImage> {
                   children: [
                     PhotoView(
                       disableGestures: true,
-                      initialScale: PhotoViewComputedScale.contained * 1.8,
                       imageProvider: NetworkImage(images[index].thumbnail),
                     ),
                     Icon(
@@ -153,9 +152,8 @@ class _FullScreenImageState extends State<FullScreenImage> {
                   ],
                 ))
             : PhotoView(
-                minScale: PhotoViewComputedScale.contained * 1.8,
+                minScale: PhotoViewComputedScale.contained * 1,
                 maxScale: PhotoViewComputedScale.covered * 2,
-                initialScale: PhotoViewComputedScale.contained * 1.8,
                 imageProvider: NetworkImage(images[index].url),
               ),
       ),

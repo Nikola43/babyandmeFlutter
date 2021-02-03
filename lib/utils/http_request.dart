@@ -41,6 +41,17 @@ class HttpRequestUtil {
     return map;
   }
 
+  static makeHeartBeatSecureGetRequest(String url, String token) async {
+    Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.authorizationHeader: "Bearer $token",
+    };
+    Response response = await get(url, headers: headers);
+    Map<String, dynamic> map = jsonDecode(response.body);
+    print(response.body);
+    return map;
+  }
+
   static makeSecureGetRequest(String url, String token) async {
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: "application/json",

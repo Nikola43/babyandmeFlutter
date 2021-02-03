@@ -3,7 +3,6 @@ import 'package:babyandme/providers/audio_provider.dart';
 import 'package:babyandme/services/heartbeat_service.dart';
 import 'package:babyandme/utils/toast_util.dart';
 import 'package:flutter/material.dart';
-import 'package:audioplayer/audioplayer.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
@@ -23,7 +22,7 @@ class HeartbeatPage extends StatefulWidget {
 class _HeartbeatPageState extends State<HeartbeatPage>
     with SingleTickerProviderStateMixin {
   bool isPlaying = false;
-  AudioPlayer audioPlayer = new AudioPlayer();
+  //AudioPlayer audioPlayer = new AudioPlayer();
   AudioProvider audioProvider;
 
   AnimationController motionController;
@@ -91,7 +90,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
     screenSize = MediaQuery.of(context).size;
 
     return new Scaffold(
-      resizeToAvoidBottomPadding: false,
+
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
@@ -127,7 +126,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
                   left: 20,
                   child: GestureDetector(
                     onTap: () {
-                      play();
+                     // play();
                     },
                     child: Container(
                       height: size,
@@ -148,6 +147,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
     );
   }
 
+  /*
   play() async {
     if (!isPlaying) {
       if (heartbeat != null && heartbeat.url != null) {
@@ -165,4 +165,5 @@ class _HeartbeatPageState extends State<HeartbeatPage>
       //animationController1.reset();
     }
   }
+  */
 }

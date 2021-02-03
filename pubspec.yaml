@@ -42,7 +42,6 @@ dependencies:
   fluttertoast: ^7.1.6
   dio: ^3.0.10
   path_provider: ^1.6.27
-  audioplayer: ^0.8.1
   chewie: ^0.12.1+1
   video_player: ^1.0.1
   shared_preferences: ^0.5.12+4
@@ -64,6 +63,7 @@ dependencies:
   url_launcher: ^5.7.10
   flutter_phone_direct_caller: ^1.0.1
   google_maps_flutter: ^1.1.1
+  universal_io: ^1.0.2
 
 dev_dependencies:
   flutter_test:

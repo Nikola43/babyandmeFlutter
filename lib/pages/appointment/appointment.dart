@@ -20,8 +20,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
   Size screenSize;
   TextEditingController _nameTextEditingController = TextEditingController();
   TextEditingController _phoneTextEditingController = TextEditingController();
+  TextEditingController _emailTextEditingController = TextEditingController();
   FocusNode _nameTextEditingFocusNode;
   FocusNode _phoneTextEditingFocusNode;
+  FocusNode _emailTextEditingFocusNode;
 
   DateTime selectedDate = DateTime.now();
   String _parsedDate = "";
@@ -60,7 +62,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
     final openFrom = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
@@ -129,6 +131,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     focusNode: _nameTextEditingFocusNode,
                                     style: TextStyle(color: Colors.white),
                                     cursorColor: Colors.white,
+                                    keyboardType: TextInputType.name,
                                     decoration: new InputDecoration(
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -144,10 +147,31 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   ),
                                   SizedBox(height: screenSize.height / 64),
                                   TextFormField(
+                                    controller: _emailTextEditingController,
+                                    focusNode: _emailTextEditingFocusNode,
+                                    style: TextStyle(color: Colors.white),
+                                    cursorColor: Colors.white,
+                                    keyboardType: TextInputType.emailAddress,
+                                    decoration: new InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 2),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white, width: 1),
+                                        ),
+                                        hintText: 'Email',
+                                        hintStyle:
+                                            TextStyle(color: Colors.white)),
+                                  ),
+                                  SizedBox(height: screenSize.height / 64),
+                                  TextFormField(
                                     controller: _phoneTextEditingController,
                                     focusNode: _phoneTextEditingFocusNode,
                                     style: TextStyle(color: Colors.white),
                                     cursorColor: Colors.white,
+                                    keyboardType: TextInputType.phone,
                                     decoration: new InputDecoration(
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -166,24 +190,57 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     shape: new RoundedRectangleBorder(
                                         borderRadius:
                                             new BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.orangeAccent)),
+                                        side: BorderSide(
+                                            color: Colors.orangeAccent)),
                                     onPressed: () {
-                                      Flushbar(
-                                        title: "Solicitud enviada correctamente",
-                                        message: " ",
-                                        duration: Duration(seconds: 3),
-                                      )..show(context);
+                                      if (_nameTextEditingController
+                                              .value.text.length ==
+                                          0) {
+                                        FocusScope.of(context).requestFocus(
+                                            _nameTextEditingFocusNode);
+                                        Flushbar(
+                                          title: "El nombre es obligatorio",
+                                          message: " ",
+                                          duration: Duration(seconds: 3),
+                                        )..show(context);
+                                      } else if (_phoneTextEditingController
+                                              .value.text.length ==
+                                          0) {
+                                        FocusScope.of(context).requestFocus(
+                                            _phoneTextEditingFocusNode);
+                                        Flushbar(
+                                          title: "El telefono es obligatorio",
+                                          message: " ",
+                                          duration: Duration(seconds: 3),
+                                        )..show(context);
+                                      } else {
+                                        Flushbar(
+                                          title:
+                                              "Solicitud enviada correctamente",
+                                          message: " ",
+                                          duration: Duration(seconds: 3),
+                                        )..show(context);
 
-                                      Future.delayed(Duration(seconds: 4), () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  LoginScreen()),
-                                        );
-                                      });
-
-
+                                        Future.delayed(Duration(seconds: 4),
+                                            () {
+                                          if (openFrom != null &&
+                                              openFrom == 'login') {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LoginScreen()),
+                                            );
+                                          } else {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DashboardScreen()),
+                                            );
+                                          }
+                                        });
+                                      }
                                     },
                                     color: Colors.white,
                                     textColor: Colors.orangeAccent,

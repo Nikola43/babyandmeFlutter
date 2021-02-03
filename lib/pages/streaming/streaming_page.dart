@@ -43,7 +43,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
     screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           centerTitle: true,

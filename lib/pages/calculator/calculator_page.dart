@@ -56,7 +56,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
     final CalculatorService calculatorService = CalculatorService();
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,

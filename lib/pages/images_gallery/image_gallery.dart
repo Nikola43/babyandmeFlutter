@@ -40,7 +40,7 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
     }
 
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+
         appBar: AppBar(
             centerTitle: true, // this is all you need
 

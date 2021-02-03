@@ -6,6 +6,9 @@ import 'package:babyandme/models/NullString.dart';
 import 'package:babyandme/models/login.dart';
 import 'package:babyandme/models/user.dart';
 import 'package:babyandme/utils/http_request.dart';
+import 'package:universal_io/io.dart';
+
+
 
 class LoginService {
   final apiUrl = "https://api.babyandme.stelast.com/api/user/login";
@@ -18,7 +21,10 @@ class LoginService {
         firebaseToken: NullString(string: " ", valid: true),
         deviceType: NullString(string: " ", valid: true));
 
-    login.deviceType.string = Platform.isIOS ? "ios" : "android";
+    //Platform.operatingSystem
+
+    //login.deviceType.string = Platform.isIOS ? "ios" : "android";
+    login.deviceType.string = "android";
 
     try {
       final response =
