@@ -9,8 +9,8 @@ import 'package:babyandme/pages/info/info.dart';
 import 'package:babyandme/pages/promos/promo_detail.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'dashboard_screen.dart';
 import 'login_screen.dart';
@@ -18,6 +18,49 @@ import 'pages/images_gallery/full_screen_image_screen.dart';
 import 'pages/promos/promos_page.dart';
 import 'pages/videos_gallery/video_player.dart';
 import 'transition_route_observer.dart';
+import 'l10n/messages_all.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+class MainLocalizations {
+  MainLocalizations(this.localeName);
+
+  static Future<MainLocalizations> load(Locale locale) {
+    final String name = locale.countryCode.isEmpty ? locale.languageCode : locale.toString();
+    final String localeName = Intl.canonicalizedLocale(name);
+
+    return initializeMessages(localeName).then((_) {
+      return MainLocalizations(localeName);
+    });
+  }
+
+  static MainLocalizations of(BuildContext context) {
+    return Localizations.of<MainLocalizations>(context, MainLocalizations);
+  }
+
+  final String localeName;
+
+  String get title {
+    return Intl.message(
+      'Hello World',
+      name: 'title',
+      desc: 'Title for the Demo application',
+      locale: localeName,
+    );
+  }
+}
+
+class MainLocalizationsDelegate extends LocalizationsDelegate<MainLocalizations> {
+  const MainLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) => ['en', 'es'].contains(locale.languageCode);
+
+  @override
+  Future<MainLocalizations> load(Locale locale) => MainLocalizations.load(locale);
+
+  @override
+  bool shouldReload(MainLocalizationsDelegate old) => false;
+}
 
 void main() {
   /*
@@ -59,8 +102,19 @@ class _MyAppState extends State<MyApp> {
         .then((value) => {print(value)});
 
     return MaterialApp(
+      onGenerateTitle: (BuildContext context) => MainLocalizations.of(context).title,
+      localizationsDelegates: [
+        const MainLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', ''),
+        const Locale('es', ''),
+      ],
+      locale: Locale('es'),
       debugShowCheckedModeBanner: false,
-      title: 'Login Demo',
       theme: ThemeData(
         // brightness: Brightness.dark,
         primaryColor: Colors.orangeAccent,

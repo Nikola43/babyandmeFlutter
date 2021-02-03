@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>Portuguese</string>
+		<string>Spanish</string>
+		<string>English</string>
+	</array>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -41,29 +49,22 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-
 	<key>NSAppTransportSecurity</key>
-    <dict>
-        <key>NSAllowsArbitraryLoads</key>
-        <true/>
-    </dict>
-
-    <!-- Permission options for the `mediaLibrary` group -->
-        <key>NSAppleMusicUsageDescription</key>
-        <string>Music!</string>
-        <key>kTCCServiceMediaLibrary</key>
-        <string>media</string>
-
-    <!-- Permission options for the `photos` group -->
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>photos</string>
-
-    <key>io.flutter.embedded_views_preview</key>
-    <true/>
-
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-    <string>tel</string>
-    </array>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Music!</string>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>media</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>photos</string>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+	</array>
 </dict>
 </plist>

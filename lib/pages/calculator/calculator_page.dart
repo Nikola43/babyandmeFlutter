@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../dashboard_screen.dart';
+import '../../main.dart';
 
 class CalculatorPage extends StatefulWidget {
   static const routeName = '/calculator';
@@ -56,7 +57,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
     final CalculatorService calculatorService = CalculatorService();
 
     return Scaffold(
-
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
@@ -64,6 +64,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         title: Text("Calculadora", style: TextStyle(color: Colors.white)),
+        //title: Text(MainLocalizations.of(context).title),
         leading: new IconButton(
           icon: new Icon(
             Icons.arrow_back,
@@ -145,7 +146,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                                     Icon(
                                                       Icons.date_range,
                                                       size: 18.0,
-                                                      color: Colors.orangeAccent,
+                                                      color:
+                                                          Colors.orangeAccent,
                                                     ),
                                                     Text(
                                                       " $_parsedDate",
