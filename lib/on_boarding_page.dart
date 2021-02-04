@@ -35,7 +35,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           statusBarIconBrightness: Brightness.dark,
           systemNavigationBarIconBrightness: Brightness.dark,
           statusBarBrightness: Brightness.dark // this one for iOS
-      ),
+          ),
     );
 
     const bodyStyle = TextStyle(fontSize: 19.0, color: Colors.white);
@@ -53,15 +53,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       pages: [
         PageViewModel(
           title: "Semanas de gravidez",
-          body:
-              "Saiba quantas semanas de gravidez você fica",
+          body: "Saiba quantas semanas de gravidez você fica",
           image: _buildImage('16367-madre-embarazada'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Data do nascimento",
-          body:
-              "Você pode calcular a data do nascimento do bebê",
+          body: "Você pode calcular a data do nascimento do bebê",
           image: _buildImage('14483-newborn'),
           decoration: pageDecoration,
         ),
@@ -78,9 +76,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       showSkipButton: false,
       skipFlex: 0,
       nextFlex: 0,
-      skip: const Text('Skip'),
+      skip: const Text('Pular'),
       next: const Icon(Icons.arrow_forward, color: Colors.white),
-      done: const Text('Done',
+      done: const Text('Feito',
           style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white)),
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),

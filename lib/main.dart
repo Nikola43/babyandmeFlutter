@@ -47,13 +47,23 @@ class MainLocalizations {
       locale: localeName,
     );
   }
+
+  String get onboarding_title_1 {
+    return Intl.message(
+      'Semanas de embarazo',
+      name: 'onboarding_title_1',
+      desc: 'Title for the Demo application',
+      locale: localeName,
+    );
+  }
+
 }
 
 class MainLocalizationsDelegate extends LocalizationsDelegate<MainLocalizations> {
   const MainLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en', 'es'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => ['en', 'es', 'pt'].contains(locale.languageCode);
 
   @override
   Future<MainLocalizations> load(Locale locale) => MainLocalizations.load(locale);
@@ -112,8 +122,9 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: [
         const Locale('en', ''),
         const Locale('es', ''),
+        const Locale('pt', ''),
       ],
-      locale: Locale('es'),
+      locale: Locale('pt'),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // brightness: Brightness.dark,

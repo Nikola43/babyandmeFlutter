@@ -1,11 +1,10 @@
 {
-  "onboarding_title_1": "pregnanci weeks",
+  "onboarding_title_1": "Semanas de gravidez",
   "@onboarding_title_1": {
-    "description": "pregnanci",
+    "description": "gravidez",
     "type": "text"
   },
-
-  "title": "Hello World",
+  "title": "Hola Mundo",
   "@title": {
     "description": "Title for the Demo application",
     "type": "text"

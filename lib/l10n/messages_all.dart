@@ -10,6 +10,7 @@ import 'package:intl/src/intl_helpers.dart';
 
 import 'messages_en.dart' as messages_en;
 import 'messages_es.dart' as messages_es;
+import 'messages_pt.dart' as messages_pt;
 import 'messages_messages.dart' as messages_messages;
 
 typedef Future<dynamic> LibraryLoader();
@@ -25,6 +26,8 @@ MessageLookupByLibrary _findExact(localeName) {
       return messages_en.messages;
     case 'es':
       return messages_es.messages;
+    case 'pt':
+      return messages_pt.messages;
     case 'messages':
       return messages_messages.messages;
     default:

@@ -77,10 +77,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
           ),
           onPressed: () {
             if (openFrom != null && openFrom == 'login') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginScreen()),
-              );
+              Navigator.pop(context);
+            } else if (openFrom != null && openFrom == 'promo') {
+              Navigator.pop(context);
             } else {
               Navigator.push(
                 context,

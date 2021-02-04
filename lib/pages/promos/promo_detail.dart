@@ -1,4 +1,5 @@
 import 'package:babyandme/models/promo.dart';
+import 'package:babyandme/pages/appointment/appointment.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
@@ -54,146 +55,68 @@ class _PromoDetailState extends State<PromoDetail> {
     Promo promo = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        centerTitle: true,
-        // this is all you need
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: Text("Calculadora", style: TextStyle(color: Colors.white)),
-        leading: new IconButton(
-          icon: new Icon(
-            Icons.arrow_back,
-            color: Colors.white,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          centerTitle: true,
+          // this is all you need
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          title: Text(promo.title, style: TextStyle(color: Colors.white)),
+          leading: new IconButton(
+            icon: new Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DashboardScreen()),
-            );
-          },
         ),
-      ),
-      body: Container(
-        color: Colors.orangeAccent,
-        child: Column(
-          children: [
-            SizedBox(height: screenSize.height / 8),
-            Stack(
+        body: Center(
+          child: Container(
+            width: screenSize.width,
+            color: Colors.orangeAccent,
+            child: Column(
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    SizedBox(height: screenSize.height / 64),
-                    Align(
-                      child: Lottie.asset(
-                          'assets/images/16367-madre-embarazada.json',
-                          width: 250.0),
-                      //child: Image.asset('assets/$assetName.jpg', width: 350.0),
-                      alignment: Alignment.topCenter,
-                    ),
-                    SizedBox(height: screenSize.height / 32),
-                    Text(
-                      "Seleccione la fecha de su ultima ",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Container(
-                            width: screenSize.width / 2,
-                            child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                    elevation: 4.0,
-                                    onPressed: () {
-                                      DatePicker.showDatePicker(context,
-                                          theme: DatePickerTheme(
-                                            containerHeight: 210.0,
-                                          ),
-                                          showTitleActions: true,
-                                          minTime: calculateMinDate(),
-                                          maxTime: new DateTime.now(),
-                                          onConfirm: (date) {
-                                        print('confirm $date');
-                                        selectedDate = date;
-                                        _parsedDate =
-                                            '${date.year} - ${date.month} - ${date.day}';
-                                        calculateWeekBySetDate(date);
-                                        setState(() {});
-                                      },
-                                          currentTime: DateTime.now(),
-                                          locale: LocaleType.es);
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      height: 50.0,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Row(
-                                            children: <Widget>[
-                                              Container(
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Icon(
-                                                      Icons.date_range,
-                                                      size: 18.0,
-                                                      color: Colors.orangeAccent,
-                                                    ),
-                                                    Text(
-                                                      " $_parsedDate",
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 18.0),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(height: screenSize.height / 20),
-                                  RaisedButton(
-                                    shape: new RoundedRectangleBorder(
-                                        borderRadius:
-                                            new BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Colors.orangeAccent)),
-                                    onPressed: () {
-                                      if (_userID != 0) {
-                                        print('userid');
-
-                                        print(_userID);
-                                      }
-                                    },
-                                    color: Colors.white,
-                                    textColor: Colors.orangeAccent,
-                                    child: Text("Calcular".toUpperCase(),
-                                        style: TextStyle(fontSize: 20)),
-                                  )
-                                ]))),
-                  ],
-                ),
+                SizedBox(height: screenSize.height / 8),
+                Lottie.asset('assets/images/16367-madre-embarazada.json',
+                    width: 250.0),
+                SizedBox(height: screenSize.height / 32),
+                Padding(
+                    padding: EdgeInsets.only(left: 25, right: 25),
+                    child: Text(
+                      promo.text,
+                      style: TextStyle(color: Colors.white),
+                    )),
+                SizedBox(height: screenSize.height / 32),
+                Padding(
+                    padding: EdgeInsets.only(left: 25, right: 25),
+                    child: Text(
+                        "Válido desde " +
+                            formatDate(DateTime.parse(promo.start_at),
+                                [dd, '-', mm, '-', yyyy]) +
+                            " hasta " +
+                            formatDate(DateTime.parse(promo.end_at),
+                                [dd, '-', mm, '-', yyyy]),
+                        style: TextStyle(color: Colors.white))),
+                SizedBox(height: screenSize.height / 32),
+                DateTime.parse(promo.end_at).isAfter(DateTime.now())
+                    ? FlatButton(
+                        color: Colors.white,
+                        onPressed: () => {
+                              Navigator.pushNamed(context, "/appointment",
+                                  arguments: 'promo')
+                            },
+                        child: Text("Promo disponible",
+                            style: TextStyle(color: Colors.green)))
+                    : FlatButton(
+                        color: Colors.white,
+                        onPressed: () => {},
+                        child: Text("Promo no disponible",
+                            style: TextStyle(color: Colors.grey))),
               ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }

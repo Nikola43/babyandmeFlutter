@@ -1,4 +1,10 @@
 {
+  "onboarding_title_1": "Semanas de embarazo",
+  "@onboarding_title_1": {
+    "description": "semanas",
+    "type": "text",
+    "placeholders": {}
+  },
   "title": "Hello World",
   "@title": {
     "description": "Title for the Demo application",
