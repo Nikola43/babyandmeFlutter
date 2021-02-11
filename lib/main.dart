@@ -10,6 +10,7 @@ import 'package:babyandme/pages/promos/promo_detail.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'dashboard_screen.dart';
@@ -20,12 +21,14 @@ import 'pages/videos_gallery/video_player.dart';
 import 'transition_route_observer.dart';
 import 'l10n/messages_all.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:universal_io/io.dart';
 
 class MainLocalizations {
   MainLocalizations(this.localeName);
 
   static Future<MainLocalizations> load(Locale locale) {
-    final String name = locale.countryCode.isEmpty ? locale.languageCode : locale.toString();
+    final String name =
+        locale.countryCode.isEmpty ? locale.languageCode : locale.toString();
     final String localeName = Intl.canonicalizedLocale(name);
 
     return initializeMessages(localeName).then((_) {
@@ -56,17 +59,19 @@ class MainLocalizations {
       locale: localeName,
     );
   }
-
 }
 
-class MainLocalizationsDelegate extends LocalizationsDelegate<MainLocalizations> {
+class MainLocalizationsDelegate
+    extends LocalizationsDelegate<MainLocalizations> {
   const MainLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en', 'es', 'pt'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      ['en', 'es', 'pt'].contains(locale.languageCode);
 
   @override
-  Future<MainLocalizations> load(Locale locale) => MainLocalizations.load(locale);
+  Future<MainLocalizations> load(Locale locale) =>
+      MainLocalizations.load(locale);
 
   @override
   bool shouldReload(MainLocalizationsDelegate old) => false;
@@ -84,6 +89,19 @@ void main() {
   );
   */
 
+
+  if (Platform.operatingSystem == "android") {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light));
+    SystemChrome.setEnabledSystemUIOverlays([]);
+  } else {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.dark // this one for iOS
+      ),
+    );
+  }
   runApp(MyApp());
 }
 
@@ -109,10 +127,14 @@ class _MyAppState extends State<MyApp> {
 //We recommend removing the following code and instead using an In-App Message to prompt for notification permission
     OneSignal.shared
         .promptUserForPushNotificationPermission(fallbackToSettings: true)
-        .then((value) => {print(value)});
+        .then((value) => {
+          print(value),
+        print(value)
+        });
 
     return MaterialApp(
-      onGenerateTitle: (BuildContext context) => MainLocalizations.of(context).title,
+      onGenerateTitle: (BuildContext context) =>
+          MainLocalizations.of(context).title,
       localizationsDelegates: [
         const MainLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,

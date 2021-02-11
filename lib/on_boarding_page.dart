@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:universal_io/io.dart';
 
 import 'login_screen.dart';
 
@@ -29,14 +30,22 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-          statusBarColor: Colors.orangeAccent, // this one for android
-          statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.dark // this one for iOS
-          ),
-    );
+
+
+
+    if (Platform.operatingSystem == "android") {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light));
+      SystemChrome.setEnabledSystemUIOverlays([]);
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+            statusBarBrightness: Brightness.dark // this one for iOS
+        ),
+      );
+    }
+
 
     const bodyStyle = TextStyle(fontSize: 19.0, color: Colors.white);
     const pageDecoration = const PageDecoration(

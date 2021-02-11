@@ -13,6 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'transition_route_observer.dart';
 import 'widgets/fade_in.dart';
 import 'widgets/round_button.dart';
+import 'package:universal_io/io.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const routeName = '/dashboard';
@@ -23,6 +24,9 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen>
     with SingleTickerProviderStateMixin, TransitionRouteAware {
+
+  Size screenSize;
+
   Future<bool> _goToLogin(BuildContext context) {
     return Navigator.of(context)
         .pushReplacement(MaterialPageRoute(
@@ -182,7 +186,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     return GridView.count(
       physics: new NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(
-        horizontal: 32.0,
+        horizontal: 20,
         vertical: 20,
       ),
       childAspectRatio: .9,
@@ -253,15 +257,12 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   @override
   Widget build(BuildContext context) {
+    screenSize = MediaQuery.of(context).size;
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light));
+    SystemChrome.setEnabledSystemUIOverlays([]);
     final theme = Theme.of(context);
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-          statusBarColor: Colors.orangeAccent, // this one for android
-          statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.dark // this one for iOS
-      ),
-    );
     return WillPopScope(
       onWillPop: () async {
         // ToastUtil.makeToast("Usuario no encontrado");
@@ -279,7 +280,6 @@ class _DashboardScreenState extends State<DashboardScreen>
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  SizedBox(height: 40),
                   Expanded(
                     flex: 2,
                     child: _buildHeader(theme),
