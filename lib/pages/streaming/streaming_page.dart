@@ -2,6 +2,8 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
 import 'package:babyandme/services/streaming_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../dashboard_screen.dart';
@@ -38,45 +40,47 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
+    final openFrom = ModalRoute.of(context).settings.arguments;
+    SystemChrome.setEnabledSystemUIOverlays([]);
 
-    return Scaffold(
-
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          centerTitle: true,
-          // this is all you need
-
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          title: Text("Streaming", style: TextStyle(color: Colors.white)),
-          leading: new IconButton(
-            icon: new Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DashboardScreen()),
-              );
-            },
+    return Stack(children: [
+      Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/Mama-bebe.png"),
+            // <-- BACKGROUND IMAGE
+            fit: BoxFit.cover,
           ),
         ),
-        body: Container(
-          color: Colors.orangeAccent,
+      ),
+      Container(
+        color: Color.fromRGBO(0, 0, 0, 0.25098039215686274),
+        width: screenSize.width,
+        height: screenSize.height,
+      ),
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        // <-- SCAFFOLD WITH TRANSPARENT BG
+        appBar: AppBar(
+          title: Text(
+            "STREAMING",
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Colors.orangeAccent,
+          leading: new IconButton(
+              icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
+              onPressed: () => {Navigator.pop(context)}),
+        ),
+        body: Center(
           child: Column(
             children: <Widget>[
-              SizedBox(height: screenSize.height / 8),
-              Align(
-                child: Lottie.asset('assets/images/16367-madre-embarazada.json',
-                    width: 300.0),
-                //child: Image.asset('assets/$assetName.jpg', width: 350.0),
-                alignment: Alignment.topCenter,
-              ),
-              SizedBox(height: screenSize.height / 64),
+              SizedBox(height: screenSize.height / 32),
               Text(
                 "Introduzca el código del streaming",
                 style: TextStyle(
@@ -109,7 +113,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                         controller: _textFieldController,
                         textCapitalization: TextCapitalization.characters,
                         focusNode: myFocusNode,
-                        autofocus: true,
+                        autofocus: false,
                         decoration: InputDecoration(
                           filled: true,
                           counterStyle: TextStyle(color: Colors.white),
@@ -123,48 +127,54 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                         ),
                       ),
                       SizedBox(height: screenSize.height / 64),
-                      RaisedButton(
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.orangeAccent)),
-                        onPressed: () {
-                          if (_textFieldController.value.text.length == 4) {
-                            streamingService
-                                .getStreamingByCode(
-                                    _textFieldController.value.text)
-                                .then((value) => {
-                                      print(value.url),
-                                      if (value.url != null)
-                                        {
-                                          print("ok"),
-                                          Navigator.pushNamed(context,
-                                              StreamingYoutubeVideo.routeName,
-                                              arguments: value.url)
-                                        }
-                                      else
-                                        {
-                                          Flushbar(
-                                            title: "Código no encontrado",
-                                            message: " ",
-                                            duration: Duration(seconds: 3),
-                                          )..show(context)
-                                        }
-                                    });
-                          } else {
-                            FocusScope.of(context).requestFocus(myFocusNode);
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        height: 50.0,
+                        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              side: BorderSide(color: Colors.orangeAccent)),
+                          onPressed: () {
+                            if (_textFieldController.value.text.length == 4) {
+                              streamingService
+                                  .getStreamingByCode(
+                                  _textFieldController.value.text)
+                                  .then((value) => {
+                                print(value.url),
+                                if (value.url != null)
+                                  {
+                                    print("ok"),
+                                    Navigator.pushNamed(context,
+                                        StreamingYoutubeVideo.routeName,
+                                        arguments: value.url)
+                                  }
+                                else
+                                  {
+                                    Flushbar(
+                                      title: "Código no encontrado",
+                                      message: " ",
+                                      duration: Duration(seconds: 3),
+                                    )..show(context)
+                                  }
+                              });
+                            } else {
+                              FocusScope.of(context).requestFocus(myFocusNode);
 
-                            //myFocusNode.requestFocus();
-                            Flushbar(
-                              title: "El código debe tener 4 letras",
-                              message: " ",
-                              duration: Duration(seconds: 3),
-                            )..show(context);
-                          }
-                        },
-                        color: Colors.white,
-                        textColor: Colors.orangeAccent,
-                        child: Text("Ver".toUpperCase(),
-                            style: TextStyle(fontSize: 20)),
+                              //myFocusNode.requestFocus();
+                              Flushbar(
+                                title: "El código debe tener 4 letras",
+                                message: " ",
+                                duration: Duration(seconds: 3),
+                              )..show(context);
+                            }
+                          },
+                          padding: EdgeInsets.all(10.0),
+                          color: Colors.orangeAccent,
+                          textColor: Colors.white,
+                          child: Text("VER",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold)),
+                        ),
                       )
                     ],
                   ),
@@ -172,6 +182,9 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    ]);
   }
 }
+

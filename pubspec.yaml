@@ -69,6 +69,8 @@ dependencies:
   flutter_phone_direct_caller: ^1.0.1
   google_maps_flutter: ^1.1.1
   universal_io: ^1.0.2
+  cached_network_image: ^2.5.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -94,6 +96,8 @@ flutter:
     - assets/images/LATIDO.svg
     - assets/images/CALCULADORA.svg
     - assets/images/CITA.svg
+    - assets/images/Mama-bebe.png
+    - assets/images/babyandmelaranja.png
 
 
   fonts:

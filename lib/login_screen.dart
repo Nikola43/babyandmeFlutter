@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart' show SchedulerBinding, timeDilation;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dashboard_screen.dart';
 import 'services/login_service.dart';
 import 'package:babyandme/utils/toast_util.dart';
@@ -57,13 +58,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light));
-
-
-
-    //SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     SystemChrome.setEnabledSystemUIOverlays([]);
     final inputBorder = BorderRadius.vertical(
       bottom: Radius.circular(10.0),
@@ -74,140 +68,152 @@ class _LoginScreenState extends State<LoginScreen> {
           // ToastUtil.makeToast("Usuario no encontrado");
           return false;
         },
-        child: FlutterLogin(
-          title: null,
-          logo: 'assets/images/babyandmebranco.png',
-          messages: LoginMessages(
-            usernameHint: 'Correio eletrônico',
-            passwordHint: 'Senha',
-            confirmPasswordHint: 'Confirm',
-            loginButton: 'Entrar',
-            signupButton: 'Cadastre-se',
-            forgotPasswordButton: 'Esqueceu a senha?',
-            recoverPasswordButton: 'Enviar',
-            goBackButton: 'Voltar',
-            confirmPasswordError: 'Nome de usuário ou senha não correspondem',
-            recoverPasswordIntro: 'Recuperar a senha',
-            recoverPasswordDescription:
-                'Digite seu e-mail para recuperar a senha',
-            recoverPasswordSuccess: 'Password rescued successfully',
-          ),
-          // theme: LoginTheme(
-          //   primaryColor: Colors.teal,
-          //   accentColor: Colors.yellow,
-          //   errorColor: Colors.deepOrange,
-          //   pageColorLight: Colors.indigo.shade300,
-          //   pageColorDark: Colors.indigo.shade500,
-          //   titleStyle: TextStyle(
-          //     color: Colors.greenAccent,
-          //     fontFamily: 'Quicksand',
-          //     letterSpacing: 4,
-          //   ),
-          //   // beforeHeroFontSize: 50,
-          //   // afterHeroFontSize: 20,
-          //   bodyStyle: TextStyle(
-          //     fontStyle: FontStyle.italic,
-          //     decoration: TextDecoration.underline,
-          //   ),
-          //   textFieldStyle: TextStyle(
-          //     color: Colors.orangeAccent,
-          //     shadows: [Shadow(color: Colors.yellow, blurRadius: 2)],
-          //   ),
-          //   buttonStyle: TextStyle(
-          //     fontWeight: FontWeight.w800,
-          //     color: Colors.yellow,
-          //   ),
-          //   cardTheme: CardTheme(
-          //     color: Colors.yellow.shade100,
-          //     elevation: 5,
-          //     margin: EdgeInsets.only(top: 15),
-          //     shape: ContinuousRectangleBorder(
-          //         borderRadius: BorderRadius.circular(100.0)),
-          //   ),
-          //   inputTheme: InputDecorationTheme(
-          //     filled: true,
-          //     fillColor: Colors.purple.withOpacity(.1),
-          //     contentPadding: EdgeInsets.zero,
-          //     errorStyle: TextStyle(
-          //       backgroundColor: Colors.orangeAccent,
-          //       color: Colors.white,
-          //     ),
-          //     labelStyle: TextStyle(fontSize: 12),
-          //     enabledBorder: UnderlineInputBorder(
-          //       borderSide: BorderSide(color: Colors.blue.shade700, width: 4),
-          //       borderRadius: inputBorder,
-          //     ),
-          //     focusedBorder: UnderlineInputBorder(
-          //       borderSide: BorderSide(color: Colors.blue.shade400, width: 5),
-          //       borderRadius: inputBorder,
-          //     ),
-          //     errorBorder: UnderlineInputBorder(
-          //       borderSide: BorderSide(color: Colors.red.shade700, width: 7),
-          //       borderRadius: inputBorder,
-          //     ),
-          //     focusedErrorBorder: UnderlineInputBorder(
-          //       borderSide: BorderSide(color: Colors.red.shade400, width: 8),
-          //       borderRadius: inputBorder,
-          //     ),
-          //     disabledBorder: UnderlineInputBorder(
-          //       borderSide: BorderSide(color: Colors.grey, width: 5),
-          //       borderRadius: inputBorder,
-          //     ),
-          //   ),
-          //   buttonTheme: LoginButtonTheme(
-          //     splashColor: Colors.purple,
-          //     backgroundColor: Colors.pinkAccent,
-          //     highlightColor: Colors.lightGreen,
-          //     elevation: 9.0,
-          //     highlightElevation: 6.0,
-          //     shape: BeveledRectangleBorder(
-          //       borderRadius: BorderRadius.circular(10),
-          //     ),
-          //     // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          //     // shape: CircleBorder(side: BorderSide(color: Colors.green)),
-          //     // shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(55.0)),
-          //   ),
-          // ),
-          emailValidator: (value) {
-            if (!value.contains('@') || !value.endsWith('.com')) {
-              return "Seu correio eletrônico não é válido";
-            }
-            return null;
-          },
-          passwordValidator: (value) {
-            if (value.isEmpty) {
-              return 'Senha vazia';
-            }
-            return null;
-          },
-          onLogin: (loginData) {
-            print('Login info');
-            print('Name: ${loginData.name}');
-            print('Password: ${loginData.password}');
-            return _loginUser(loginData);
-          },
-          onSignup: (loginData) {
-            print('Signup info');
-            print('Name: ${loginData.name}');
-            print('Password: ${loginData.password}');
-            return _loginUser(loginData);
-          },
-          onSubmitAnimationCompleted: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => DashboardScreen()));
-            /*
+        child: Scaffold(
+            backgroundColor: Colors.transparent,
+            extendBodyBehindAppBar: true,
+            // <-- SCAFFOLD WITH TRANSPARENT BG
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+                leading: new IconButton(
+                    icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
+                    onPressed: () => {Navigator.pop(context)}),
+            ),
+            body: FlutterLogin(
+              title: null,
+              logo: 'assets/images/babyandmebranco.png',
+              messages: LoginMessages(
+                usernameHint: 'Correio eletrônico',
+                passwordHint: 'Senha',
+                confirmPasswordHint: 'Confirm',
+                loginButton: 'Entrar',
+                signupButton: 'Cadastre-se',
+                forgotPasswordButton: 'Esqueceu a senha?',
+                recoverPasswordButton: 'Enviar',
+                goBackButton: 'Voltar',
+                confirmPasswordError:
+                    'Nome de usuário ou senha não correspondem',
+                recoverPasswordIntro: 'Recuperar a senha',
+                recoverPasswordDescription:
+                    'Digite seu e-mail para recuperar a senha',
+                recoverPasswordSuccess: 'Password rescued successfully',
+              ),
+              // theme: LoginTheme(
+              //   primaryColor: Colors.teal,
+              //   accentColor: Colors.yellow,
+              //   errorColor: Colors.deepOrange,
+              //   pageColorLight: Colors.indigo.shade300,
+              //   pageColorDark: Colors.indigo.shade500,
+              //   titleStyle: TextStyle(
+              //     color: Colors.greenAccent,
+              //     fontFamily: 'Quicksand',
+              //     letterSpacing: 4,
+              //   ),
+              //   // beforeHeroFontSize: 50,
+              //   // afterHeroFontSize: 20,
+              //   bodyStyle: TextStyle(
+              //     fontStyle: FontStyle.italic,
+              //     decoration: TextDecoration.underline,
+              //   ),
+              //   textFieldStyle: TextStyle(
+              //     color: Colors.orangeAccent,
+              //     shadows: [Shadow(color: Colors.yellow, blurRadius: 2)],
+              //   ),
+              //   buttonStyle: TextStyle(
+              //     fontWeight: FontWeight.w800,
+              //     color: Colors.yellow,
+              //   ),
+              //   cardTheme: CardTheme(
+              //     color: Colors.yellow.shade100,
+              //     elevation: 5,
+              //     margin: EdgeInsets.only(top: 15),
+              //     shape: ContinuousRectangleBorder(
+              //         borderRadius: BorderRadius.circular(100.0)),
+              //   ),
+              //   inputTheme: InputDecorationTheme(
+              //     filled: true,
+              //     fillColor: Colors.purple.withOpacity(.1),
+              //     contentPadding: EdgeInsets.zero,
+              //     errorStyle: TextStyle(
+              //       backgroundColor: Colors.orangeAccent,
+              //       color: Colors.white,
+              //     ),
+              //     labelStyle: TextStyle(fontSize: 12),
+              //     enabledBorder: UnderlineInputBorder(
+              //       borderSide: BorderSide(color: Colors.blue.shade700, width: 4),
+              //       borderRadius: inputBorder,
+              //     ),
+              //     focusedBorder: UnderlineInputBorder(
+              //       borderSide: BorderSide(color: Colors.blue.shade400, width: 5),
+              //       borderRadius: inputBorder,
+              //     ),
+              //     errorBorder: UnderlineInputBorder(
+              //       borderSide: BorderSide(color: Colors.red.shade700, width: 7),
+              //       borderRadius: inputBorder,
+              //     ),
+              //     focusedErrorBorder: UnderlineInputBorder(
+              //       borderSide: BorderSide(color: Colors.red.shade400, width: 8),
+              //       borderRadius: inputBorder,
+              //     ),
+              //     disabledBorder: UnderlineInputBorder(
+              //       borderSide: BorderSide(color: Colors.grey, width: 5),
+              //       borderRadius: inputBorder,
+              //     ),
+              //   ),
+              //   buttonTheme: LoginButtonTheme(
+              //     splashColor: Colors.purple,
+              //     backgroundColor: Colors.pinkAccent,
+              //     highlightColor: Colors.lightGreen,
+              //     elevation: 9.0,
+              //     highlightElevation: 6.0,
+              //     shape: BeveledRectangleBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //     // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+              //     // shape: CircleBorder(side: BorderSide(color: Colors.green)),
+              //     // shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(55.0)),
+              //   ),
+              // ),
+              emailValidator: (value) {
+                if (!value.contains('@') || !value.endsWith('.com')) {
+                  return "Seu correio eletrônico não é válido";
+                }
+                return null;
+              },
+              passwordValidator: (value) {
+                if (value.isEmpty) {
+                  return 'Senha vazia';
+                }
+                return null;
+              },
+              onLogin: (loginData) {
+                print('Login info');
+                print('Name: ${loginData.name}');
+                print('Password: ${loginData.password}');
+                return _loginUser(loginData);
+              },
+              onSignup: (loginData) {
+                print('Signup info');
+                print('Name: ${loginData.name}');
+                print('Password: ${loginData.password}');
+                return _loginUser(loginData);
+              },
+              onSubmitAnimationCompleted: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DashboardScreen()));
+                /*
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => DashboardScreen(),
         ));
         */
-          },
-          onRecoverPassword: (name) {
-            print('Recover password info');
-            print('Name: $name');
-            return _recoverPassword(name);
-            // Show new password dialog
-          },
-          showDebugButtons: false,
-        ));
+              },
+              onRecoverPassword: (name) {
+                print('Recover password info');
+                print('Name: $name');
+                return _recoverPassword(name);
+                // Show new password dialog
+              },
+              showDebugButtons: false,
+            )));
   }
 }

@@ -4,10 +4,9 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lottie/lottie.dart';
-
-import '../../dashboard_screen.dart';
-import '../../main.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:universal_io/io.dart';
+import 'package:flutter/services.dart';
 
 class CalculatorPage extends StatefulWidget {
   static const routeName = '/calculator';
@@ -43,170 +42,178 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
   @override
   void initState() {
-    _parsedDate = formatDate(DateTime.now(), [dd, '-', mm, '-', yyyy]);
-
     super.initState();
+    _parsedDate = formatDate(DateTime.now(), [dd, ' / ', mm, ' / ', yyyy]);
     SharedPreferencesUtil.getInt('user_id').then((onValue) {
       _userID = onValue;
     });
+    if (Platform.operatingSystem == "android") {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light));
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark // this one for iOS
+            ),
+      );
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
-    final CalculatorService calculatorService = CalculatorService();
+    final openFrom = ModalRoute.of(context).settings.arguments;
+    CalculatorService calculatorService = new CalculatorService();
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        centerTitle: true,
-        // this is all you need
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: Text("Calculadora", style: TextStyle(color: Colors.white)),
-        //title: Text(MainLocalizations.of(context).title),
-        leading: new IconButton(
-          icon: new Icon(
-            Icons.arrow_back,
-            color: Colors.white,
+    SystemChrome.setEnabledSystemUIOverlays([]);
+
+    return Stack(children: [
+      Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/Mama-bebe.png"),
+            // <-- BACKGROUND IMAGE
+            fit: BoxFit.cover,
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
       ),
-      body: Container(
-        color: Colors.orangeAccent,
-        child: Column(
-          children: [
-            SizedBox(height: screenSize.height / 8),
-            Stack(
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    SizedBox(height: screenSize.height / 64),
-                    Align(
-                      child: SvgPicture.asset('assets/images/CALCULADORA.svg',
-                          height: 300.0, width: 300.0),
-                      //child: Image.asset('assets/$assetName.jpg', width: 350.0),
-                      alignment: Alignment.topCenter,
-                    ),
-                    SizedBox(height: screenSize.height / 32),
-                    Text(
-                      "Seleccione la fecha de su ultima ",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Container(
-                            width: screenSize.width / 2,
-                            child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                    elevation: 4.0,
-                                    onPressed: () {
-                                      DatePicker.showDatePicker(context,
-                                          theme: DatePickerTheme(
-                                            containerHeight: 210.0,
-                                          ),
-                                          showTitleActions: true,
-                                          minTime: calculateMinDate(),
-                                          maxTime: new DateTime.now(),
-                                          onConfirm: (date) {
-                                        print('confirm $date');
-                                        selectedDate = date;
-                                        _parsedDate =
-                                            '${date.year} - ${date.month} - ${date.day}';
-                                        calculateWeekBySetDate(date);
-                                        setState(() {});
-                                      },
-                                          currentTime: DateTime.now(),
-                                          locale: LocaleType.es);
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      height: 50.0,
+      Container(
+        color: Color.fromRGBO(0, 0, 0, 0.25098039215686274),
+        width: screenSize.width,
+        height: screenSize.height,
+      ),
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        // <-- SCAFFOLD WITH TRANSPARENT BG
+        appBar: AppBar(
+          backgroundColor: Colors.orangeAccent,
+          elevation: 0,
+          title: Text(
+            "CALCULADORA",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          leading: new IconButton(
+              icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
+              onPressed: () => {Navigator.pop(context)}),
+        ),
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: screenSize.height / 4),
+              Text(
+                "Selecione a data da sua última menstruação",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0),
+              ),
+              SizedBox(height: screenSize.height / 32),
+
+              Container(
+                  width: 200,
+                  child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6.0)),
+                          elevation: 4.0,
+                          onPressed: () {
+                            DatePicker.showDatePicker(context,
+                                theme: DatePickerTheme(
+                                  containerHeight: 210.0,
+                                ),
+                                showTitleActions: true,
+                                minTime: calculateMinDate(),
+                                maxTime: new DateTime.now(), onConfirm: (date) {
+                              print('confirm $date');
+                              selectedDate = date;
+                              _parsedDate =
+                                  '${date.day} / ${date.month} / ${date.year}';
+                              calculateWeekBySetDate(date);
+                              setState(() {});
+                            },
+                                currentTime: DateTime.now(),
+                                locale: LocaleType.es);
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 50.0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Container(
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
                                         children: <Widget>[
-                                          Row(
-                                            children: <Widget>[
-                                              Container(
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Icon(
-                                                      Icons.date_range,
-                                                      size: 18.0,
-                                                      color:
-                                                          Colors.orangeAccent,
-                                                    ),
-                                                    Text(
-                                                      " $_parsedDate",
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 18.0),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
+                                          Icon(
+                                            Icons.date_range,
+                                            size: 18.0,
+                                            color: Colors.orangeAccent,
+                                          ),
+                                          Text(
+                                            " $_parsedDate",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18.0),
                                           ),
                                         ],
                                       ),
-                                    ),
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(height: screenSize.height / 20),
-                                  RaisedButton(
-                                    shape: new RoundedRectangleBorder(
-                                        borderRadius:
-                                            new BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Colors.orangeAccent)),
-                                    onPressed: () {
-                                      if (_userID != 0) {
-                                        print('userid');
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          color: Colors.white,
+                        ),
+                        SizedBox(height: screenSize.height / 16),
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          height: 50.0,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6.0),
+                                side: BorderSide(color: Colors.orangeAccent)),
+                            onPressed: () {
+                              if (_userID != 0) {
+                                print('userid');
 
-                                        print(_userID);
-                                      }
+                                print(_userID);
+                              }
 
-                                      calculatorService
-                                          .calculatorByWeek(
-                                              calculateWeekBySetDate(
-                                                  selectedDate))
-                                          .then((val) {
-                                        if (val != null) {
-                                          val.selectedDateTime = selectedDate;
-                                          Navigator.of(context).pushNamed(
-                                              '/calculator_detail',
-                                              arguments: val);
-                                        }
-                                      });
-                                    },
-                                    color: Colors.white,
-                                    textColor: Colors.orangeAccent,
-                                    child: Text("Calcular".toUpperCase(),
-                                        style: TextStyle(fontSize: 20)),
-                                  )
-                                ]))),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                              calculatorService
+                                  .calculatorByWeek(
+                                      calculateWeekBySetDate(selectedDate))
+                                  .then((val) {
+                                if (val != null) {
+                                  val.selectedDateTime = selectedDate;
+                                  Navigator.of(context).pushNamed(
+                                      '/calculator_detail',
+                                      arguments: val);
+                                }
+                              });
+                            },
+                            padding: EdgeInsets.only(left: 20, right: 20),
+                            color: Colors.orangeAccent,
+                            textColor: Colors.white,
+                            child: Text("CALCULAR",
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold)),
+                          ),
+                        )
+                      ])),
+            ],
+          ),
         ),
       ),
-    );
+    ]);
   }
 }

@@ -90,18 +90,9 @@ void main() {
   */
 
 
-  if (Platform.operatingSystem == "android") {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light));
-    SystemChrome.setEnabledSystemUIOverlays([]);
-  } else {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.dark // this one for iOS
-      ),
-    );
-  }
+
+  SystemChrome.setEnabledSystemUIOverlays([]);
+
   runApp(MyApp());
 }
 
@@ -211,9 +202,9 @@ class _MyAppState extends State<MyApp> {
 class VideoPlayerPage {}
 
 Widget _buildFirstScreen() {
-  //return DashboardScreen();
+  return DashboardScreen();
 
-  return OnBoardingPage();
+  //return OnBoardingPage();
 
   // return LoginScreen();
 }

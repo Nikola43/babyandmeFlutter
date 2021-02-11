@@ -1,8 +1,11 @@
+import 'package:another_flushbar/flushbar.dart';
+import 'package:audioplayer/audioplayer.dart';
 import 'package:babyandme/models/heartbeat.dart';
 import 'package:babyandme/providers/audio_provider.dart';
 import 'package:babyandme/services/heartbeat_service.dart';
 import 'package:babyandme/utils/toast_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
@@ -22,7 +25,7 @@ class HeartbeatPage extends StatefulWidget {
 class _HeartbeatPageState extends State<HeartbeatPage>
     with SingleTickerProviderStateMixin {
   bool isPlaying = false;
-  //AudioPlayer audioPlayer = new AudioPlayer();
+  AudioPlayer audioPlayer = new AudioPlayer();
   AudioProvider audioProvider;
 
   AnimationController motionController;
@@ -88,66 +91,57 @@ class _HeartbeatPageState extends State<HeartbeatPage>
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
+    final openFrom = ModalRoute.of(context).settings.arguments;
+    SystemChrome.setEnabledSystemUIOverlays([]);
 
-    return new Scaffold(
-
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        centerTitle: true,
-        // this is all you need
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: Text("Latido", style: TextStyle(color: Colors.white)),
-        leading: new IconButton(
-          icon: new Icon(
-            Icons.arrow_back,
-            color: Colors.white,
+    return Stack(children: [
+      Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/Mama-bebe.png"),
+            // <-- BACKGROUND IMAGE
+            fit: BoxFit.cover,
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
       ),
-      body: Container(
-        color: Colors.orangeAccent,
-        child: Column(
-          children: [
-            SizedBox(height: screenSize.height / 8),
-            Stack(
-              children: <Widget>[
-                Align(
-                  child: SvgPicture.asset('assets/images/LATIDO.svg',
-                      height: 300.0,
-                      width: 300.0,
-                      allowDrawingOutsideViewBox: true,
-                      semanticsLabel: 'Acme Logo'),
-                ),
-                Positioned(
-                  left: 20,
-                  child: GestureDetector(
-                    onTap: () {
-                     // play();
-                    },
-                    child: Container(
-                      height: size,
-                      width: size,
-                      child: Icon(
-                        FontAwesomeIcons.solidHeart,
-                        size: size,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+      Container(
+        color: Color.fromRGBO(0, 0, 0, 0.25098039215686274),
+        width: screenSize.width,
+        height: screenSize.height,
+      ),
+      Scaffold(
+          backgroundColor: Colors.transparent,
+          // <-- SCAFFOLD WITH TRANSPARENT BG
+          appBar: AppBar(
+            title: Text(
+              "LATIDO",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
-          ],
-        ),
-      ),
-    );
+            backgroundColor: Colors.orangeAccent,
+            leading: new IconButton(
+                icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
+                onPressed: () => {Navigator.pop(context)}),
+          ),
+          body: Center(
+              child: GestureDetector(
+            onTap: () {
+              play();
+            },
+            child: Container(
+              height: size,
+              width: size,
+              child: Icon(
+                FontAwesomeIcons.solidHeart,
+                size: size,
+                color: Colors.red,
+              ),
+            ),
+          )))
+    ]);
   }
 
-  /*
   play() async {
     if (!isPlaying) {
       if (heartbeat != null && heartbeat.url != null) {
@@ -156,7 +150,13 @@ class _HeartbeatPageState extends State<HeartbeatPage>
         audioPlayer.play(localUrl, isLocal: true);
         motionController.forward();
       } else {
-        ToastUtil.makeToast("No tiene latido");
+        Flushbar(
+          backgroundColor: Colors.orangeAccent,
+          title:
+          "Você não tem batimento cardíaco disponível",
+          message: " ",
+          duration: Duration(seconds: 3),
+        )..show(context);
       }
     } else {
       isPlaying = false;
@@ -165,5 +165,4 @@ class _HeartbeatPageState extends State<HeartbeatPage>
       //animationController1.reset();
     }
   }
-  */
 }

@@ -1,3 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/services.dart';
+import 'package:universal_io/io.dart';
+
+import 'package:babyandme/login_screen.dart';
 import 'package:babyandme/models/image.dart';
 import 'package:babyandme/models/images.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
@@ -17,43 +22,47 @@ class ImageGalleryPage extends StatefulWidget {
 class ImageGalleryPageState extends State<ImageGalleryPage> {
   final imageProvider = p.ImageProvider();
   String label = "";
+  Size screenSize;
 
   //State must have "build" => return Widget
   @override
   Widget build(BuildContext context) {
+    screenSize = MediaQuery.of(context).size;
     int type = ModalRoute.of(context).settings.arguments;
     print(type);
     if (type < 0) {
       type = 1;
     }
+    SystemChrome.setEnabledSystemUIOverlays([]);
+
 
     switch (type) {
       case 1:
-        label = "Fotos";
+        label = "IMAGENS";
         break;
       case 2:
-        label = "Videos";
+        label = "VIDEOS";
         break;
       case 3:
-        label = "Holos";
+        label = "HOLOGRAFIAS";
         break;
     }
 
     return Scaffold(
-
         appBar: AppBar(
             centerTitle: true, // this is all you need
 
             title: Text(
               label,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             leading: new IconButton(
-                icon: new Icon(Icons.arrow_back, color: Colors.white),
+                icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
                 onPressed: () => {Navigator.pop(context)})),
         body: Container(
           color: Colors.white,
-          child: _buildGridTiles(context, imageProvider, type, label),
+          child:
+              _buildGridTiles(context, screenSize, imageProvider, type, label),
         ));
   }
 }
@@ -70,8 +79,8 @@ _getUserId() {
       });
 }
 
-Widget _buildGridTiles(BuildContext context, p.ImageProvider imageProvider,
-    int type, String label) {
+Widget _buildGridTiles(BuildContext context, Size screenSize,
+    p.ImageProvider imageProvider, int type, String label) {
   return new FutureBuilder<List<ImageModel>>(
     future: imageProvider.getImages(type),
     builder: (BuildContext context, AsyncSnapshot<List<ImageModel>> snapshot) {
@@ -98,9 +107,44 @@ Widget _buildGridTiles(BuildContext context, p.ImageProvider imageProvider,
                 crossAxisSpacing: 5.0,
                 padding: const EdgeInsets.all(5.0),
                 children: list);
+          } else if (!snapshot.hasData) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Deve fazer login para acessar nesta seção",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
+                  ),
+                  SizedBox(height: screenSize.height / 16),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    height: 50.0,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          side: BorderSide(color: Colors.orangeAccent)),
+                      onPressed: () {
+                        Navigator.pushNamed(context, LoginScreen.routeName);
+                      },
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      color: Colors.orangeAccent,
+                      textColor: Colors.white,
+                      child: Text("FAZER LOGIN",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ],
+              ),
+            );
           } else {
             return Center(
-              child: Text("No hay " + label + " disponibles"),
+              child: Text(
+                "No hay " + label + " disponibles",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
+              ),
             );
           }
       }
@@ -122,32 +166,55 @@ Widget _drawImage(
           child: type == 1
               ? ClipRRect(
                   borderRadius: new BorderRadius.circular(10.0),
-                  child: FadeInImage(
-                    fit: BoxFit.fitHeight,
-                    placeholder: AssetImage(
-                        "assets/images/9619-loading-dots-in-yellow.gif"),
-                    image: NetworkImage(
-                        type == 1 ? list[index].url : list[index].thumbnail),
-                  ),
-                )
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        type == 1 ? list[index].url : list[index].thumbnail,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
+                    placeholder: (context, url) => SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Colors.orangeAccent),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ))
               : Stack(
                   alignment: Alignment.center,
                   children: [
                     Container(
-                      width: 200,
-                      height: 200,
-                      child: ClipRRect(
-                        borderRadius: new BorderRadius.circular(10.0),
-                        child: FadeInImage(
-                          fit: BoxFit.fitHeight,
-                          placeholder: AssetImage(
-                              "assets/images/9619-loading-dots-in-yellow.gif"),
-                          image: NetworkImage(type == 1
-                              ? list[index].url
-                              : list[index].thumbnail),
-                        ),
-                      ),
-                    ),
+                        width: 200,
+                        height: 200,
+                        child: ClipRRect(
+                            borderRadius: new BorderRadius.circular(10.0),
+                            child: CachedNetworkImage(
+                              imageUrl: type == 1
+                                  ? list[index].url
+                                  : list[index].thumbnail,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
+                              ),
+                              placeholder: (context, url) => SizedBox(
+                                width: 25,
+                                height: 25,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.orangeAccent),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ))),
                     Icon(
                       FontAwesomeIcons.play,
                       size: 25,

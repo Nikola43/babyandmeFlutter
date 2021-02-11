@@ -4,8 +4,10 @@ import 'package:babyandme/models/promo.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -89,19 +91,19 @@ class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
+    SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
-
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
         // this is all you need
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: Text("Info", style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.orangeAccent,
+
+        title: Text("CONTATO", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         leading: new IconButton(
           icon: new Icon(
-            Icons.arrow_back,
+            FontAwesomeIcons.arrowLeft,
             color: Colors.white,
           ),
           onPressed: () {
@@ -113,90 +115,94 @@ class _InfoPageState extends State<InfoPage> {
         ),
       ),
       body: Container(
-        color: Colors.orangeAccent,
+        color: Colors.white,
         child: Column(
-          children: [
-            SizedBox(height: screenSize.height / 16),
-            Stack(
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Align(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 40),
-                        child: ClipRRect(
-                          borderRadius: new BorderRadius.circular(10.0),
-                          child: Container(
-                            width: screenSize.width,
-                            height: screenSize.height / 2,
-                            child: maps.GoogleMap(
-                              myLocationButtonEnabled: false,
-                              markers: Set<maps.Marker>.of(markers.values),
-                              mapType: maps.MapType.normal,
-                              initialCameraPosition: maps.CameraPosition(
-                                target: maps.LatLng(38.7565928, -9.0948698),
-                                zoom: 14.4746,
-                              ),
-                              onMapCreated:
-                                  (maps.GoogleMapController controller) {
-                                _controller.complete(controller);
-                              },
-                            ),
-                          ),
+          children: <Widget>[
+            Container(
+              width: screenSize.width,
+              height: screenSize.height / 2.5,
+              child: maps.GoogleMap(
+                myLocationButtonEnabled: false,
+                markers: Set<maps.Marker>.of(markers.values),
+                mapType: maps.MapType.normal,
+                initialCameraPosition: maps.CameraPosition(
+                  target: maps.LatLng(38.7565928, -9.0948698),
+                  zoom: 14.4746,
+                ),
+                onMapCreated: (maps.GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+              ),
+            ),
+            SizedBox(height: screenSize.height / 32),
+            Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("ENTRE EM CONTATO",
+                          style: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold)),
+                      SizedBox(height: screenSize.height / 32),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        height: 50.0,
+                        width: 250,
+                        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              side: BorderSide(color: Colors.orangeAccent)),
+                          onPressed: () {
+                            _makeEmail("info@babyandme.pt", false);
+                          },
+                          padding: EdgeInsets.all(10.0),
+                          color: Colors.orangeAccent,
+                          textColor: Colors.white,
+                          child: Text("Email: info@babyandme.pt",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold)),
                         ),
                       ),
-                      //child: Image.asset('assets/$assetName.jpg', width: 350.0),
-                      alignment: Alignment.topCenter,
-                    ),
-                    SizedBox(height: screenSize.height / 32),
-                    Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              FlatButton(
-                                  onPressed: () => {
-                                        _makeEmail("info@babyandme.pt", false),
-                                      },
-                                  child: Text(
-                                    "Email: info@babyandme.pt",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.0),
-                                  )),
-                              SizedBox(height: screenSize.height / 64),
-                              FlatButton(
-                                  onPressed: () => {
-                                        _makePhoneCall('+351217960548', false),
-                                      },
-                                  child: Text(
-                                    "Telefone: +351217960548",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.0),
-                                  )),
-                              SizedBox(height: screenSize.height / 64),
-                              FlatButton(
-                                  onPressed: () => {
-                                        _makePhoneCall('+351924244293', false),
-                                      },
-                                  child: Text(
-                                    "Telemóvel: +351924244293",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.0),
-                                  ))
-                            ])),
-                  ],
-                ),
-              ],
-            ),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        height: 50.0,
+                        width: 250,
+                        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              side: BorderSide(color: Colors.orangeAccent)),
+                          onPressed: () {
+                            _makePhoneCall('+351924244293', false);
+                          },
+                          padding: EdgeInsets.all(10.0),
+                          color: Colors.orangeAccent,
+                          textColor: Colors.white,
+                          child: Text("Telemóvel: +351924244293",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        height: 50.0,
+                        width: 250,
+                        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              side: BorderSide(color: Colors.orangeAccent)),
+                          onPressed: () {
+                            _makePhoneCall('+351217960548', false);
+                          },
+                          padding: EdgeInsets.all(10.0),
+                          color: Colors.orangeAccent,
+                          textColor: Colors.white,
+                          child: Text("Telefone: +351217960548",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ])),
           ],
         ),
       ),

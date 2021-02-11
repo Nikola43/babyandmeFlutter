@@ -8,7 +8,7 @@ class RoundButton extends StatefulWidget {
     @required this.label,
     @required this.loadingController,
     this.interval = const Interval(0, 1, curve: Curves.ease),
-    this.size = 60,
+    this.size = 50,
   }) : super(key: key);
 
   final Widget icon;
@@ -73,10 +73,10 @@ class _RoundButtonState extends State<RoundButton>
               child: SizedBox(
                 child: Column(
                   children: [
-                     Container(
-                       height: 75.0,
-                       width: 75.0,
-                       child: FittedBox(
+                    Container(
+                      height: 75.0,
+                      width: 75.0,
+                      child: FittedBox(
                         child: FloatingActionButton(
                           // allow more than 1 FAB in the same screen (hero tag cannot be duplicated)
                           heroTag: null,
@@ -90,14 +90,13 @@ class _RoundButtonState extends State<RoundButton>
                           },
                           foregroundColor: Colors.orangeAccent,
                         ),
+                      ),
                     ),
-                     ),
                     SizedBox(height: 10),
-                    Text(
-                      widget.label,
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
+                    Text(widget.label,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),

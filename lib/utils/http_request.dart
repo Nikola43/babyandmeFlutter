@@ -59,6 +59,10 @@ class HttpRequestUtil {
     };
 
     Response response = await get(url, headers: headers);
+    print(response.statusCode);
+    if (response.statusCode == 403) {
+      return null;
+    }
     List<dynamic> map = json.decode(response.body);
     // todo no funciona en latido
     //Map<String, dynamic> map = jsonDecode(response.body);

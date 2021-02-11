@@ -2,6 +2,7 @@ import 'package:babyandme/models/promo.dart';
 import 'package:babyandme/pages/promos/promo_detail.dart';
 import 'package:babyandme/services/promo_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PromosPage extends StatefulWidget {
@@ -19,6 +20,7 @@ class _PromosPageState extends State<PromosPage> {
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
+    SystemChrome.setEnabledSystemUIOverlays([]);
 
     var futureBuilder = new FutureBuilder(
       future: promoService.getPromosByWeek(),
@@ -42,15 +44,14 @@ class _PromosPageState extends State<PromosPage> {
     );
 
     return new Scaffold(
-
       appBar: new AppBar(
           centerTitle: true,
           title: Text(
-            "Promos",
-            style: TextStyle(color: Colors.white),
+            "PROMOÇÕES",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           leading: new IconButton(
-              icon: new Icon(Icons.arrow_back, color: Colors.white),
+              icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
               onPressed: () => {Navigator.pop(context)})),
       body: futureBuilder,
     );
@@ -93,7 +94,10 @@ class _PromosPageState extends State<PromosPage> {
       );
     } else {
       return Center(
-        child: Text("No hay promos disponible"),
+        child: Text(
+          "Nenhuma promoção disponível",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
+        ),
       );
     }
   }

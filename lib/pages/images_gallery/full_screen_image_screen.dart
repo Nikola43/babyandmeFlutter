@@ -4,6 +4,7 @@ import 'package:babyandme/pages/videos_gallery/video_player.dart';
 import 'package:babyandme/utils/donwload_file_util.dart';
 import 'package:babyandme/utils/toast_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -26,6 +27,7 @@ class _FullScreenImageState extends State<FullScreenImage> {
   @override
   Widget build(BuildContext context) {
     final Images images = ModalRoute.of(context).settings.arguments;
+    SystemChrome.setEnabledSystemUIOverlays([]);
 
     pageController =
         PageController(initialPage: images.index, viewportFraction: 1);
@@ -40,7 +42,7 @@ class _FullScreenImageState extends State<FullScreenImage> {
         centerTitle: true, // this is all you need
 
         leading: new IconButton(
-            icon: new Icon(Icons.arrow_back, color: Colors.white),
+            icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
             onPressed: () => {Navigator.pop(context)}),
         actions: <Widget>[
           IconButton(

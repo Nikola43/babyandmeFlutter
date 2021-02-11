@@ -14,9 +14,12 @@ class PromoService {
     var currentWeek = await SharedPreferencesUtil.getInt('currentWeek');
     print(currentWeek);
     List<Promo> promos = [];
+    print("promo service");
+
     try {
       final response = await HttpRequestUtil.makeSecureGetRequest(
           apiUrl + currentWeek.toString(), token);
+      print(response);
       for (int i = 0; i < response.length; i++) {
         final promo = Promo.fromJsonMap(response[i]);
         promos.add(promo);

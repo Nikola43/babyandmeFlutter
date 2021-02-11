@@ -1,3 +1,4 @@
+import 'package:universal_io/io.dart';
 import 'package:babyandme/login_screen.dart';
 import 'package:babyandme/pages/appointment/appointment.dart';
 import 'package:babyandme/pages/calculator/calculator_page.dart';
@@ -14,6 +15,7 @@ import 'transition_route_observer.dart';
 import 'widgets/fade_in.dart';
 import 'widgets/round_button.dart';
 import 'package:universal_io/io.dart';
+import 'package:flutter/services.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const routeName = '/dashboard';
@@ -24,7 +26,6 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen>
     with SingleTickerProviderStateMixin, TransitionRouteAware {
-
   Size screenSize;
 
   Future<bool> _goToLogin(BuildContext context) {
@@ -136,29 +137,17 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildHeader(ThemeData theme) {
-    /*
-    final primaryColor = Colors.primaries.where((c) => c == theme.primaryColor).first;
-    final accentColor = Colors.primaries.where((c) => c == theme.accentColor).first;
-    final linearGradient = LinearGradient(colors: [primaryColor.shade800, primaryColor.shade200,
-    ]).createShader(Rect.fromLTWH(0.0, 0.0, 418.0, 78.0));
-    */
-
     return ScaleTransition(
       scale: _headerScaleAnimation,
       child: FadeIn(
         controller: _loadingController,
         curve: headerAniInterval,
         fadeDirection: FadeDirection.bottomToTop,
-        offset: .5,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              'assets/images/babyandmebranco.png',
-              filterQuality: FilterQuality.high,
-              height: 100,
-            )
-          ],
+        offset: 0.5,
+        child: Image.asset(
+          'assets/images/babyandmebranco.png',
+          filterQuality: FilterQuality.high,
+          height: 150,
         ),
       ),
     );
@@ -182,74 +171,73 @@ class _DashboardScreenState extends State<DashboardScreen>
   Widget _buildDashboardGrid() {
     const step = 0.04;
     const aniInterval = 0.75;
-
+    SystemChrome.setEnabledSystemUIOverlays([]);
     return GridView.count(
       physics: new NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
+        horizontal: 5,
+        vertical: 5,
       ),
       childAspectRatio: .9,
       // crossAxisSpacing: 5,
       crossAxisCount: 3,
       children: [
         _buildButton(
-          icon: Icon(FontAwesomeIcons.image),
-          label: 'Imagenes',
-          interval: Interval(step * 2, aniInterval + step * 2),
-          onPressed: () => {_goToImageGallery(context, 1)},
-        ),
-        _buildButton(
-          icon: Icon(FontAwesomeIcons.video),
-          label: 'Video',
-          interval: Interval(step * 2, aniInterval + step * 2),
-          onPressed: () => {_goToImageGallery(context, 2)},
-        ),
-        _buildButton(
-          icon: Icon(const IconData(0xe901, fontFamily: 'Hologram')),
-          label: 'Holo',
-          interval: Interval(0, aniInterval),
-          onPressed: () => {_goToImageGallery(context, 3)},
-        ),
-        _buildButton(
-          icon: Icon(FontAwesomeIcons.heartbeat),
-          label: 'Latido',
-          interval: Interval(step, aniInterval + step),
-          onPressed: () =>
-              {Navigator.pushNamed(context, HeartbeatPage.routeName)},
-        ),
-        _buildButton(
-          icon: Icon(const IconData(0xe900, fontFamily: 'Streaming')),
-          label: 'Streaming',
-          interval: Interval(step * 2, aniInterval + step * 2),
-          onPressed: () =>
-              {Navigator.pushNamed(context, StreamingCodePage.routeName)},
-        ),
-        _buildButton(
-          icon: Icon(FontAwesomeIcons.calculator),
-          label: 'Calculadora',
-          interval: Interval(0, aniInterval),
-          onPressed: () => {_goToCalculator(context)},
-        ),
-        _buildButton(
-          icon: Icon(FontAwesomeIcons.gift),
-          label: 'Promo',
-          interval: Interval(step, aniInterval + step),
-          onPressed: () => {Navigator.pushNamed(context, PromosPage.routeName)},
-        ),
-        _buildButton(
           icon: Icon(FontAwesomeIcons.calendarAlt),
-          label: 'Citas ',
+          label: 'CITAS',
           interval: Interval(step * 2, aniInterval + step * 2),
           onPressed: () =>
               {Navigator.pushNamed(context, AppointmentPage.routeName)},
         ),
         _buildButton(
-          icon: Icon(FontAwesomeIcons.info),
-          label: 'Info ',
+          icon: Icon(FontAwesomeIcons.calculator),
+          label: 'CALCULADORA',
+          interval: Interval(0, aniInterval),
+          onPressed: () => {_goToCalculator(context)},
+        ),
+        _buildButton(
+          icon: Icon(FontAwesomeIcons.heartbeat),
+          label: 'LATIDO',
+          interval: Interval(step, aniInterval + step),
+          onPressed: () =>
+              {Navigator.pushNamed(context, HeartbeatPage.routeName)},
+        ),
+        _buildButton(
+          icon: Icon(FontAwesomeIcons.image),
+          label: 'IMAGENS',
+          interval: Interval(step * 2, aniInterval + step * 2),
+          onPressed: () => {_goToImageGallery(context, 1)},
+        ),
+        _buildButton(
+          icon: Icon(FontAwesomeIcons.video),
+          label: 'VIDEOS',
+          interval: Interval(step * 2, aniInterval + step * 2),
+          onPressed: () => {_goToImageGallery(context, 2)},
+        ),
+        _buildButton(
+          icon: Icon(const IconData(0xe901, fontFamily: 'Hologram')),
+          label: 'HOLOGRAFIAS',
+          interval: Interval(0, aniInterval),
+          onPressed: () => {_goToImageGallery(context, 3)},
+        ),
+        _buildButton(
+          icon: Icon(const IconData(0xe900, fontFamily: 'Streaming')),
+          label: 'STREAMING',
           interval: Interval(step * 2, aniInterval + step * 2),
           onPressed: () =>
-          {Navigator.pushNamed(context, InfoPage.routeName)},
+              {Navigator.pushNamed(context, StreamingCodePage.routeName)},
+        ),
+        _buildButton(
+          icon: Icon(FontAwesomeIcons.gift),
+          label: 'PROMOÇÕES',
+          interval: Interval(step, aniInterval + step),
+          onPressed: () => {Navigator.pushNamed(context, PromosPage.routeName)},
+        ),
+        _buildButton(
+          icon: Icon(FontAwesomeIcons.info),
+          label: 'CONTATO',
+          interval: Interval(step * 2, aniInterval + step * 2),
+          onPressed: () => {Navigator.pushNamed(context, InfoPage.routeName)},
         ),
       ],
     );
@@ -258,43 +246,58 @@ class _DashboardScreenState extends State<DashboardScreen>
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light));
-    SystemChrome.setEnabledSystemUIOverlays([]);
     final theme = Theme.of(context);
-    return WillPopScope(
-      onWillPop: () async {
-        // ToastUtil.makeToast("Usuario no encontrado");
-        return false;
-      },
-      child: Scaffold(
 
-        appBar: _buildAppBar(theme),
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          //color: theme.primaryColor.withOpacity(.1),
-          color: Colors.orangeAccent,
-          child: Stack(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Expanded(
-                    flex: 2,
-                    child: _buildHeader(theme),
-                  ),
-                  Expanded(
-                    flex: 8,
-                    child: _buildDashboardGrid(),
-                  ),
-                ],
+    if (Platform.operatingSystem == "android") {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light));
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark // this one for iOS
+            ),
+      );
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    }
+
+    return WillPopScope(
+        onWillPop: () async {
+          // ToastUtil.makeToast("Usuario no encontrado");
+          return false;
+        },
+        child: Stack(children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/Mama-bebe.png"),
+                // <-- BACKGROUND IMAGE
+                fit: BoxFit.cover,
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+          Container(
+            color: Color.fromRGBO(0, 0, 0, 0.25098039215686274),
+            width: screenSize.width,
+            height: screenSize.height,
+          ),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Column(
+              children: <Widget>[
+                SizedBox(height: screenSize.height / 16),
+                _buildHeader(theme),
+                SizedBox(height: screenSize.height / 16),
+                Expanded(
+                  flex: 8,
+                  child: _buildDashboardGrid(),
+                ),
+              ],
+            ),
+          ),
+        ]));
   }
 }
 

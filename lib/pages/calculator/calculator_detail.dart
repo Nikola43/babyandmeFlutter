@@ -1,8 +1,8 @@
 import 'package:babyandme/models/calculator.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-
-import '../../dashboard_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:universal_io/io.dart';
+import 'package:flutter/services.dart';
 
 class CalculatorDetailPage extends StatefulWidget {
   static const routeName = '/calculator_detail';
@@ -37,6 +37,7 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
   Widget build(BuildContext context) {
     final Calculator calc = ModalRoute.of(context).settings.arguments;
     _screenSize = MediaQuery.of(context).size;
+    SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
         appBar: AppBar(
@@ -48,38 +49,36 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
                 " y " +
                 calculateDaysBySetDate(calc.selectedDateTime).toString() +
                 ' dias',
-            style: TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           leading: new IconButton(
             icon: new Icon(
-              Icons.arrow_back,
+              FontAwesomeIcons.arrowLeft,
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DashboardScreen()),
-              );
+              Navigator.pop(context);
             },
           ),
         ),
         body: Center(
             child: Container(
                 width: _screenSize.width,
-                color: Colors.orangeAccent,
+                height: _screenSize.height,
+                color: Colors.white,
                 child: SingleChildScrollView(
                   child: Column(children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 25),
                       child: Text(
                         'Semana ' + calc.id.toString(),
-                        style: TextStyle(fontSize: 25, color: Colors.white),
+                        style: TextStyle(fontSize: 25, color: Colors.black),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(25),
                       child: ClipRRect(
-                          borderRadius: new BorderRadius.circular(50.0),
+                          borderRadius: new BorderRadius.circular(10.0),
                           child: FadeInImage(
                             fit: BoxFit.fitHeight,
                             placeholder: AssetImage(

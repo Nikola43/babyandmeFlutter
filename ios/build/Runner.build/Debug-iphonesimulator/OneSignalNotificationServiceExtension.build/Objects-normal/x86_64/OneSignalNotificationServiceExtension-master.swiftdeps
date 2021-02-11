@@ -1,5 +1,5 @@
-version: "Apple Swift version 5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)"
-options: "f0ba4c3d42bd938bfbda0dbad3a5dfbb"
-build_time: [1612871313, 981290000]
+version: "Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)"
+options: "cfa57bdcf871276f4e504ecf56807ecf"
+build_time: [1613074940, 15825000]
 inputs:
   "/Users/lie/stela/babyandmeFlutter/ios/OneSignalNotificationServiceExtension/NotificationService.swift": [1612870378, 221867679]

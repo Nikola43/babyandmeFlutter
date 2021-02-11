@@ -1,5 +1,6 @@
 import 'package:babyandme/pages/images_gallery/image_gallery.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../dashboard_screen.dart';
 
 class Gallery extends StatefulWidget {
@@ -72,7 +73,7 @@ class _GalleryState extends State<Gallery> with SingleTickerProviderStateMixin {
 
           leading: new IconButton(
             icon: new Icon(
-              Icons.arrow_back,
+              FontAwesomeIcons.arrowLeft,
               color: Colors.white,
             ),
             onPressed: () {
