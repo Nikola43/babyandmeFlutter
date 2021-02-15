@@ -23,7 +23,7 @@ class HeartbeatPage extends StatefulWidget {
 }
 
 class _HeartbeatPageState extends State<HeartbeatPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   bool isPlaying = false;
   AudioPlayer audioPlayer = new AudioPlayer();
   AudioProvider audioProvider;
@@ -38,6 +38,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
 
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     heartbeatService.getHeartbeat().then((value) => {
           if (value != null)
@@ -84,8 +85,19 @@ class _HeartbeatPageState extends State<HeartbeatPage>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     motionController.dispose();
     super.dispose();
+
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      isPlaying = false;
+      audioPlayer.stop();
+      motionController.stop(canceled: true);
+    }
   }
 
   @override

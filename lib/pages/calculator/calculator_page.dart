@@ -110,7 +110,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 18.0),
+                    fontSize: screenSize.width / 28),
               ),
               SizedBox(height: screenSize.height / 32),
 
