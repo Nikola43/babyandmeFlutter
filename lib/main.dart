@@ -18,7 +18,6 @@ import 'login_screen.dart';
 import 'pages/images_gallery/full_screen_image_screen.dart';
 import 'pages/promos/promos_page.dart';
 import 'pages/videos_gallery/video_player.dart';
-import 'transition_route_observer.dart';
 import 'l10n/messages_all.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:universal_io/io.dart';

@@ -115,14 +115,18 @@ class _HeartbeatPageState extends State<HeartbeatPage>
           appBar: AppBar(
             title: Text(
               "LATIDO",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             backgroundColor: Colors.orangeAccent,
             leading: new IconButton(
                 icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
-                onPressed: () => {Navigator.pop(context)}),
+                onPressed: () => {
+                      isPlaying = false,
+                      audioPlayer.stop(),
+                      motionController.stop(canceled: true),
+                      Navigator.pop(context)
+                    }),
           ),
           body: Center(
               child: GestureDetector(
@@ -152,8 +156,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
       } else {
         Flushbar(
           backgroundColor: Colors.orangeAccent,
-          title:
-          "Você não tem batimento cardíaco disponível",
+          title: "Você não tem batimento cardíaco disponível",
           message: " ",
           duration: Duration(seconds: 3),
         )..show(context);

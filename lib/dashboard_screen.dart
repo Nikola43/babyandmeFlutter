@@ -1,3 +1,5 @@
+import 'package:babyandme/utils/shared_preferences.dart';
+import 'package:babyandme/utils/toast_util.dart';
 import 'package:universal_io/io.dart';
 import 'package:babyandme/login_screen.dart';
 import 'package:babyandme/pages/appointment/appointment.dart';
@@ -11,11 +13,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'transition_route_observer.dart';
 import 'widgets/fade_in.dart';
 import 'widgets/round_button.dart';
-import 'package:universal_io/io.dart';
-import 'package:flutter/services.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const routeName = '/dashboard';
@@ -25,7 +24,7 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen>
-    with SingleTickerProviderStateMixin, TransitionRouteAware {
+    with SingleTickerProviderStateMixin {
   Size screenSize;
 
   Future<bool> _goToLogin(BuildContext context) {
@@ -54,7 +53,6 @@ class _DashboardScreenState extends State<DashboardScreen>
      */
   }
 
-  final routeObserver = TransitionRouteObserver<PageRoute>();
   static const headerAniInterval =
       const Interval(.1, .3, curve: Curves.easeOut);
   Animation<double> _headerScaleAnimation;
@@ -90,12 +88,12 @@ class _DashboardScreenState extends State<DashboardScreen>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context));
+    //routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
   @override
   void dispose() {
-    routeObserver.unsubscribe(this);
+    //routeObserver.unsubscribe(this);
     _loadingController.dispose();
     super.dispose();
   }
@@ -105,20 +103,18 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   AppBar _buildAppBar(ThemeData theme) {
     final signOutBtn = IconButton(
-      icon: const Icon(
-        FontAwesomeIcons.signOutAlt,
-        color: Colors.white,
-      ),
-      color: theme.accentColor,
-      onPressed: () => _goToLogin(context),
+      icon: const Icon(FontAwesomeIcons.signOutAlt),
+      color: Colors.white,
+      onPressed: () => {
+        ToastUtil.makeToast("Ha cerrado sesión"),
+        SharedPreferencesUtil.saveString("token", ""),
+        Navigator.pushNamed(context, LoginScreen.routeName),
+        //_goToLogin(context)
+      },
     );
 
     return AppBar(
-      centerTitle: true,
-      // this is all you need
       automaticallyImplyLeading: false,
-      brightness: Brightness.light,
-      // status bar brightness
       actions: <Widget>[
         FadeIn(
           child: signOutBtn,
@@ -128,8 +124,8 @@ class _DashboardScreenState extends State<DashboardScreen>
           fadeDirection: FadeDirection.endToStart,
         ),
       ],
-      title: Text(''),
-      backgroundColor: theme.primaryColor,
+      title: Text(" "),
+      backgroundColor: Colors.transparent,
       elevation: 0,
       textTheme: theme.accentTextTheme,
       iconTheme: theme.accentIconTheme,
@@ -285,6 +281,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           ),
           Scaffold(
             backgroundColor: Colors.transparent,
+            appBar: _buildAppBar(theme),
             body: Column(
               children: <Widget>[
                 SizedBox(height: screenSize.height / 16),
