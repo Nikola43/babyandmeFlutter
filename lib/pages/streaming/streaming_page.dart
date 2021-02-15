@@ -66,6 +66,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
         backgroundColor: Colors.transparent,
         // <-- SCAFFOLD WITH TRANSPARENT BG
         appBar: AppBar(
+          centerTitle: true, // this is all you need
           title: Text(
             "STREAMING",
             style: TextStyle(

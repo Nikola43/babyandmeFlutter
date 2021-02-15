@@ -9,6 +9,7 @@ import 'package:babyandme/pages/info/info.dart';
 import 'package:babyandme/pages/promos/promo_detail.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
+import 'package:babyandme/transition_route_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';

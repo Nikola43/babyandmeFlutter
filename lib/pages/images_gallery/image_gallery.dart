@@ -35,7 +35,6 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
     }
     SystemChrome.setEnabledSystemUIOverlays([]);
 
-
     switch (type) {
       case 1:
         label = "IMAGENS";
@@ -54,7 +53,8 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
 
             title: Text(
               label,
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             leading: new IconButton(
                 icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),

@@ -69,16 +69,17 @@ class _LoginScreenState extends State<LoginScreen> {
           return false;
         },
         child: Scaffold(
+
             backgroundColor: Colors.transparent,
             extendBodyBehindAppBar: true,
             // <-- SCAFFOLD WITH TRANSPARENT BG
             appBar: AppBar(
+              centerTitle: true, // this is all you need
               backgroundColor: Colors.transparent,
               elevation: 0,
-              leading: new IconButton(
-                  icon:
-                      new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
-                  onPressed: () => {Navigator.pop(context)}),
+                leading: new IconButton(
+                    icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
+                    onPressed: () => {Navigator.pop(context)}),
             ),
             body: FlutterLogin(
               title: null,
@@ -200,14 +201,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 return _loginUser(loginData);
               },
               onSubmitAnimationCompleted: () {
-                /*
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => DashboardScreen()));
-                */
-
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => DashboardScreen(),
-                ));
+                /*
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => DashboardScreen(),
+        ));
+        */
               },
               onRecoverPassword: (name) {
                 print('Recover password info');

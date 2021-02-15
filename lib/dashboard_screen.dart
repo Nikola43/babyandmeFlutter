@@ -13,8 +13,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'transition_route_observer.dart';
 import 'widgets/fade_in.dart';
 import 'widgets/round_button.dart';
+import 'package:universal_io/io.dart';
+import 'package:flutter/services.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const routeName = '/dashboard';
@@ -24,7 +27,7 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, TransitionRouteAware {
   Size screenSize;
 
   Future<bool> _goToLogin(BuildContext context) {
@@ -53,6 +56,7 @@ class _DashboardScreenState extends State<DashboardScreen>
      */
   }
 
+  final routeObserver = TransitionRouteObserver<PageRoute>();
   static const headerAniInterval =
       const Interval(.1, .3, curve: Curves.easeOut);
   Animation<double> _headerScaleAnimation;
@@ -88,12 +92,12 @@ class _DashboardScreenState extends State<DashboardScreen>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    //routeObserver.subscribe(this, ModalRoute.of(context));
+    routeObserver.subscribe(this, ModalRoute.of(context));
   }
 
   @override
   void dispose() {
-    //routeObserver.unsubscribe(this);
+    routeObserver.unsubscribe(this);
     _loadingController.dispose();
     super.dispose();
   }
@@ -114,6 +118,8 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
 
     return AppBar(
+      centerTitle: true,
+      // this is all you need
       automaticallyImplyLeading: false,
       actions: <Widget>[
         FadeIn(
@@ -280,6 +286,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             height: screenSize.height,
           ),
           Scaffold(
+            extendBodyBehindAppBar: true,
             backgroundColor: Colors.transparent,
             appBar: _buildAppBar(theme),
             body: Column(

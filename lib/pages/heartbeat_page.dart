@@ -113,6 +113,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
           backgroundColor: Colors.transparent,
           // <-- SCAFFOLD WITH TRANSPARENT BG
           appBar: AppBar(
+            centerTitle: true, // this is all you need
             title: Text(
               "LATIDO",
               style:

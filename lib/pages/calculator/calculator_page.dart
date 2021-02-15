@@ -90,6 +90,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
         backgroundColor: Colors.transparent,
         // <-- SCAFFOLD WITH TRANSPARENT BG
         appBar: AppBar(
+          centerTitle: true, // this is all you need
           backgroundColor: Colors.orangeAccent,
           elevation: 0,
           title: Text(

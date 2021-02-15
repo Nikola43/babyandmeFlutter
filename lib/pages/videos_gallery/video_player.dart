@@ -70,7 +70,8 @@ class _VideoAppPageState extends State<VideoAppPage> {
 
     return Scaffold(
 
-        appBar: AppBar(),
+        appBar: AppBar(            centerTitle: true, // this is all you need
+        ),
         body: Column(
           children: <Widget>[
             Expanded(
