@@ -48,6 +48,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
         extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
           // this is all you need
@@ -71,7 +72,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
             color: Colors.white,
             child: Column(
               children: <Widget>[
-                SizedBox(height: screenSize.height / 8),
+                SizedBox(height: screenSize.height / 12),
                 Lottie.asset(
                     'assets/images/16638-madre-con-su-hijo-mother-and-her-son.json',
                     width: 250.0),
@@ -138,7 +139,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                                           {
                                             Flushbar(
                                               backgroundColor:
-                                                  Colors.orangeAccent,
+                                                  Colors.redAccent,
                                               title: "Código no encontrado",
                                               message: " ",
                                               duration: Duration(seconds: 3),
@@ -150,6 +151,8 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
 
                               //myFocusNode.requestFocus();
                               Flushbar(
+                                backgroundColor:
+                                Colors.orangeAccent,
                                 title: "O código deve ter 4 letras",
                                 message: " ",
                                 duration: Duration(seconds: 3),

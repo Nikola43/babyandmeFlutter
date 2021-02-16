@@ -264,6 +264,7 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
     });
 
     return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
             centerTitle: true, // this is all you need
             title: Text(

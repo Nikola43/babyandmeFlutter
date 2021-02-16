@@ -40,6 +40,7 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
           centerTitle: true,
           title: Text(

@@ -58,6 +58,7 @@ class _PromoDetailState extends State<PromoDetail> {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
         extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
           // this is all you need

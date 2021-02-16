@@ -67,6 +67,7 @@ class _GalleryState extends State<Gallery> with SingleTickerProviderStateMixin {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        extendBodyBehindAppBar: true,
 
         appBar: AppBar(
           centerTitle: true, // this is all you need

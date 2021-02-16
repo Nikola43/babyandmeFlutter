@@ -286,7 +286,8 @@ class _DashboardScreenState extends State<DashboardScreen>
             height: screenSize.height,
           ),
           Scaffold(
-            extendBodyBehindAppBar: true,
+        extendBodyBehindAppBar: true,
+            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.transparent,
             appBar: _buildAppBar(theme),
             body: Column(

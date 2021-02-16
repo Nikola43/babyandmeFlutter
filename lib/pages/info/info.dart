@@ -96,6 +96,7 @@ class _InfoPageState extends State<InfoPage> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
         // this is all you need
@@ -223,7 +224,7 @@ class _InfoPageState extends State<InfoPage> {
                           color: Colors.orangeAccent,
                           textColor: Colors.white,
                           child: Text(
-                              "Endereço: Rua da Nau Catrineta, 3, 1990-183 Lisboa",
+                              "Rua da Nau Catrineta, 3, 1990-183 Lisboa",
                               style: TextStyle(
                                   fontSize: screenSize.width / 30,
                                   fontWeight: FontWeight.bold)),

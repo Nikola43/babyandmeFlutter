@@ -88,7 +88,6 @@ class _HeartbeatPageState extends State<HeartbeatPage>
     WidgetsBinding.instance.removeObserver(this);
     motionController.dispose();
     super.dispose();
-
   }
 
   @override
@@ -122,6 +121,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
         height: screenSize.height,
       ),
       Scaffold(
+          extendBodyBehindAppBar: true,
           backgroundColor: Colors.transparent,
           // <-- SCAFFOLD WITH TRANSPARENT BG
           appBar: AppBar(

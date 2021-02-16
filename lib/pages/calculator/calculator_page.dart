@@ -88,6 +88,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
         height: screenSize.height,
       ),
       Scaffold(
+        extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         // <-- SCAFFOLD WITH TRANSPARENT BG
         appBar: AppBar(

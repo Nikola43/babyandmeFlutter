@@ -69,6 +69,7 @@ class _VideoAppPageState extends State<VideoAppPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+        extendBodyBehindAppBar: true,
 
         appBar: AppBar(            centerTitle: true, // this is all you need
         ),

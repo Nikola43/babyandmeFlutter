@@ -44,6 +44,7 @@ class _PromosPageState extends State<PromosPage> {
     );
 
     return new Scaffold(
+        extendBodyBehindAppBar: true,
       appBar: new AppBar(
           centerTitle: true,
           title: Text(
