@@ -188,7 +188,21 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                             FocusScope.of(context).requestFocus(
                                                 _nameTextEditingFocusNode);
                                             Flushbar(
+                                              backgroundColor:
+                                                  Colors.orangeAccent,
                                               title: "El nombre es obligatorio",
+                                              message: " ",
+                                              duration: Duration(seconds: 3),
+                                            )..show(context);
+                                          } else if (_emailTextEditingController
+                                                  .value.text.length ==
+                                              0) {
+                                            FocusScope.of(context).requestFocus(
+                                                _phoneTextEditingFocusNode);
+                                            Flushbar(
+                                              backgroundColor:
+                                                  Colors.orangeAccent,
+                                              title: "El email es obligatorio",
                                               message: " ",
                                               duration: Duration(seconds: 3),
                                             )..show(context);
@@ -198,6 +212,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                             FocusScope.of(context).requestFocus(
                                                 _phoneTextEditingFocusNode);
                                             Flushbar(
+                                              backgroundColor:
+                                                  Colors.orangeAccent,
                                               title:
                                                   "El telefono es obligatorio",
                                               message: " ",
@@ -205,6 +221,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                             )..show(context);
                                           } else {
                                             Flushbar(
+                                              backgroundColor:
+                                                  Colors.orangeAccent,
                                               title:
                                                   "Solicitud enviada correctamente",
                                               message: " ",

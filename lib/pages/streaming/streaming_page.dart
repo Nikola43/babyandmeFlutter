@@ -72,7 +72,8 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: screenSize.height / 8),
-                Lottie.asset('assets/images/16638-madre-con-su-hijo-mother-and-her-son.json',
+                Lottie.asset(
+                    'assets/images/16638-madre-con-su-hijo-mother-and-her-son.json',
                     width: 250.0),
                 SizedBox(height: screenSize.height / 32),
                 Padding(
@@ -136,6 +137,8 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                                         else
                                           {
                                             Flushbar(
+                                              backgroundColor:
+                                                  Colors.orangeAccent,
                                               title: "Código no encontrado",
                                               message: " ",
                                               duration: Duration(seconds: 3),
