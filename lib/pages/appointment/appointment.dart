@@ -65,7 +65,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
@@ -90,7 +89,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
             color: Colors.white,
             child: Column(
               children: <Widget>[
-                SizedBox(height: screenSize.height / 16),
+                SizedBox(height: screenSize.height / 64),
                 Image.asset("assets/images/undraw_doctors_hwty.png"),
                 Padding(
                   padding: const EdgeInsets.all(16.0),

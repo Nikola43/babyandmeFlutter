@@ -1,7 +1,6 @@
 import 'package:babyandme/models/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:universal_io/io.dart';
 import 'package:flutter/services.dart';
 
 class CalculatorDetailPage extends StatefulWidget {
@@ -38,9 +37,7 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
     final Calculator calc = ModalRoute.of(context).settings.arguments;
     _screenSize = MediaQuery.of(context).size;
     SystemChrome.setEnabledSystemUIOverlays([]);
-
     return Scaffold(
-        extendBodyBehindAppBar: true,
         appBar: AppBar(
           centerTitle: true,
           title: Text(

@@ -121,7 +121,6 @@ class _HeartbeatPageState extends State<HeartbeatPage>
         height: screenSize.height,
       ),
       Scaffold(
-          extendBodyBehindAppBar: true,
           backgroundColor: Colors.transparent,
           // <-- SCAFFOLD WITH TRANSPARENT BG
           appBar: AppBar(
@@ -142,19 +141,29 @@ class _HeartbeatPageState extends State<HeartbeatPage>
                     }),
           ),
           body: Center(
-              child: GestureDetector(
-            onTap: () {
-              play();
-            },
-            child: Container(
-              height: size,
-              width: size,
-              child: Icon(
-                FontAwesomeIcons.solidHeart,
-                size: size,
-                color: Colors.red,
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  play();
+                },
+                child: Container(
+                  height: size,
+                  width: size,
+                  child: Icon(
+                    FontAwesomeIcons.solidHeart,
+                    size: size,
+                    color: Colors.red,
+                  ),
+                ),
               ),
-            ),
+              Text("Pulsa para ver escuchar el latido de tu corazon",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: screenSize.width / 30,
+                      fontWeight: FontWeight.bold)),
+            ],
           )))
     ]);
   }

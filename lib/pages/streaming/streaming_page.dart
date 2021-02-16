@@ -47,7 +47,6 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
     screenSize = MediaQuery.of(context).size;
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
@@ -72,7 +71,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
             color: Colors.white,
             child: Column(
               children: <Widget>[
-                SizedBox(height: screenSize.height / 12),
+                SizedBox(height: screenSize.height / 32),
                 Lottie.asset(
                     'assets/images/16638-madre-con-su-hijo-mother-and-her-son.json',
                     width: 250.0),

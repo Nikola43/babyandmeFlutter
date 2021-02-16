@@ -95,11 +95,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 recoverPasswordButton: 'Enviar',
                 goBackButton: 'Voltar',
                 confirmPasswordError:
-                    'Nome de usuário ou senha não correspondem',
+                    'As senhas não são as mesmas',
                 recoverPasswordIntro: 'Recuperar a senha',
                 recoverPasswordDescription:
                     'Digite seu e-mail para recuperar a senha',
-                recoverPasswordSuccess: 'Password rescued successfully',
+                recoverPasswordSuccess: 'Email enviado, revise sua bandeja de entrada',
               ),
               // theme: LoginTheme(
               //   primaryColor: Colors.teal,

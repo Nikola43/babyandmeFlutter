@@ -57,8 +57,6 @@ class _PromoDetailState extends State<PromoDetail> {
     Promo promo = ModalRoute.of(context).settings.arguments;
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
           // this is all you need
@@ -82,7 +80,7 @@ class _PromoDetailState extends State<PromoDetail> {
             color: Colors.white,
             child: Column(
               children: <Widget>[
-                SizedBox(height: screenSize.height / 8),
+                SizedBox(height: screenSize.height / 64),
                 Image.asset("assets/images/undraw_gift1_sgf8.png"),
                 SizedBox(height: screenSize.height / 32),
                 Padding(
@@ -124,7 +122,7 @@ class _PromoDetailState extends State<PromoDetail> {
                           padding: EdgeInsets.all(10.0),
                           color: Colors.orangeAccent,
                           textColor: Colors.white,
-                          child: Text("Solicitar",
+                          child: Text("SOLICITAR",
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold)),
                         ),

@@ -146,10 +146,22 @@ class _DashboardScreenState extends State<DashboardScreen>
         curve: headerAniInterval,
         fadeDirection: FadeDirection.bottomToTop,
         offset: 0.5,
-        child: Image.asset(
-          'assets/images/babyandmebranco.png',
-          filterQuality: FilterQuality.high,
-          height: 150,
+        child: Column(
+          children: [
+            Image.asset(
+              'assets/images/babyandmebranco.png',
+              filterQuality: FilterQuality.high,
+              height: 150,
+            ),
+            SizedBox(height: screenSize.height / 64),
+            Text(
+              "(by ecox Lisboa)",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: screenSize.width / 16),
+            ),
+          ],
         ),
       ),
     );
@@ -286,7 +298,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             height: screenSize.height,
           ),
           Scaffold(
-        extendBodyBehindAppBar: true,
+            extendBodyBehindAppBar: true,
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.transparent,
             appBar: _buildAppBar(theme),

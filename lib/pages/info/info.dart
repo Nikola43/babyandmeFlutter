@@ -95,8 +95,6 @@ class _InfoPageState extends State<InfoPage> {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
         // this is all you need

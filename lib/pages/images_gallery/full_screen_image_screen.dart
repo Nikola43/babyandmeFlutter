@@ -37,7 +37,6 @@ class _FullScreenImageState extends State<FullScreenImage> {
     Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-        extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true, // this is all you need
 
