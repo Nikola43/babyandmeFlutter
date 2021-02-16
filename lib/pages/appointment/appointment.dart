@@ -5,6 +5,7 @@ import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import '../../dashboard_screen.dart';
 import 'package:universal_io/io.dart';
 import 'package:flutter/services.dart';
@@ -37,9 +38,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   }
 
   int calculateWeekBySetDate(DateTime selectedDate) {
-    var difference = new DateTime.now()
-        .difference(selectedDate)
-        .inDays / 7;
+    var difference = new DateTime.now().difference(selectedDate).inDays / 7;
     print(difference);
     if (difference <= 1) {
       difference = 1;
@@ -61,230 +60,194 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
   @override
   Widget build(BuildContext context) {
-    screenSize = MediaQuery
-        .of(context)
-        .size;
-    final openFrom = ModalRoute
-        .of(context)
-        .settings
-        .arguments;
+    screenSize = MediaQuery.of(context).size;
+    final openFrom = ModalRoute.of(context).settings.arguments;
 
     SystemChrome.setEnabledSystemUIOverlays([]);
-
-
-    return Stack(children: [
-      Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/Mama-bebe.png"),
-            // <-- BACKGROUND IMAGE
-            fit: BoxFit.cover,
+    return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          centerTitle: true,
+          // this is all you need
+          title: Text(
+            "CITAS",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          leading: new IconButton(
+            icon: new Icon(
+              FontAwesomeIcons.arrowLeft,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         ),
-      ),
-      Container(
-        color: Color.fromRGBO(0, 0, 0, 0.25098039215686274),
-        width: screenSize.width,
-        height: screenSize.height,
-      ),
-      Scaffold(
-          backgroundColor: Colors.transparent,
-          // <-- SCAFFOLD WITH TRANSPARENT BG
-          appBar: AppBar(
-            centerTitle: true, // this is all you need
-            title: Text(
-              "CITAS",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            ),
-            backgroundColor: Colors.orangeAccent,
-            leading: new IconButton(
-                icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
-                onPressed: () => {Navigator.pop(context)}),
-          ),
-          body: Center(
+        body: Center(
+          child: Container(
+            width: screenSize.width,
+            color: Colors.white,
             child: Column(
               children: <Widget>[
-                SizedBox(height: screenSize.height / 32),
+                SizedBox(height: screenSize.height / 8),
+                Image.asset("assets/images/undraw_doctors_hwty.png"),
                 Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Container(
-                        width: screenSize.width / 1.2,
-                        child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(4.0),
-                                child: BackdropFilter(
-                                  filter:
-                                  ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(4.0),
-                                        border:
-                                        Border.all(color: Colors.white)),
-                                    padding:
-                                    EdgeInsets.only(left: 20, right: 20),
-                                    child: TextFormField(
-                                      controller: _nameTextEditingController,
-                                      focusNode: _nameTextEditingFocusNode,
-                                      style: TextStyle(color: Colors.white),
-                                      cursorColor: Colors.white,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Container(
+                              width: screenSize.width / 1.2,
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    TextField(
                                       keyboardType: TextInputType.name,
-                                      decoration: new InputDecoration(
-                                          border: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                          enabledBorder: InputBorder.none,
-                                          errorBorder: InputBorder.none,
-                                          disabledBorder: InputBorder.none,
-                                          hintText: 'Nombre',
-                                          hintStyle:
-                                          TextStyle(color: Colors.white)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: screenSize.height / 64),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(4.0),
-                                child: BackdropFilter(
-                                  filter:
-                                  ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(4.0),
-                                        border:
-                                        Border.all(color: Colors.white)),
-                                    padding:
-                                    EdgeInsets.only(left: 20, right: 20),
-                                    child: TextFormField(
-                                      controller: _emailTextEditingController,
-                                      focusNode: _emailTextEditingFocusNode,
-                                      style: TextStyle(color: Colors.white),
-                                      cursorColor: Colors.white,
-                                      keyboardType: TextInputType.emailAddress,
-                                      decoration: new InputDecoration(
-                                          border: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                          enabledBorder: InputBorder.none,
-                                          errorBorder: InputBorder.none,
-                                          disabledBorder: InputBorder.none,
-                                          hintText: 'Email',
-                                          hintStyle:
-                                          TextStyle(color: Colors.white)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: screenSize.height / 64),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(4.0),
-                                child: BackdropFilter(
-                                  filter:
-                                  ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(4.0),
-                                          border:
-                                          Border.all(color: Colors.white)),
-                                      padding:
-                                      EdgeInsets.only(left: 20, right: 20),
-                                      child: TextFormField(
-                                        controller: _phoneTextEditingController,
-                                        focusNode: _phoneTextEditingFocusNode,
-                                        style: TextStyle(color: Colors.white),
-                                        cursorColor: Colors.white,
-                                        keyboardType: TextInputType.phone,
-                                        decoration: new InputDecoration(
-                                            border: InputBorder.none,
-                                            focusedBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            errorBorder: InputBorder.none,
-                                            disabledBorder: InputBorder.none,
-                                            hintText: 'Teléfono',
-                                            hintStyle:
-                                            TextStyle(color: Colors.white)),
-                                      )),
-                                ),
-                              ),
-                              SizedBox(height: screenSize.height / 16),
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                height: 50.0,
-                                child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      side: BorderSide(
-                                          color: Colors.orangeAccent)),
-                                  onPressed: () {
-                                    if (_nameTextEditingController
-                                        .value.text.length ==
-                                        0) {
-                                      FocusScope.of(context).requestFocus(
-                                          _nameTextEditingFocusNode);
-                                      Flushbar(
-                                        title: "El nombre es obligatorio",
-                                        message: " ",
-                                        duration: Duration(seconds: 3),
-                                      )
-                                        ..show(context);
-                                    } else if (_phoneTextEditingController
-                                        .value.text.length ==
-                                        0) {
-                                      FocusScope.of(context).requestFocus(
-                                          _phoneTextEditingFocusNode);
-                                      Flushbar(
-                                        title: "El telefono es obligatorio",
-                                        message: " ",
-                                        duration: Duration(seconds: 3),
-                                      )
-                                        ..show(context);
-                                    } else {
-                                      Flushbar(
-                                        title:
-                                        "Solicitud enviada correctamente",
-                                        message: " ",
-                                        duration: Duration(seconds: 3),
-                                      )
-                                        ..show(context);
+                                      textAlign: TextAlign.center,
+                                      controller: _nameTextEditingController,
+                                      textCapitalization:
+                                          TextCapitalization.characters,
+                                      focusNode: _nameTextEditingFocusNode,
+                                      autofocus: false,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        counterStyle:
+                                            TextStyle(color: Colors.black),
+                                        fillColor: Colors.white,
+                                        //Add th Hint text here.
+                                        hintText: "Nombre",
 
-                                      Future.delayed(Duration(seconds: 4), () {
-                                        if (openFrom != null &&
-                                            openFrom == 'login') {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginScreen()),
-                                          );
-                                        } else {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    DashboardScreen()),
-                                          );
-                                        }
-                                      });
-                                    }
-                                  },
-                                  padding: EdgeInsets.all(10.0),
-                                  color: Colors.orangeAccent,
-                                  textColor: Colors.white,
-                                  child: Text("Enviar",
-                                      style: TextStyle(fontSize: 15,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                            ]))),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4.0),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: screenSize.height / 64),
+                                    TextField(
+                                      keyboardType: TextInputType.emailAddress,
+                                      textAlign: TextAlign.center,
+                                      controller: _emailTextEditingController,
+                                      textCapitalization:
+                                          TextCapitalization.characters,
+                                      focusNode: _emailTextEditingFocusNode,
+                                      autofocus: false,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        counterStyle:
+                                            TextStyle(color: Colors.black),
+                                        fillColor: Colors.white,
+                                        //Add th Hint text here.
+                                        hintText: "Email",
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4.0),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: screenSize.height / 64),
+                                    TextField(
+                                      keyboardType: TextInputType.phone,
+                                      textAlign: TextAlign.center,
+                                      controller: _phoneTextEditingController,
+                                      textCapitalization:
+                                          TextCapitalization.characters,
+                                      focusNode: _phoneTextEditingFocusNode,
+                                      autofocus: false,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        counterStyle:
+                                            TextStyle(color: Colors.black),
+                                        fillColor: Colors.white,
+                                        //Add th Hint text here.
+                                        hintText: "Telefone",
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4.0),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: screenSize.height / 16),
+                                    Container(
+                                      margin: EdgeInsets.all(10),
+                                      height: 50.0,
+                                      child: RaisedButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4.0),
+                                            side: BorderSide(
+                                                color: Colors.orangeAccent)),
+                                        onPressed: () {
+                                          if (_nameTextEditingController
+                                                  .value.text.length ==
+                                              0) {
+                                            FocusScope.of(context).requestFocus(
+                                                _nameTextEditingFocusNode);
+                                            Flushbar(
+                                              title: "El nombre es obligatorio",
+                                              message: " ",
+                                              duration: Duration(seconds: 3),
+                                            )..show(context);
+                                          } else if (_phoneTextEditingController
+                                                  .value.text.length ==
+                                              0) {
+                                            FocusScope.of(context).requestFocus(
+                                                _phoneTextEditingFocusNode);
+                                            Flushbar(
+                                              title:
+                                                  "El telefono es obligatorio",
+                                              message: " ",
+                                              duration: Duration(seconds: 3),
+                                            )..show(context);
+                                          } else {
+                                            Flushbar(
+                                              title:
+                                                  "Solicitud enviada correctamente",
+                                              message: " ",
+                                              duration: Duration(seconds: 3),
+                                            )..show(context);
+
+                                            Future.delayed(Duration(seconds: 4),
+                                                () {
+                                              if (openFrom != null &&
+                                                  openFrom == 'login') {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          LoginScreen()),
+                                                );
+                                              } else {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DashboardScreen()),
+                                                );
+                                              }
+                                            });
+                                          }
+                                        },
+                                        padding: EdgeInsets.all(10.0),
+                                        color: Colors.orangeAccent,
+                                        textColor: Colors.white,
+                                        child: Text("ENVIAR",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                    ),
+                                  ]))),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ))
-    ]);
+          ),
+        ));
   }
 }

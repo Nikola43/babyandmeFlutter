@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:another_flushbar/flushbar.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
 import 'package:babyandme/services/streaming_service.dart';
@@ -40,90 +42,72 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
-    final openFrom = ModalRoute.of(context).settings.arguments;
     SystemChrome.setEnabledSystemUIOverlays([]);
-
-    return Stack(children: [
-      Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/Mama-bebe.png"),
-            // <-- BACKGROUND IMAGE
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-      Container(
-        color: Color.fromRGBO(0, 0, 0, 0.25098039215686274),
-        width: screenSize.width,
-        height: screenSize.height,
-      ),
-      Scaffold(
-        backgroundColor: Colors.transparent,
-        // <-- SCAFFOLD WITH TRANSPARENT BG
+    return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
-          centerTitle: true, // this is all you need
+          centerTitle: true,
+          // this is all you need
           title: Text(
             "STREAMING",
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
-          backgroundColor: Colors.orangeAccent,
           leading: new IconButton(
-              icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
-              onPressed: () => {Navigator.pop(context)}),
+            icon: new Icon(
+              FontAwesomeIcons.arrowLeft,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         body: Center(
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: screenSize.height / 32),
-              Text(
-                "Introduza o código de streaming",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Container(
-                  width: screenSize.width / 2,
+          child: Container(
+            width: screenSize.width,
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: screenSize.height / 8),
+                Lottie.asset('assets/images/16638-madre-con-su-hijo-mother-and-her-son.json',
+                    width: 250.0),
+                SizedBox(height: screenSize.height / 32),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      /*
-                            Text(
-                              'Introduzca el código del streaming',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none),
-                            ),
-
-                             */
+                      Text(
+                        "Introduza o código de streaming",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenSize.width / 28),
+                      ),
                       SizedBox(height: screenSize.height / 32),
-                      TextField(
-                        maxLength: 4,
-                        textAlign: TextAlign.center,
-                        controller: _textFieldController,
-                        textCapitalization: TextCapitalization.characters,
-                        focusNode: myFocusNode,
-                        autofocus: false,
-                        decoration: InputDecoration(
-                          filled: true,
-                          counterStyle: TextStyle(color: Colors.white),
-                          fillColor: Colors.white,
-                          //Add th Hint text here.
-                          hintText: "Código",
+                      Container(
+                        width: screenSize.width / 4,
+                        child: TextField(
+                          maxLength: 4,
+                          textAlign: TextAlign.center,
+                          controller: _textFieldController,
+                          textCapitalization: TextCapitalization.characters,
+                          focusNode: myFocusNode,
+                          autofocus: false,
+                          decoration: InputDecoration(
+                            filled: true,
+                            counterStyle: TextStyle(color: Colors.black),
+                            fillColor: Colors.white,
+                            //Add th Hint text here.
+                            hintText: "Código",
 
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
                           ),
                         ),
                       ),
@@ -139,25 +123,25 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                             if (_textFieldController.value.text.length == 4) {
                               streamingService
                                   .getStreamingByCode(
-                                  _textFieldController.value.text)
+                                      _textFieldController.value.text)
                                   .then((value) => {
-                                print(value.url),
-                                if (value.url != null)
-                                  {
-                                    print("ok"),
-                                    Navigator.pushNamed(context,
-                                        StreamingYoutubeVideo.routeName,
-                                        arguments: value.url)
-                                  }
-                                else
-                                  {
-                                    Flushbar(
-                                      title: "Código no encontrado",
-                                      message: " ",
-                                      duration: Duration(seconds: 3),
-                                    )..show(context)
-                                  }
-                              });
+                                        print(value.url),
+                                        if (value.url != null)
+                                          {
+                                            print("ok"),
+                                            Navigator.pushNamed(context,
+                                                StreamingYoutubeVideo.routeName,
+                                                arguments: value.url)
+                                          }
+                                        else
+                                          {
+                                            Flushbar(
+                                              title: "Código no encontrado",
+                                              message: " ",
+                                              duration: Duration(seconds: 3),
+                                            )..show(context)
+                                          }
+                                      });
                             } else {
                               FocusScope.of(context).requestFocus(myFocusNode);
 
@@ -180,12 +164,9 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
-    ]);
+        ));
   }
 }
-

@@ -61,7 +61,8 @@ class _PromoDetailState extends State<PromoDetail> {
         appBar: AppBar(
           centerTitle: true,
           // this is all you need
-          title: Text(promo.title,
+          title: Text(
+            promo.title,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           leading: new IconButton(
@@ -81,16 +82,13 @@ class _PromoDetailState extends State<PromoDetail> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: screenSize.height / 8),
-                Lottie.asset('assets/images/16367-madre-embarazada.json',
-                    width: 250.0),
+                Image.asset("assets/images/undraw_gift1_sgf8.png"),
                 SizedBox(height: screenSize.height / 32),
                 Padding(
                     padding: EdgeInsets.only(left: 25, right: 25),
                     child: Text(
                       promo.text,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15),
+                      style: TextStyle(color: Colors.black, fontSize: 15),
                     )),
                 SizedBox(height: screenSize.height / 32),
                 Padding(

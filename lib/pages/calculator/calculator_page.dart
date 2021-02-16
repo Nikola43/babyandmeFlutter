@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:universal_io/io.dart';
 import 'package:flutter/services.dart';
 
@@ -90,7 +91,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
         backgroundColor: Colors.transparent,
         // <-- SCAFFOLD WITH TRANSPARENT BG
         appBar: AppBar(
-          centerTitle: true, // this is all you need
+          centerTitle: true,
+          // this is all you need
           backgroundColor: Colors.orangeAccent,
           elevation: 0,
           title: Text(
@@ -103,8 +105,10 @@ class _CalculatorPageState extends State<CalculatorPage> {
         ),
         body: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: screenSize.height / 4),
+              Lottie.asset('assets/images/14483-newborn.json', width: 250.0),
+              SizedBox(height: screenSize.height / 32),
               Text(
                 "Selecione a data da sua última menstruação",
                 style: TextStyle(
@@ -113,7 +117,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     fontSize: screenSize.width / 28),
               ),
               SizedBox(height: screenSize.height / 32),
-
               Container(
                   width: 200,
                   child: Column(
