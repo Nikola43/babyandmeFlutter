@@ -101,7 +101,8 @@ class _InfoPageState extends State<InfoPage> {
         // this is all you need
         backgroundColor: Colors.orangeAccent,
 
-        title: Text("CONTACTO", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: Text("CONTACTO",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         leading: new IconButton(
           icon: new Icon(
             FontAwesomeIcons.arrowLeft,
@@ -137,7 +138,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             SizedBox(height: screenSize.height / 32),
             Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -145,11 +146,11 @@ class _InfoPageState extends State<InfoPage> {
                       Text("Entre em contacto connosco",
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold)),
-                      SizedBox(height: screenSize.height / 32),
+                      SizedBox(height: screenSize.width / 32),
                       Container(
                         margin: EdgeInsets.all(10),
                         height: 50.0,
-                        width: 250,
+                        width: screenSize.width / 0.8,
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4.0),
@@ -162,13 +163,14 @@ class _InfoPageState extends State<InfoPage> {
                           textColor: Colors.white,
                           child: Text("Email: info.lisboa@ecox4d.pt",
                               style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold)),
+                                  fontSize: screenSize.width / 30,
+                                  fontWeight: FontWeight.bold)),
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.all(10),
                         height: 50.0,
-                        width: 250,
+                        width: screenSize.width / 0.8,
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4.0),
@@ -181,13 +183,14 @@ class _InfoPageState extends State<InfoPage> {
                           textColor: Colors.white,
                           child: Text("Telemóvel: +351924244293",
                               style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold)),
+                                  fontSize: screenSize.width / 30,
+                                  fontWeight: FontWeight.bold)),
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.all(10),
                         height: 50.0,
-                        width: 250,
+                        width: screenSize.width / 0.8,
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4.0),
@@ -200,26 +203,30 @@ class _InfoPageState extends State<InfoPage> {
                           textColor: Colors.white,
                           child: Text("Telefone: +351217960548",
                               style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold)),
+                                  fontSize: screenSize.width / 30,
+                                  fontWeight: FontWeight.bold)),
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.all(10),
                         height: 50.0,
-                        width: 250,
+                        width: screenSize.width / 0.8,
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4.0),
                               side: BorderSide(color: Colors.orangeAccent)),
                           onPressed: () {
-                            MapsLauncher.launchQuery('Rua da Nau Catrineta, 3, 1990-183 Lisboa');
+                            MapsLauncher.launchQuery(
+                                'Rua da Nau Catrineta, 3, 1990-183 Lisboa');
                           },
                           padding: EdgeInsets.all(10.0),
                           color: Colors.orangeAccent,
                           textColor: Colors.white,
-                          child: Text("Rua da Nau Catrineta, 3, 1990-183 Lisboa",
+                          child: Text(
+                              "Endereço: Rua da Nau Catrineta, 3, 1990-183 Lisboa",
                               style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold)),
+                                  fontSize: screenSize.width / 30,
+                                  fontWeight: FontWeight.bold)),
                         ),
                       ),
                     ])),
