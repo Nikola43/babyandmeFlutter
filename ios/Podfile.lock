@@ -5,6 +5,11 @@ PODS:
     - Flutter
   - auto_orientation (0.0.1):
     - Flutter
+  - BSGridCollectionViewLayout (1.2.5)
+  - BSImagePicker (2.10.3):
+    - BSGridCollectionViewLayout (= 1.2.5)
+    - BSImageView (= 1.0.3)
+  - BSImageView (1.0.3)
   - devicelocale (0.0.1):
     - Flutter
   - esys_flutter_share (0.0.1):
@@ -29,6 +34,11 @@ PODS:
   - GoogleMaps/Maps (3.9.0):
     - GoogleMaps/Base
   - image_gallery_saver (1.5.0):
+    - Flutter
+  - maps_launcher (0.0.1):
+    - Flutter
+  - multi_image_picker (4.7.15):
+    - BSImagePicker (~> 2.10.3)
     - Flutter
   - OneSignal (2.16.1)
   - onesignal_flutter (2.6.2):
@@ -63,6 +73,8 @@ DEPENDENCIES:
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
+  - maps_launcher (from `.symlinks/plugins/maps_launcher/ios`)
+  - multi_image_picker (from `.symlinks/plugins/multi_image_picker/ios`)
   - OneSignal (= 2.16.1)
   - onesignal_flutter (from `.symlinks/plugins/onesignal_flutter/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -75,6 +87,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - BSGridCollectionViewLayout
+    - BSImagePicker
+    - BSImageView
     - FMDB
     - GoogleMaps
     - OneSignal
@@ -103,6 +118,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
   image_gallery_saver:
     :path: ".symlinks/plugins/image_gallery_saver/ios"
+  maps_launcher:
+    :path: ".symlinks/plugins/maps_launcher/ios"
+  multi_image_picker:
+    :path: ".symlinks/plugins/multi_image_picker/ios"
   onesignal_flutter:
     :path: ".symlinks/plugins/onesignal_flutter/ios"
   path_provider:
@@ -124,6 +143,9 @@ SPEC CHECKSUMS:
   another_flushbar: 3bb0a50768cc547ba9dd82cbb92129bf5ca7440c
   audioplayer: 0584f31a697e4b0bbad405ae7903d7a93585e784
   auto_orientation: 2941c44ebe5c3d41016001597ab03e81a92a26ce
+  BSGridCollectionViewLayout: 333dcb457a5a3bdd9212607ab5756553dcfe06cb
+  BSImagePicker: 07404254f2fcdaf5a2eb403c0f8c337267ce8738
+  BSImageView: a149459433a2687157d034c78e059d30ac7f2544
   devicelocale: feebbe5e7a30adb8c4f83185de1b50ff19b44f00
   esys_flutter_share: 403498dab005b36ce1f8d7aff377e81f0621b0b4
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
@@ -134,6 +156,8 @@ SPEC CHECKSUMS:
   google_maps_flutter: c7f9c73576de1fbe152a227bfd6e6c4ae8088619
   GoogleMaps: 4b5346bddfe6911bb89155d43c903020170523ac
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
+  maps_launcher: eae38ee13a9c3f210fa04e04bb4c073fa4c6ed92
+  multi_image_picker: 58577ab96d99b35c82d626db7d81906d14c2b667
   OneSignal: 5f6514ec2b931306eb067acb124afbb2e49970af
   onesignal_flutter: 260bb95c0a2d791c990c7bd8749525c9834d43fc
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c

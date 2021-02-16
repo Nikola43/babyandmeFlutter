@@ -39,11 +39,11 @@ class _LoginScreenState extends State<LoginScreen> {
       await SharedPreferencesUtil.saveString("token", user.token.string);
       await SharedPreferencesUtil.saveInt("currentWeek", user.week);
 
-      ToastUtil.makeToast("Bienvenido a baby&me");
+      ToastUtil.makeToast("Bem-vindo a Baby&Me by ecox Lisboa");
       return null;
     } else {
-      ToastUtil.makeToast("Usuario no encontrado");
-      return 'Usuario o contraseña incorrectos';
+      ToastUtil.makeToast("Usuário não encontrado");
+      return 'Usuário ou senha incorrectos';
     }
   }
 
@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (ok != null) {
       return null;
     } else {
-      return 'error';
+      return 'Erro';
     }
   }
 
@@ -85,11 +85,11 @@ class _LoginScreenState extends State<LoginScreen> {
               title: null,
               logo: 'assets/images/babyandmebranco.png',
               messages: LoginMessages(
-                usernameHint: 'Correio eletrônico',
+                usernameHint: 'Email',
                 passwordHint: 'Senha',
-                confirmPasswordHint: 'Confirm',
+                confirmPasswordHint: 'Confirmar',
                 loginButton: 'Entrar',
-                signupButton: 'Cadastre-se',
+                signupButton: 'Registe-se',
                 forgotPasswordButton: 'Esqueceu a senha?',
                 recoverPasswordButton: 'Enviar',
                 goBackButton: 'Voltar',

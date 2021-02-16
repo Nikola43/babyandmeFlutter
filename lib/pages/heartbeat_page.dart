@@ -127,7 +127,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
           appBar: AppBar(
             centerTitle: true, // this is all you need
             title: Text(
-              "LATIDO",
+              "BATIMENTO",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
@@ -169,7 +169,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
       } else {
         Flushbar(
           backgroundColor: Colors.orangeAccent,
-          title: "Você não tem batimento cardíaco disponível",
+          title: "Não tem batimento cardíaco disponível",
           message: " ",
           duration: Duration(seconds: 3),
         )..show(context);

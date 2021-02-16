@@ -46,7 +46,7 @@ class _FullScreenImageState extends State<FullScreenImage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(
-              Icons.cloud_download,
+              FontAwesomeIcons.download,
               color: Colors.white,
             ),
             onPressed: () async {
@@ -63,24 +63,6 @@ class _FullScreenImageState extends State<FullScreenImage> {
               if (downloadResult == true) {
                 ToastUtil.makeToast("Descarga completada");
               }
-
-              /*GallerySaver.saveImage(a
-                      )
-                  .then((value) => {
-                        print(value),
-                      });
-              */
-              /*
-                  fileDownloaderProvider
-                      .downloadFile(
-                          "https://s3.eu-central-1.wasabisys.com/stela/4/image/IMG_20200729_1_52.jpg-compress.jpg",
-                          "My File.jpg")
-                      .then((onValue) {
-                    print(onValue);
-
-                  }),
-
-                   */
             },
           ),
           IconButton(
@@ -164,38 +146,3 @@ class _FullScreenImageState extends State<FullScreenImage> {
     );
   }
 }
-
-/*
-PhotoView(
-            imageProvider: NetworkImage(images[index].thumbnail.length > 0
-                ? images[index].thumbnail
-                : images[index].url),
-          )
-
-
-Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      width: 200,
-                      height: 200,
-                      child: ClipRRect(
-                        borderRadius: new BorderRadius.circular(10.0),
-                        child: FadeInImage(
-                          fit: BoxFit.fitHeight,
-                          placeholder: AssetImage(
-                              "assets/images/9619-loading-dots-in-yellow.gif"),
-                          image: NetworkImage(type == 1
-                              ? list[index].url
-                              : list[index].thumbnail),
-                        ),
-                      ),
-                    ),
-                    Icon(
-                      FontAwesomeIcons.play,
-                      size: 25,
-                      color: Colors.white,
-                    ),
-                  ],
-                )
- */

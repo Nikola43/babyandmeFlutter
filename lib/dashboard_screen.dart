@@ -199,7 +199,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         ),
         _buildButton(
           icon: Icon(FontAwesomeIcons.heartbeat),
-          label: 'LATIDO',
+          label: 'BATIMENTO',
           interval: Interval(step, aniInterval + step),
           onPressed: () =>
               {Navigator.pushNamed(context, HeartbeatPage.routeName)},
@@ -237,7 +237,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         ),
         _buildButton(
           icon: Icon(FontAwesomeIcons.info),
-          label: 'CONTATO',
+          label: 'CONTACTO',
           interval: Interval(step * 2, aniInterval + step * 2),
           onPressed: () => {Navigator.pushNamed(context, InfoPage.routeName)},
         ),

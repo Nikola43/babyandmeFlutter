@@ -10,6 +10,7 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:lottie/lottie.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../dashboard_screen.dart';
 
@@ -72,9 +73,9 @@ class _InfoPageState extends State<InfoPage> {
 
     final maps.Marker marker = maps.Marker(
       markerId: markerId,
-      position: maps.LatLng(38.7565928, -9.0948698),
+      position: maps.LatLng(38.7567533, -9.095221),
       infoWindow: maps.InfoWindow(
-          title: "Rua da Nau Catrineta, 1D, 1990-183 Lisboa", snippet: ' '),
+          title: "Rua da Nau Catrineta, 3, 1990-183 Lisboa", snippet: ' '),
       onTap: () {
         //_onMarkerTapped(markerId);
       },
@@ -100,7 +101,7 @@ class _InfoPageState extends State<InfoPage> {
         // this is all you need
         backgroundColor: Colors.orangeAccent,
 
-        title: Text("CONTATO", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: Text("CONTACTO", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         leading: new IconButton(
           icon: new Icon(
             FontAwesomeIcons.arrowLeft,
@@ -141,7 +142,7 @@ class _InfoPageState extends State<InfoPage> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("ENTRE EM CONTATO",
+                      Text("Entre em contacto connosco",
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold)),
                       SizedBox(height: screenSize.height / 32),
@@ -154,12 +155,12 @@ class _InfoPageState extends State<InfoPage> {
                               borderRadius: BorderRadius.circular(4.0),
                               side: BorderSide(color: Colors.orangeAccent)),
                           onPressed: () {
-                            _makeEmail("info@babyandme.pt", false);
+                            _makeEmail("info.lisboa@ecox4d.pt", false);
                           },
                           padding: EdgeInsets.all(10.0),
                           color: Colors.orangeAccent,
                           textColor: Colors.white,
-                          child: Text("Email: info@babyandme.pt",
+                          child: Text("Email: info.lisboa@ecox4d.pt",
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold)),
                         ),
@@ -198,6 +199,25 @@ class _InfoPageState extends State<InfoPage> {
                           color: Colors.orangeAccent,
                           textColor: Colors.white,
                           child: Text("Telefone: +351217960548",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        height: 50.0,
+                        width: 250,
+                        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                              side: BorderSide(color: Colors.orangeAccent)),
+                          onPressed: () {
+                            MapsLauncher.launchQuery('Rua da Nau Catrineta, 3, 1990-183 Lisboa');
+                          },
+                          padding: EdgeInsets.all(10.0),
+                          color: Colors.orangeAccent,
+                          textColor: Colors.white,
+                          child: Text("Rua da Nau Catrineta, 3, 1990-183 Lisboa",
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold)),
                         ),

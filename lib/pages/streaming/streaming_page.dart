@@ -83,7 +83,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
             children: <Widget>[
               SizedBox(height: screenSize.height / 32),
               Text(
-                "Introduzca el código del streaming",
+                "Introduza o código de streaming",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                           counterStyle: TextStyle(color: Colors.white),
                           fillColor: Colors.white,
                           //Add th Hint text here.
-                          hintText: "Codigo",
+                          hintText: "Código",
 
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(50.0),
@@ -163,7 +163,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
 
                               //myFocusNode.requestFocus();
                               Flushbar(
-                                title: "El código debe tener 4 letras",
+                                title: "O código deve ter 4 letras",
                                 message: " ",
                                 duration: Duration(seconds: 3),
                               )..show(context);

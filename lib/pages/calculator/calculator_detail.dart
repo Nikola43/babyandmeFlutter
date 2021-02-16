@@ -43,10 +43,10 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Estás de " +
+            "Está de " +
                 calculateWeekBySetDate(calc.selectedDateTime).toString() +
                 ' semanas' +
-                " y " +
+                " e " +
                 calculateDaysBySetDate(calc.selectedDateTime).toString() +
                 ' dias',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

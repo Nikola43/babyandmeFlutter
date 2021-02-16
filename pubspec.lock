@@ -431,6 +431,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.0+1"
+  maps_launcher:
+    dependency: "direct main"
+    description:
+      name: maps_launcher
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.2+2"
   matcher:
     dependency: transitive
     description:
@@ -452,6 +459,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7"
+  multi_image_picker:
+    dependency: "direct main"
+    description:
+      name: multi_image_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.7.15"
   nested:
     dependency: transitive
     description:
