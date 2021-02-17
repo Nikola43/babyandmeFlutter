@@ -72,6 +72,7 @@ dependencies:
   cached_network_image: ^2.5.0
   maps_launcher: ^1.2.2+2
   email_validator: ^1.0.6
+  styled_text: ^1.0.3+4
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -101,6 +102,8 @@ flutter:
     - assets/images/CITA.svg
     - assets/images/Mama-bebe.png
     - assets/images/babyandmelaranja.png
+    - assets/weeks/1.json
+
 
 
   fonts:

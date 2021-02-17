@@ -3,10 +3,7 @@ import 'package:babyandme/pages/appointment/appointment.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
-import 'package:universal_io/io.dart';
 import 'package:flutter/services.dart';
 
 class PromoDetail extends StatefulWidget {
@@ -22,7 +19,6 @@ class _PromoDetailState extends State<PromoDetail> {
 
   DateTime selectedDate = DateTime.now();
   String _parsedDate = "";
-  int _userID = 0;
 
   DateTime calculateMinDate() {
     var now = new DateTime.now();
@@ -41,14 +37,12 @@ class _PromoDetailState extends State<PromoDetail> {
     return difference.toInt();
   }
 
+
+
   @override
   void initState() {
     _parsedDate = formatDate(DateTime.now(), [dd, '-', mm, '-', yyyy]);
-
     super.initState();
-    SharedPreferencesUtil.getInt('user_id').then((onValue) {
-      _userID = onValue;
-    });
   }
 
   @override
@@ -116,8 +110,9 @@ class _PromoDetailState extends State<PromoDetail> {
                               borderRadius: BorderRadius.circular(4.0),
                               side: BorderSide(color: Colors.orangeAccent)),
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed(AppointmentPage.routeName, arguments: promo.title);
+                            Navigator.of(context).pushNamed(
+                                AppointmentPage.routeName,
+                                arguments: promo.title);
                           },
                           padding: EdgeInsets.all(10.0),
                           color: Colors.orangeAccent,
