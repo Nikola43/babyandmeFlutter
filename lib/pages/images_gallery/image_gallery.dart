@@ -244,7 +244,7 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
             } else {
               return Center(
                 child: Text(
-                  "Não tem " + label + " disponível",
+                  "Não tem " + label.toLowerCase() + " disponível",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
                 ),
               );
@@ -275,8 +275,9 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
                         showDialog(
                           context: context,
                           builder: (_) => AlertDialog(
-                            title: Center(child: Text('Descargar')),
-                            content: Text("¿Seguro que desea descargar todo?"),
+                            title: Center(child: Text('Baixar tudo')),
+                            content:
+                                Text("¿Certeza que você deseja baixar tudo?"),
                             actions: [
                               FlatButton(
                                   child: Text("Cancelar"),
@@ -285,7 +286,7 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
                                     Navigator.pop(context);
                                   }),
                               FlatButton(
-                                  child: Text("Descargar"),
+                                  child: Text("Baixar"),
                                   textColor: Colors.blue,
                                   onPressed: () async {
                                     Navigator.pop(context);
@@ -298,10 +299,10 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
                                             images[i - 1].url);
                                       }
                                       ToastUtil.makeToast(
-                                          "Descargando " + i.toString());
+                                          "Baixando " + i.toString());
                                     }
                                     ToastUtil.makeToast(
-                                        "Descargado todas correctamente");
+                                        "Tudo foi baixado corretamente");
                                   }),
                             ],
                           ),

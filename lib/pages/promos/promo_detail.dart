@@ -93,10 +93,10 @@ class _PromoDetailState extends State<PromoDetail> {
                 Padding(
                     padding: EdgeInsets.only(left: 25, right: 25),
                     child: Text(
-                        "Válido desde " +
+                        "Válido de " +
                             formatDate(DateTime.parse(promo.start_at),
                                 [dd, '-', mm, '-', yyyy]) +
-                            " hasta " +
+                            " até " +
                             formatDate(DateTime.parse(promo.end_at),
                                 [dd, '-', mm, '-', yyyy]),
                         style: TextStyle(

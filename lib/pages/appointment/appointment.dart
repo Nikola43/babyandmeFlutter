@@ -121,7 +121,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                             TextStyle(color: Colors.black),
                                         fillColor: Colors.white,
                                         //Add th Hint text here.
-                                        hintText: "Nombre",
+                                        hintText: "Nome",
 
                                         border: OutlineInputBorder(
                                           borderRadius:
@@ -192,7 +192,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                             Flushbar(
                                               backgroundColor:
                                                   Colors.orangeAccent,
-                                              title: "El nombre es obligatorio",
+                                              title: "Nome é obrigatório",
                                               message: " ",
                                               duration: Duration(seconds: 3),
                                             )..show(context);
@@ -204,7 +204,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                             Flushbar(
                                               backgroundColor:
                                                   Colors.orangeAccent,
-                                              title: "El email es obligatorio",
+                                              title: "Email é obrigatório",
                                               message: " ",
                                               duration: Duration(seconds: 3),
                                             )..show(context);
@@ -216,8 +216,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                             Flushbar(
                                               backgroundColor:
                                                   Colors.orangeAccent,
-                                              title:
-                                                  "El telefono es obligatorio",
+                                              title: "Telefone é obrigatório",
                                               message: " ",
                                               duration: Duration(seconds: 3),
                                             )..show(context);
@@ -243,9 +242,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                             if (result) {
                                               setState(() {
                                                 isLoading = false;
-                                                _phoneTextEditingController.text = "";
-                                                _nameTextEditingController.text = "";
-                                                _emailTextEditingController.text = "";
+                                                _phoneTextEditingController
+                                                    .text = "";
+                                                _nameTextEditingController
+                                                    .text = "";
+                                                _emailTextEditingController
+                                                    .text = "";
                                                 promoTitle = "";
                                               });
                                               print(result);
@@ -253,7 +255,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                                 backgroundColor:
                                                     Colors.orangeAccent,
                                                 title:
-                                                    "Solicitud enviada correctamente",
+                                                    "Pedido enviado com sucesso",
                                                 message: " ",
                                                 duration: Duration(seconds: 3),
                                               )..show(context);

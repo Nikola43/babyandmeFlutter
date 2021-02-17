@@ -158,7 +158,7 @@ class _HeartbeatPageState extends State<HeartbeatPage>
                   ),
                 ),
               ),
-              Text("Pulsa para ver escuchar el latido de tu corazon",
+              Text("Pressione para ouvir o batimento cardíaco",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: screenSize.width / 30,
