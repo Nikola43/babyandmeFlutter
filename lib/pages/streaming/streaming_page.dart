@@ -23,6 +23,7 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
   StreamingService streamingService = StreamingService();
   Size screenSize;
   FocusNode myFocusNode;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -120,50 +121,63 @@ class _StreamingCodePageState extends State<StreamingCodePage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4.0),
                               side: BorderSide(color: Colors.orangeAccent)),
-                          onPressed: () {
+                          onPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
                             if (_textFieldController.value.text.length == 4) {
-                              streamingService
-                                  .getStreamingByCode(
-                                      _textFieldController.value.text)
-                                  .then((value) => {
-                                        print(value.url),
-                                        if (value.url != null)
-                                          {
-                                            print("ok"),
-                                            Navigator.pushNamed(context,
-                                                StreamingYoutubeVideo.routeName,
-                                                arguments: value.url)
-                                          }
-                                        else
-                                          {
-                                            Flushbar(
-                                              backgroundColor:
-                                                  Colors.redAccent,
-                                              title: "Código no encontrado",
-                                              message: " ",
-                                              duration: Duration(seconds: 3),
-                                            )..show(context)
-                                          }
-                                      });
+                              var streamingResult =
+                                  await streamingService.getStreamingByCode(
+                                      _textFieldController.value.text);
+                              if (streamingResult != null) {
+                                print(streamingResult.url);
+                                if (streamingResult.url != null) {
+                                  print("ok");
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  Navigator.pushNamed(
+                                      context, StreamingYoutubeVideo.routeName,
+                                      arguments: streamingResult.url);
+                                } else {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  Flushbar(
+                                    backgroundColor: Colors.redAccent,
+                                    title: "Código no encontrado",
+                                    message: " ",
+                                    duration: Duration(seconds: 3),
+                                  )..show(context);
+                                }
+                              }
                             } else {
                               FocusScope.of(context).requestFocus(myFocusNode);
 
                               //myFocusNode.requestFocus();
                               Flushbar(
-                                backgroundColor:
-                                Colors.orangeAccent,
+                                backgroundColor: Colors.orangeAccent,
                                 title: "O código deve ter 4 letras",
                                 message: " ",
                                 duration: Duration(seconds: 3),
                               )..show(context);
+                              setState(() {
+                                isLoading = false;
+                              });
                             }
                           },
                           padding: EdgeInsets.all(10.0),
                           color: Colors.orangeAccent,
                           textColor: Colors.white,
-                          child: Text("VER",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold)),
+                          child: isLoading
+                              ? CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                )
+                              : Text("VER",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold)),
                         ),
                       )
                     ],

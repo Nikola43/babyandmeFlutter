@@ -116,8 +116,8 @@ class _PromoDetailState extends State<PromoDetail> {
                               borderRadius: BorderRadius.circular(4.0),
                               side: BorderSide(color: Colors.orangeAccent)),
                           onPressed: () {
-                            Navigator.pushNamed(
-                                context, AppointmentPage.routeName);
+                            Navigator.of(context)
+                                .pushNamed(AppointmentPage.routeName, arguments: promo.title);
                           },
                           padding: EdgeInsets.all(10.0),
                           color: Colors.orangeAccent,

@@ -1,15 +1,10 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:babyandme/utils/donwload_file_util.dart';
 import 'package:babyandme/utils/toast_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:universal_io/io.dart';
-
 import 'package:babyandme/login_screen.dart';
 import 'package:babyandme/models/image.dart';
 import 'package:babyandme/models/images.dart';
-import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:babyandme/providers/image_provider.dart' as p;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

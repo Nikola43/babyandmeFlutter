@@ -1,13 +1,12 @@
 import 'dart:ui';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:babyandme/login_screen.dart';
+import 'package:babyandme/services/appointment_service.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
 import '../../dashboard_screen.dart';
-import 'package:universal_io/io.dart';
 import 'package:flutter/services.dart';
 
 class AppointmentPage extends StatefulWidget {
@@ -26,6 +25,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
   FocusNode _nameTextEditingFocusNode;
   FocusNode _phoneTextEditingFocusNode;
   FocusNode _emailTextEditingFocusNode;
+  bool isLoading = false;
 
   DateTime selectedDate = DateTime.now();
   String _parsedDate = "";
@@ -61,7 +61,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
-    final openFrom = ModalRoute.of(context).settings.arguments;
+    String promoTitle = ModalRoute.of(context).settings.arguments;
+
+    AppointmentService appointmentService = new AppointmentService();
 
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
@@ -181,7 +183,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                                 BorderRadius.circular(4.0),
                                             side: BorderSide(
                                                 color: Colors.orangeAccent)),
-                                        onPressed: () {
+                                        onPressed: () async {
                                           if (_nameTextEditingController
                                                   .value.text.length ==
                                               0) {
@@ -220,43 +222,67 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                               duration: Duration(seconds: 3),
                                             )..show(context);
                                           } else {
-                                            Flushbar(
-                                              backgroundColor:
-                                                  Colors.orangeAccent,
-                                              title:
-                                                  "Solicitud enviada correctamente",
-                                              message: " ",
-                                              duration: Duration(seconds: 3),
-                                            )..show(context);
+                                            setState(() {
+                                              isLoading = true;
+                                            });
 
-                                            Future.delayed(Duration(seconds: 4),
-                                                () {
-                                              if (openFrom != null &&
-                                                  openFrom == 'login') {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          LoginScreen()),
-                                                );
-                                              } else {
+                                            var result = await appointmentService
+                                                .sendNewAppointment(
+                                                    _nameTextEditingController
+                                                        .value.text,
+                                                    _emailTextEditingController
+                                                        .value.text,
+                                                    _phoneTextEditingController
+                                                        .value.text,
+                                                    promoTitle != null &&
+                                                            promoTitle.length >
+                                                                0
+                                                        ? promoTitle
+                                                        : "");
+                                            print(result);
+                                            if (result) {
+                                              setState(() {
+                                                isLoading = false;
+                                                _phoneTextEditingController.text = "";
+                                                _nameTextEditingController.text = "";
+                                                _emailTextEditingController.text = "";
+                                                promoTitle = "";
+                                              });
+                                              print(result);
+                                              Flushbar(
+                                                backgroundColor:
+                                                    Colors.orangeAccent,
+                                                title:
+                                                    "Solicitud enviada correctamente",
+                                                message: " ",
+                                                duration: Duration(seconds: 3),
+                                              )..show(context);
+                                              Future.delayed(
+                                                  Duration(seconds: 4), () {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           DashboardScreen()),
                                                 );
-                                              }
-                                            });
+                                              });
+                                            }
                                           }
                                         },
                                         padding: EdgeInsets.all(10.0),
                                         color: Colors.orangeAccent,
                                         textColor: Colors.white,
-                                        child: Text("ENVIAR",
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold)),
+                                        child: isLoading
+                                            ? CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(Colors.white),
+                                              )
+                                            : Text("ENVIAR",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                       ),
                                     ),
                                   ]))),

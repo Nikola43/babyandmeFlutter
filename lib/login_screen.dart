@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:babyandme/services/recovery_password_service.dart';
 import 'package:babyandme/services/signup_service.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/scheduler.dart' show SchedulerBinding, timeDilation;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -216,8 +217,8 @@ class _LoginScreenState extends State<LoginScreen> {
               //   ),
               // ),
               emailValidator: (value) {
-                if (!value.contains('@') || !value.endsWith('.com')) {
-                  return "Seu correio eletrônico não é válido";
+                if (!EmailValidator.validate(value)) {
+                  return "Seu email não é válido";
                 }
                 return null;
               },
