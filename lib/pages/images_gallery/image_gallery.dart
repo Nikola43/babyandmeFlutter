@@ -40,7 +40,16 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
         type = ModalRoute.of(context).settings.arguments;
         print(type);
         future = imageProvider.getImages(type);
-        future.then((value) => {showDownloadButton = true, setState(() {})});
+        future.then((value) => {
+              print("value"),
+              print(value),
+              if (value != null && value.length > 0)
+                {
+                  setState(() {
+                    showDownloadButton = true;
+                  })
+                }
+            });
       });
     });
   }
