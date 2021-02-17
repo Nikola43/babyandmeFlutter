@@ -110,7 +110,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       icon: const Icon(FontAwesomeIcons.signOutAlt),
       color: Colors.white,
       onPressed: () => {
-        ToastUtil.makeToast("Ha cerrado sesión"),
+        //ToastUtil.makeToast("Ha cerrado sesión"),
         SharedPreferencesUtil.saveString("token", ""),
         Navigator.pushNamed(context, LoginScreen.routeName),
         //_goToLogin(context)
