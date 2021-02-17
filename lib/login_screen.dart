@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:babyandme/services/recovery_password_service.dart';
+import 'package:babyandme/services/signup_service.dart';
 import 'package:flutter/scheduler.dart' show SchedulerBinding, timeDilation;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,9 +28,46 @@ class _LoginScreenState extends State<LoginScreen> {
   Duration get loginTime => Duration(milliseconds: timeDilation.ceil() * 2250);
 
   final LoginService loginService = LoginService();
+  final SignUpService signUpService = SignUpService();
 
   final RecoveryPasswordService recoveryPasswordService =
       RecoveryPasswordService();
+
+  Future<String> _singUpUser(LoginData data) async {
+    var insertResult = await signUpService.signUp(data.name, data.password);
+    print(insertResult);
+
+    if (insertResult == true) {
+      var user = await loginService.login(data.name, data.password);
+      if (user != null && user.id > 0) {
+        await SharedPreferencesUtil.saveInt("user_id", user.id);
+        await SharedPreferencesUtil.saveString("token", user.token.string);
+        await SharedPreferencesUtil.saveInt("currentWeek", user.week);
+
+        ToastUtil.makeToast("Bem-vindo a Baby&Me by ecox Lisboa");
+        return null;
+      } else {
+        return 'Error usuario ya registrado';
+      }
+    } else {
+      return 'Error usuario ya registrado';
+    }
+
+    /*
+
+    if (user != null) {
+      await SharedPreferencesUtil.saveInt("user_id", user.id);
+      await SharedPreferencesUtil.saveString("token", user.token.string);
+      await SharedPreferencesUtil.saveInt("currentWeek", user.week);
+
+      ToastUtil.makeToast("Bem-vindo a Baby&Me by ecox Lisboa");
+      return null;
+    } else {
+      ToastUtil.makeToast("Usuário não encontrado");
+      return 'Usuário ou senha incorrectos';
+    }
+    */
+  }
 
   Future<String> _loginUser(LoginData data) async {
     var user = await loginService.login(data.name, data.password);
@@ -94,12 +132,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 forgotPasswordButton: 'Esqueceu a senha?',
                 recoverPasswordButton: 'Enviar',
                 goBackButton: 'Voltar',
-                confirmPasswordError:
-                    'As senhas não são as mesmas',
+                confirmPasswordError: 'As senhas não são as mesmas',
                 recoverPasswordIntro: 'Recuperar a senha',
                 recoverPasswordDescription:
                     'Digite seu e-mail para recuperar a senha',
-                recoverPasswordSuccess: 'Email enviado, revise sua bandeja de entrada',
+                recoverPasswordSuccess:
+                    'Email enviado, revise sua bandeja de entrada',
               ),
               // theme: LoginTheme(
               //   primaryColor: Colors.teal,
@@ -199,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 print('Signup info');
                 print('Name: ${loginData.name}');
                 print('Password: ${loginData.password}');
-                return _loginUser(loginData);
+                return _singUpUser(loginData);
               },
               onSubmitAnimationCompleted: () {
                 Navigator.push(context,

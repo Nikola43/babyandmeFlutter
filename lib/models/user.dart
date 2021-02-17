@@ -6,7 +6,6 @@ import 'NullString.dart';
 class User {
   int id;
   String username;
-  String password;
   NullString token;
   NullString firebaseToken;
   NullString pushToken;
@@ -15,7 +14,6 @@ class User {
   User({
     this.id,
     this.username,
-    this.password,
     this.token,
     this.firebaseToken,
     this.pushToken,
@@ -26,7 +24,6 @@ class User {
   User.fromJsonMap(Map<String, dynamic> json) {
     id = json['id'];
     username = json['username'];
-    password = json['password'];
     token = NullString.fromJsonMap(json['token']);
     firebaseToken = NullString.fromJsonMap(json['firebase_token']);
     pushToken = NullString.fromJsonMap(json['push_token']);
