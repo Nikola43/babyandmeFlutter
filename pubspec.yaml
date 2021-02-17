@@ -103,8 +103,45 @@ flutter:
     - assets/images/Mama-bebe.png
     - assets/images/babyandmelaranja.png
     - assets/weeks/1.json
-
-
+    - assets/weeks/2.json
+    - assets/weeks/3.json
+    - assets/weeks/4.json
+    - assets/weeks/5.json
+    - assets/weeks/6.json
+    - assets/weeks/7.json
+    - assets/weeks/8.json
+    - assets/weeks/9.json
+    - assets/weeks/10.json
+    - assets/weeks/11.json
+    - assets/weeks/12.json
+    - assets/weeks/13.json
+    - assets/weeks/14.json
+    - assets/weeks/15.json
+    - assets/weeks/16.json
+    - assets/weeks/17.json
+    - assets/weeks/18.json
+    - assets/weeks/19.json
+    - assets/weeks/20.json
+    - assets/weeks/21.json
+    - assets/weeks/22.json
+    - assets/weeks/23.json
+    - assets/weeks/24.json
+    - assets/weeks/25.json
+    - assets/weeks/26.json
+    - assets/weeks/27.json
+    - assets/weeks/28.json
+    - assets/weeks/29.json
+    - assets/weeks/30.json
+    - assets/weeks/31.json
+    - assets/weeks/32.json
+    - assets/weeks/33.json
+    - assets/weeks/34.json
+    - assets/weeks/35.json
+    - assets/weeks/36.json
+    - assets/weeks/37.json
+    - assets/weeks/38.json
+    - assets/weeks/39.json
+    - assets/weeks/40.json
 
   fonts:
     - family: Hologram

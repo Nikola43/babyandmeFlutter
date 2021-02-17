@@ -173,7 +173,8 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 25, right: 25),
-                      child: buildCalculatorText("assets/weeks/1.json"),
+                      child: buildCalculatorText(
+                          "assets/weeks/" + calc.id.toString() + ".json"),
                     ),
                     SizedBox(height: _screenSize.height / 32),
                   ]),
