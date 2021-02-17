@@ -1,5 +1,6 @@
 import 'package:babyandme/models/calculator.dart';
 import 'package:babyandme/utils/json_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/services.dart';
@@ -35,19 +36,8 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
     return difference.toInt();
   }
 
-  void read() async {
-    print("read");
-    var promoText = await JsonUtil.readJson("assets/weeks/1.json");
-    /*
-    for (int i = 0; i < plength; i++) {
-      ps.add(promoText["p" + i.toString()]);
-    }
-    */
-  }
-
   @override
   void initState() {
-    read();
     super.initState();
   }
 
@@ -75,7 +65,7 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
                     'bold': TextStyle(fontWeight: FontWeight.bold),
                   },
                 ));
-
+                calculatorTexts.add(Text(""));
                 /*
                 if (snapshot.data[i].contains("<bold>")) {
                   snapshot.data[i] = snapshot.data[i].replaceAll("<bold>", "");
@@ -153,24 +143,32 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(25),
-                      child: ClipRRect(
-                          borderRadius: new BorderRadius.circular(10.0),
-                          child: FadeInImage(
-                            fit: BoxFit.fitHeight,
-                            placeholder: AssetImage(
-                                "assets/images/9619-loading-dots-in-yellow.gif"),
-                            image: NetworkImage(calc.imageUrl),
-                          )),
-                      /*
-
-                              child: ExtendedImage.network(
-                                calc.imageUrl,
-                                fit: BoxFit.fill,
-                                cache: true,
-                              )),
-                           */
-                    ),
+                        padding: EdgeInsets.all(25),
+                        child: ClipRRect(
+                            borderRadius: new BorderRadius.circular(10.0),
+                            child: Container(
+                              width: _screenSize.width / 1.1,
+                              height: _screenSize.height / 3,
+                              child: CachedNetworkImage(
+                                imageUrl: calc.imageUrl,
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                                placeholder: (context, url) => SizedBox(
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.orangeAccent),
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
+                            ))),
                     Padding(
                       padding: EdgeInsets.only(left: 25, right: 25),
                       child: buildCalculatorText(
