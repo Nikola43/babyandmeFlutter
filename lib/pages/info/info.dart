@@ -108,10 +108,7 @@ class _InfoPageState extends State<InfoPage> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DashboardScreen()),
-            );
+            Navigator.pop(context);
           },
         ),
       ),

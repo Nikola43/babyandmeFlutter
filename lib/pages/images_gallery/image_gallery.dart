@@ -106,7 +106,7 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
             //onLongPress: _enableSelectionMode,
             child: type == 1
                 ? ClipRRect(
-                    borderRadius: new BorderRadius.circular(10.0),
+                    borderRadius: new BorderRadius.circular(4.0),
                     child: CachedNetworkImage(
                       imageUrl:
                           type == 1 ? list[index].url : list[index].thumbnail,
@@ -133,7 +133,7 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
                           width: 200,
                           height: 200,
                           child: ClipRRect(
-                              borderRadius: new BorderRadius.circular(10.0),
+                              borderRadius: new BorderRadius.circular(4.0),
                               child: CachedNetworkImage(
                                 imageUrl: type == 1
                                     ? list[index].url

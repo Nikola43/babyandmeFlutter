@@ -72,7 +72,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
           centerTitle: true,
           // this is all you need
           title: Text(
-            "CITAS",
+            "MARCAÇOES",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           leading: new IconButton(

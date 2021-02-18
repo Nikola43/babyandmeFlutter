@@ -198,7 +198,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       children: [
         _buildButton(
           icon: Icon(FontAwesomeIcons.calendarAlt),
-          label: 'CITAS',
+          label: 'MARCAÇOES',
           interval: Interval(step * 2, aniInterval + step * 2),
           onPressed: () =>
               {Navigator.pushNamed(context, AppointmentPage.routeName)},
