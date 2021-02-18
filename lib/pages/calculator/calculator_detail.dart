@@ -148,7 +148,7 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
                             borderRadius: new BorderRadius.circular(10.0),
                             child: Container(
                               width: _screenSize.width / 1.1,
-                              height: _screenSize.height / 3,
+                              height: _screenSize.height / 2.5,
                               child: CachedNetworkImage(
                                 imageUrl: calc.imageUrl,
                                 imageBuilder: (context, imageProvider) =>
@@ -156,7 +156,7 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                         image: imageProvider,
-                                        fit: BoxFit.cover),
+                                        fit: BoxFit.fill),
                                   ),
                                 ),
                                 placeholder: (context, url) => SizedBox(
