@@ -1,14 +1,20 @@
+import 'dart:io';
+
 import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayer/audioplayer.dart';
 import 'package:babyandme/models/heartbeat.dart';
 import 'package:babyandme/providers/audio_provider.dart';
 import 'package:babyandme/services/heartbeat_service.dart';
+import 'package:babyandme/utils/donwload_file_util.dart';
 import 'package:babyandme/utils/toast_util.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../dashboard_screen.dart';
 
@@ -27,12 +33,16 @@ class _HeartbeatPageState extends State<HeartbeatPage>
   bool isPlaying = false;
   AudioPlayer audioPlayer = new AudioPlayer();
   AudioProvider audioProvider;
+  bool showDownloadButton = false;
+  static var httpClient = new HttpClient();
 
   AnimationController motionController;
   Animation motionAnimation;
   double size = 300;
+  File downloadedFile;
   Heartbeat heartbeat;
   Size screenSize;
+  Future future;
 
   HeartbeatService heartbeatService = new HeartbeatService();
 
@@ -40,17 +50,19 @@ class _HeartbeatPageState extends State<HeartbeatPage>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    heartbeatService.getHeartbeat().then((value) => {
-          if (value != null)
-            {
-              heartbeat = value,
-              Future.delayed(Duration.zero, () {
-                setState(() {
-                  audioProvider = new AudioProvider(heartbeat.url);
-                });
-              })
-            }
-        });
+    heartbeatService.getHeartbeat().then((value) =>
+    {
+      if (value != null && value.url != null)
+        {
+          heartbeat = value,
+          Future.delayed(Duration.zero, () {
+            setState(() {
+              showDownloadButton = true;
+              audioProvider = new AudioProvider(heartbeat.url);
+            });
+          })
+        }
+    });
 
     motionController = AnimationController(
       duration: Duration(seconds: 1),
@@ -101,8 +113,13 @@ class _HeartbeatPageState extends State<HeartbeatPage>
 
   @override
   Widget build(BuildContext context) {
-    screenSize = MediaQuery.of(context).size;
-    final openFrom = ModalRoute.of(context).settings.arguments;
+    screenSize = MediaQuery
+        .of(context)
+        .size;
+    final openFrom = ModalRoute
+        .of(context)
+        .settings
+        .arguments;
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Stack(children: [
@@ -124,48 +141,84 @@ class _HeartbeatPageState extends State<HeartbeatPage>
           backgroundColor: Colors.transparent,
           // <-- SCAFFOLD WITH TRANSPARENT BG
           appBar: AppBar(
-            centerTitle: true, // this is all you need
+            centerTitle: true,
+            // this is all you need
             title: Text(
               "BATIMENTO",
               style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             backgroundColor: Colors.orangeAccent,
+            actions: [
+              showDownloadButton
+                  ? IconButton(
+                icon: new Icon(FontAwesomeIcons.download,
+                    color: Colors.white),
+                onPressed: () async =>
+                {
+                  ToastUtil.makeToast("Descargando"),
+                  downloadedFile = await _downloadFile(heartbeat.url, heartbeat.url.split("/")[heartbeat.url.split("/").length - 1]),
+                  await OpenFile.open(downloadedFile.path)
+                },
+              )
+                  : Text(""),
+              showDownloadButton ?
+              IconButton(
+                icon: Icon(
+                  Icons.share,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  DownloadFileUtil.shareFile(heartbeat.url, "audio/mp3");
+                },
+              ): Text("")
+            ],
             leading: new IconButton(
                 icon: new Icon(FontAwesomeIcons.arrowLeft, color: Colors.white),
-                onPressed: () => {
-                      isPlaying = false,
-                      audioPlayer.stop(),
-                      motionController.stop(canceled: true),
-                      Navigator.pop(context)
-                    }),
+                onPressed: () =>
+                {
+                  isPlaying = false,
+                  audioPlayer.stop(),
+                  motionController.stop(canceled: true),
+                  Navigator.pop(context)
+                }),
           ),
           body: Center(
               child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  play();
-                },
-                child: Container(
-                  height: size,
-                  width: size,
-                  child: Icon(
-                    FontAwesomeIcons.solidHeart,
-                    size: size,
-                    color: Colors.red,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      play();
+                    },
+                    child: Container(
+                      height: size,
+                      width: size,
+                      child: Icon(
+                        FontAwesomeIcons.solidHeart,
+                        size: size,
+                        color: Colors.red,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Text("Pressione para ouvir o batimento cardíaco",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: screenSize.width / 30,
-                      fontWeight: FontWeight.bold)),
-            ],
-          )))
+                  Text("Pressione para ouvir o batimento cardíaco",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenSize.width / 30,
+                          fontWeight: FontWeight.bold)),
+                ],
+              )))
     ]);
+  }
+
+  Future<File> _downloadFile(String url, String filename) async {
+    var request = await httpClient.getUrl(Uri.parse(url));
+    var response = await request.close();
+    var bytes = await consolidateHttpClientResponseBytes(response);
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    File file = new File('$dir/$filename');
+    await file.writeAsBytes(bytes);
+    return file;
   }
 
   play() async {
@@ -181,7 +234,8 @@ class _HeartbeatPageState extends State<HeartbeatPage>
           title: "Não tem batimento cardíaco disponível",
           message: " ",
           duration: Duration(seconds: 3),
-        )..show(context);
+        )
+          ..show(context);
       }
     } else {
       isPlaying = false;

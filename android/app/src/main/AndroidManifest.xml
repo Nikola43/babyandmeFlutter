@@ -8,7 +8,7 @@
 
     <application
         android:label="baby&amp;me (by Ecox Lisboa)"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true">
         <meta-data android:name="com.google.android.geo.API_KEY"
                    android:value="AIzaSyDhi5ZVIZaMhpg_Ur6F_txFjxOqBOWv-Dg"/>

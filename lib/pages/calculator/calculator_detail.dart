@@ -143,32 +143,22 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsets.all(25),
-                        child: ClipRRect(
-                            borderRadius: new BorderRadius.circular(10.0),
-                            child: Container(
-                              width: _screenSize.width / 1.1,
-                              height: _screenSize.height / 2.5,
-                              child: CachedNetworkImage(
-                                imageUrl: calc.imageUrl,
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.fill),
-                                  ),
-                                ),
-                                placeholder: (context, url) => SizedBox(
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.orangeAccent),
-                                  ),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ))),
+                      padding: EdgeInsets.all(25),
+                      child: CachedNetworkImage(
+                        imageUrl: calc.imageUrl,
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                          radius: _screenSize.width / 2,
+                          backgroundImage: imageProvider,
+                        ),
+                        placeholder: (context, url) => SizedBox(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.orangeAccent),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.only(left: 25, right: 25),
                       child: buildCalculatorText(

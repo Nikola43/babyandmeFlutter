@@ -198,7 +198,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       children: [
         _buildButton(
           icon: Icon(FontAwesomeIcons.calendarAlt),
-          label: 'MARCAÇOES',
+          label: 'MARCAÇÕES',
           interval: Interval(step * 2, aniInterval + step * 2),
           onPressed: () =>
               {Navigator.pushNamed(context, AppointmentPage.routeName)},
@@ -224,7 +224,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         ),
         _buildButton(
           icon: Icon(FontAwesomeIcons.video),
-          label: 'VIDEOS',
+          label: 'VÍDEOS',
           interval: Interval(step * 2, aniInterval + step * 2),
           onPressed: () => {_goToImageGallery(context, 2)},
         ),

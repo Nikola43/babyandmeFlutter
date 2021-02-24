@@ -184,7 +184,7 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
         label = "IMAGENS";
         break;
       case 2:
-        label = "VIDEOS";
+        label = "VÍDEOS";
         break;
       case 3:
         label = "HOLOGRAFIAS";
