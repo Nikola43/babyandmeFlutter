@@ -136,9 +136,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 confirmPasswordError: 'As senhas não são as mesmas',
                 recoverPasswordIntro: 'Recuperar a senha',
                 recoverPasswordDescription:
-                    'Digite seu e-mail para recuperar a senha',
+                    'Digite o seu e-mail para recuperar a senha',
                 recoverPasswordSuccess:
-                    'Email enviado, revise sua bandeja de entrada',
+                    'E-mail enviado. Verifique a sua caixa de entrada.',
               ),
               // theme: LoginTheme(
               //   primaryColor: Colors.teal,
