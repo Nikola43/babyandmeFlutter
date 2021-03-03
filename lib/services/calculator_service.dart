@@ -9,6 +9,25 @@ class CalculatorService {
   final apiUrl = "https://api.babyandme.stelast.com/api/calculator/week";
 
   Future<Calculator> calculatorByWeek(int id) async {
+
+    final Calculator week = Calculator(id: id);
+    Calculator week2;
+    print(week.id);
+
+    try {
+      final response =
+          await HttpRequestUtil.makePostRequest(apiUrl, jsonEncode(week));
+      week2 = Calculator.fromJsonMap(response);
+
+
+    } on NoSuchMethodError catch (e) {
+      print('error caught: $e');
+    }
+
+    return week2;
+  }
+
+  Future<Calculator> calculatorByWeekSave(int id) async {
     var userId = await SharedPreferencesUtil.getInt('user_id');
 
     final Calculator week = Calculator(id: id, userId: userId);
@@ -17,7 +36,7 @@ class CalculatorService {
 
     try {
       final response =
-          await HttpRequestUtil.makePostRequest(apiUrl, jsonEncode(week));
+      await HttpRequestUtil.makePostRequest(apiUrl, jsonEncode(week));
       week2 = Calculator.fromJsonMap(response);
 
 

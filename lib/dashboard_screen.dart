@@ -1,5 +1,8 @@
+import 'package:babyandme/services/calculator_service.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:babyandme/utils/toast_util.dart';
+import 'package:date_format/date_format.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:universal_io/io.dart';
 import 'package:babyandme/login_screen.dart';
 import 'package:babyandme/pages/appointment/appointment.dart';
@@ -30,31 +33,9 @@ class _DashboardScreenState extends State<DashboardScreen>
     with SingleTickerProviderStateMixin, TransitionRouteAware {
   Size screenSize;
 
-  Future<bool> _goToLogin(BuildContext context) {
-    return Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ))
-        .then((_) => false);
-
-    /*
-    Navigator.of(context).pop();
-    return Future.delayed(Duration(milliseconds: 1)).then((_) {
-      return false;
-    });
-    return Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ))
-        .then((_) => false);
-
-
-        return Navigator.of(context)
-        .pushReplacementNamed('/')
-        // we dont want to pop the screen, just replace it completely
-        .then((_) => false);
-     */
-  }
+  CalculatorService calculatorService = new CalculatorService();
+  DateTime selectedDate = DateTime.now();
+  String _parsedDate = formatDate(DateTime.now(), [dd, ' / ', mm, ' / ', yyyy]);
 
   final routeObserver = TransitionRouteObserver<PageRoute>();
   static const headerAniInterval =
@@ -65,6 +46,122 @@ class _DashboardScreenState extends State<DashboardScreen>
   @override
   void initState() {
     super.initState();
+
+    Future.delayed(Duration.zero, () {
+      // check if user has logged
+      SharedPreferencesUtil.getInt('user_id').then((value) => {
+            if (value > 0)
+              {
+                SharedPreferencesUtil.getInt('first_login').then((value) => {
+                      if (value != 1)
+                        {
+                          print('value'),
+                          print(value),
+                          showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Center(child: Text('Data de nascimento')),
+                              content: Container(
+                                margin: EdgeInsets.all(10),
+                                width: 150,
+                                height: 50.0,
+                                child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      side: BorderSide(
+                                          color: Colors.orangeAccent)),
+                                  onPressed: () {
+                                    DatePicker.showDatePicker(context,
+                                        currentTime: selectedDate,
+                                        theme: DatePickerTheme(
+                                          containerHeight: 210.0,
+                                        ),
+                                        showTitleActions: true,
+                                        minTime: DateTime.now(),
+                                        maxTime: calculateMaxDate(),
+                                        onConfirm: (date) async {
+                                      print('confirm $date');
+                                      selectedDate = date;
+                                      _parsedDate =
+                                          '${date.day} / ${date.month} / ${date.year}';
+                                      // calculateWeekBySetDate(date);
+
+                                      var diff =
+                                          getDifferenceBetweenDatesInWeeks(
+                                              date, new DateTime.now());
+                                      print("diff");
+                                      print(diff);
+
+                                      var week = calculatePregnancyWeeks(date);
+                                      print("week");
+                                      print(week);
+
+                                      await SharedPreferencesUtil.saveString(
+                                          'calculated_date',
+                                          selectedDate.toString());
+
+                                      calculatorService
+                                          .calculatorByWeekSave(week)
+                                          .then((val) {
+                                        setState(() {});
+                                        Navigator.pop(context);
+
+                                        SharedPreferencesUtil.saveInt(
+                                                'first_login', 1)
+                                            .then((value) => {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (_) => AlertDialog(
+                                                      title: Center(
+                                                          child: Text(
+                                                              'Data de nascimento')),
+                                                      content: Text(
+                                                          "Data de nascimento salva corretamente",
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .green)),
+                                                      actions: [
+                                                        FlatButton(
+                                                            child: Text("OK"),
+                                                            textColor:
+                                                                Colors.blue,
+                                                            onPressed:
+                                                                () async {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            }),
+                                                      ],
+                                                    ),
+                                                  )
+                                                });
+                                      });
+                                    }, locale: LocaleType.es);
+                                  },
+                                  padding: EdgeInsets.all(10.0),
+                                  color: Colors.orangeAccent,
+                                  textColor: Colors.white,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Icon(FontAwesomeIcons.calendarAlt),
+                                      Text(_parsedDate,
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold)),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              actions: [],
+                            ),
+                          )
+                        }
+                    }),
+              }
+          });
+    });
 
     /*
     SystemChrome.setSystemUIOverlayStyle(
@@ -104,6 +201,46 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   @override
   void didPushAfterTransition() => _loadingController.forward();
+
+  int calculatePregnancyWeeks(DateTime estimatedBirthDate) {
+    DateTime now = new DateTime.now();
+
+    var diff = getDifferenceBetweenDatesInWeeks(estimatedBirthDate, now);
+    print("diff inside");
+    print(diff);
+
+    var lastMenstruationDate = now.add(new Duration(days: -280 + (diff * 7)));
+
+    return this.getDifferenceBetweenDatesInWeeks(lastMenstruationDate, now);
+  }
+
+  int getDifferenceBetweenDatesInWeeks(DateTime startDate, DateTime endDate) {
+    var difference = startDate.difference(endDate).inDays / 7;
+    difference = difference.abs();
+    print("difference");
+    print(difference);
+    if (difference <= 1) {
+      difference = 1;
+    }
+    return difference.toInt();
+  }
+
+  DateTime calculateMaxDate() {
+    var now = new DateTime.now();
+    var minDate = now.add(new Duration(days: 280));
+    return minDate;
+  }
+
+  int calculateWeekBySetDate(DateTime selectedDate) {
+    var difference = new DateTime.now().difference(selectedDate).inDays / 7;
+    print(difference);
+    if (difference <= 1) {
+      difference = 1;
+    }
+    SharedPreferencesUtil.saveInt("currentWeek", difference.toInt());
+
+    return difference.toInt();
+  }
 
   AppBar _buildAppBar(ThemeData theme) {
     final signOutBtn = IconButton(
