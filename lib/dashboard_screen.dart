@@ -101,6 +101,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           'calculated_date',
                                           selectedDate.toString());
 
+                                      SharedPreferencesUtil.saveInt("currentWeek", week);
+
                                       calculatorService
                                           .calculatorByWeekSave(week)
                                           .then((val) {
@@ -237,7 +239,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     if (difference <= 1) {
       difference = 1;
     }
-    SharedPreferencesUtil.saveInt("currentWeek", difference.toInt());
 
     return difference.toInt();
   }

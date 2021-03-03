@@ -24,19 +24,50 @@ class _CalculatorPageState extends State<CalculatorPage> {
   String _parsedDate = "";
   int _userID = 0;
 
-  DateTime calculateMinDate() {
+  Future<DateTime> calculateMaxDate() async {
+    /*
     var now = new DateTime.now();
-    var minDate = now.add(new Duration(days: -280));
+    int currentWeek = await SharedPreferencesUtil.getInt("currentWeek");
+    DateTime maxDate = now;
+    currentWeek = 40 - currentWeek;
+
+    print(currentWeek);
+    print(280 - currentWeek * 7);
+
+    if (currentWeek != null) {
+      maxDate = now.add(new Duration(days: 280 - currentWeek * 7));
+    }
+    return maxDate;
+    */
+
+    return new DateTime.now();
+  }
+
+  Future<DateTime> calculateMinDate() async {
+    var now = new DateTime.now();
+    DateTime minDate = now.add(new Duration(days: -280));
+    /*
+    var now = new DateTime.now();
+    int currentWeek = await SharedPreferencesUtil.getInt("currentWeek");
+    DateTime minDate = now.add(new Duration(days: -280));
+
+    if (currentWeek != null) {
+      minDate = now.add(new Duration(days: -280 + (currentWeek * 7)));
+    }
+    */
+
     return minDate;
   }
 
   int calculateWeekBySetDate(DateTime selectedDate) {
     var difference = new DateTime.now().difference(selectedDate).inDays / 7;
     print(difference);
+    difference = difference.abs();
     if (difference <= 1) {
       difference = 1;
     }
-    SharedPreferencesUtil.saveInt("currentWeek", difference.toInt());
+
+    //SharedPreferencesUtil.saveInt("currentWeek", difference.toInt());
 
     return difference.toInt();
   }
@@ -51,6 +82,29 @@ class _CalculatorPageState extends State<CalculatorPage> {
         selectedDate = time;
       });
     }
+  }
+
+  int calculatePregnancyWeeks(DateTime estimatedBirthDate) {
+    DateTime now = new DateTime.now();
+
+    var diff = getDifferenceBetweenDatesInWeeks(estimatedBirthDate, now);
+    print("diff inside");
+    print(diff);
+
+    var lastMenstruationDate = now.add(new Duration(days: -280 + (diff * 7)));
+
+    return this.getDifferenceBetweenDatesInWeeks(lastMenstruationDate, now);
+  }
+
+  int getDifferenceBetweenDatesInWeeks(DateTime startDate, DateTime endDate) {
+    var difference = startDate.difference(endDate).inDays / 7;
+    difference = difference.abs();
+    print("difference");
+    print(difference);
+    if (difference <= 1) {
+      difference = 1;
+    }
+    return difference.toInt();
   }
 
   @override
@@ -127,15 +181,16 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4.0),
                         side: BorderSide(color: Colors.orangeAccent)),
-                    onPressed: () {
+                    onPressed: () async {
                       DatePicker.showDatePicker(context,
                           currentTime: selectedDate,
                           theme: DatePickerTheme(
                             containerHeight: 210.0,
                           ),
                           showTitleActions: true,
-                          minTime: calculateMinDate(),
-                          maxTime: new DateTime.now(), onConfirm: (date) async {
+                          minTime: await calculateMinDate(),
+                          maxTime: await calculateMaxDate(),
+                          onConfirm: (date) async {
                         print('confirm $date');
                         selectedDate = date;
                         _parsedDate =
@@ -148,8 +203,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
                           print(_userID);
                         }
 
-                        await SharedPreferencesUtil.saveString(
-                            'calculated_date', selectedDate.toString());
+                        //await SharedPreferencesUtil.saveString(
+                        //    'calculated_date', selectedDate.toString());
 
                         calculatorService
                             .calculatorByWeek(
