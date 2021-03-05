@@ -43,6 +43,12 @@ class _CalculatorPageState extends State<CalculatorPage> {
     return new DateTime.now();
   }
 
+  DateTime calculateMaxDate2() {
+    var now = new DateTime.now();
+    var minDate = now.add(new Duration(days: 287));
+    return minDate;
+  }
+
   Future<DateTime> calculateMinDate() async {
     var now = new DateTime.now();
     DateTime minDate = now.add(new Duration(days: -280));
@@ -93,7 +99,13 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
     var lastMenstruationDate = now.add(new Duration(days: -280 + (diff * 7)));
 
-    return this.getDifferenceBetweenDatesInWeeks(lastMenstruationDate, now);
+    int weeks =
+        this.getDifferenceBetweenDatesInWeeks(lastMenstruationDate, now);
+    if (weeks == 0) {
+      weeks = 1;
+    }
+
+    return weeks;
   }
 
   int getDifferenceBetweenDatesInWeeks(DateTime startDate, DateTime endDate) {
@@ -101,9 +113,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
     difference = difference.abs();
     print("difference");
     print(difference);
-    if (difference <= 1) {
-      difference = 1;
-    }
     return difference.toInt();
   }
 
@@ -166,7 +175,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                 Lottie.asset('assets/images/14483-newborn.json', width: 250.0),
                 SizedBox(height: screenSize.height / 32),
                 Text(
-                  "Selecione a data da sua última menstruação",
+                  "Selecione a data prevista para o parto",
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -188,13 +197,38 @@ class _CalculatorPageState extends State<CalculatorPage> {
                             containerHeight: 210.0,
                           ),
                           showTitleActions: true,
-                          minTime: await calculateMinDate(),
-                          maxTime: await calculateMaxDate(),
+                          minTime: DateTime.now(),
+                          maxTime: calculateMaxDate2(),
                           onConfirm: (date) async {
                         print('confirm $date');
                         selectedDate = date;
                         _parsedDate =
                             '${date.day} / ${date.month} / ${date.year}';
+
+                        var diff = getDifferenceBetweenDatesInWeeks(
+                            date, new DateTime.now());
+                        print("diff");
+                        print(diff);
+
+                        var week = calculatePregnancyWeeks(date);
+                        print("week");
+                        print(week);
+
+                        await SharedPreferencesUtil.saveString(
+                            'calculated_date', selectedDate.toString());
+
+                        SharedPreferencesUtil.saveInt("currentWeek", week);
+
+                        calculatorService.calculatorByWeek(week).then((val) {
+                          if (val != null) {
+                            val.selectedDateTime = selectedDate;
+                            Navigator.of(context).pushNamed(
+                                '/calculator_detail',
+                                arguments: val);
+                          }
+                        });
+
+                        /*
                         calculateWeekBySetDate(date);
 
                         if (_userID != 0) {
@@ -216,7 +250,10 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                 '/calculator_detail',
                                 arguments: val);
                           }
+
                         });
+                        */
+
                         setState(() {});
                       }, locale: LocaleType.es);
                     },

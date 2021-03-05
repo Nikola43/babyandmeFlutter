@@ -55,8 +55,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                 SharedPreferencesUtil.getInt('first_login').then((value) => {
                       if (value != 1)
                         {
-                          print('value'),
-                          print(value),
                           showDialog(
                             barrierDismissible: false,
                             context: context,
@@ -82,7 +80,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         minTime: DateTime.now(),
                                         maxTime: calculateMaxDate(),
                                         onConfirm: (date) async {
-                                      print('confirm $date');
                                       selectedDate = date;
                                       _parsedDate =
                                           '${date.day} / ${date.month} / ${date.year}';

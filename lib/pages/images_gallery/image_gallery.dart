@@ -38,11 +38,8 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
     Future.delayed(Duration.zero, () {
       setState(() {
         type = ModalRoute.of(context).settings.arguments;
-        print(type);
         future = imageProvider.getImages(type);
         future.then((value) => {
-              print("value"),
-              print(value),
               if (value != null && value.length > 0)
                 {
                   setState(() {
@@ -173,7 +170,6 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
     screenSize = MediaQuery.of(context).size;
     type = ModalRoute.of(context).settings.arguments;
 
-    print(type);
     if (type < 0) {
       type = 1;
     }
@@ -263,8 +259,6 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
     );
 
     setState(() {
-      print("showDownloadButton");
-      print(showDownloadButton);
     });
 
     return Scaffold(

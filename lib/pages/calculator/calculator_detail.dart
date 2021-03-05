@@ -20,7 +20,6 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
 
   int calculateDaysBySetDate(DateTime selectedDate) {
     var difference = new DateTime.now().difference(selectedDate).inDays % 7;
-    print(difference);
     if (difference <= 1) {
       difference = 1;
     }
@@ -29,7 +28,6 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
 
   int calculateWeekBySetDate(DateTime selectedDate) {
     var difference = new DateTime.now().difference(selectedDate).inDays / 7;
-    print(difference);
     if (difference <= 1) {
       difference = 1;
     }

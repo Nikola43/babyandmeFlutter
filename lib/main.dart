@@ -120,8 +120,6 @@ class _MyAppState extends State<MyApp> {
     OneSignal.shared
         .promptUserForPushNotificationPermission(fallbackToSettings: true)
         .then((value) => {
-          print(value),
-        print(value)
         });
 
     return MaterialApp(
