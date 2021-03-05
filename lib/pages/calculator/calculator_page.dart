@@ -24,26 +24,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
   String _parsedDate = "";
   int _userID = 0;
 
-  Future<DateTime> calculateMaxDate() async {
-    /*
-    var now = new DateTime.now();
-    int currentWeek = await SharedPreferencesUtil.getInt("currentWeek");
-    DateTime maxDate = now;
-    currentWeek = 40 - currentWeek;
-
-    print(currentWeek);
-    print(280 - currentWeek * 7);
-
-    if (currentWeek != null) {
-      maxDate = now.add(new Duration(days: 280 - currentWeek * 7));
-    }
-    return maxDate;
-    */
-
-    return new DateTime.now();
-  }
-
-  DateTime calculateMaxDate2() {
+  DateTime calculateMaxDate() {
     var now = new DateTime.now();
     var minDate = now.add(new Duration(days: 287));
     return minDate;
@@ -198,7 +179,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                           ),
                           showTitleActions: true,
                           minTime: DateTime.now(),
-                          maxTime: calculateMaxDate2(),
+                          maxTime: calculateMaxDate(),
                           onConfirm: (date) async {
                         print('confirm $date');
                         selectedDate = date;

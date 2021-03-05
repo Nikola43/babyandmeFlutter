@@ -212,7 +212,13 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     var lastMenstruationDate = now.add(new Duration(days: -280 + (diff * 7)));
 
-    return this.getDifferenceBetweenDatesInWeeks(lastMenstruationDate, now);
+    int weeks =
+    this.getDifferenceBetweenDatesInWeeks(lastMenstruationDate, now);
+    if (weeks == 0) {
+      weeks = 1;
+    }
+
+    return weeks;
   }
 
   int getDifferenceBetweenDatesInWeeks(DateTime startDate, DateTime endDate) {
@@ -220,15 +226,12 @@ class _DashboardScreenState extends State<DashboardScreen>
     difference = difference.abs();
     print("difference");
     print(difference);
-    if (difference <= 1) {
-      difference = 1;
-    }
     return difference.toInt();
   }
 
   DateTime calculateMaxDate() {
     var now = new DateTime.now();
-    var minDate = now.add(new Duration(days: 280));
+    var minDate = now.add(new Duration(days: 287));
     return minDate;
   }
 
