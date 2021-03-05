@@ -19,8 +19,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'transition_route_observer.dart';
 import 'widgets/fade_in.dart';
 import 'widgets/round_button.dart';
-import 'package:universal_io/io.dart';
-import 'package:flutter/services.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const routeName = '/dashboard';
@@ -42,6 +40,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       const Interval(.1, .3, curve: Curves.easeOut);
   Animation<double> _headerScaleAnimation;
   AnimationController _loadingController;
+  int userId = 0;
 
   @override
   void initState() {
@@ -53,7 +52,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             if (value > 0)
               {
                 SharedPreferencesUtil.getInt('first_login').then((value) => {
-                      if (value != 1)
+                      if (value == 1)
                         {
                           showDialog(
                             barrierDismissible: false,
@@ -95,11 +94,18 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       print("week");
                                       print(week);
 
+                                      // save day who user first calc
                                       await SharedPreferencesUtil.saveString(
                                           'calculated_date',
+                                          new DateTime.now().toString());
+
+                                      // save calculated date
+                                      await SharedPreferencesUtil.saveString(
+                                          'calculated_date_week',
                                           selectedDate.toString());
 
-                                      SharedPreferencesUtil.saveInt(
+                                      // save calculated week
+                                      await SharedPreferencesUtil.saveInt(
                                           "currentWeek", week);
 
                                       calculatorService
@@ -213,7 +219,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     var lastMenstruationDate = now.add(new Duration(days: -280 + (diff * 7)));
 
     int weeks =
-    this.getDifferenceBetweenDatesInWeeks(lastMenstruationDate, now);
+        this.getDifferenceBetweenDatesInWeeks(lastMenstruationDate, now);
     if (weeks == 0) {
       weeks = 1;
     }
@@ -231,7 +237,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   DateTime calculateMaxDate() {
     var now = new DateTime.now();
-    var minDate = now.add(new Duration(days: 287));
+    var minDate = now.add(new Duration(days: 280));
     return minDate;
   }
 
@@ -249,9 +255,14 @@ class _DashboardScreenState extends State<DashboardScreen>
     final signOutBtn = IconButton(
       icon: const Icon(FontAwesomeIcons.signOutAlt),
       color: Colors.white,
-      onPressed: () => {
-        ToastUtil.makeToast("Sessão encerrada"),
-        SharedPreferencesUtil.saveString("token", ""),
+      onPressed: () async => {
+        userId = await SharedPreferencesUtil.getInt('user_id'),
+        if (userId != null && userId > 0)
+          {
+            ToastUtil.makeToast("Sessão encerrada"),
+            await SharedPreferencesUtil.saveInt("user_id", 0),
+            await SharedPreferencesUtil.saveString("token", ""),
+          },
         Navigator.pushNamed(context, LoginScreen.routeName),
         //_goToLogin(context)
       },

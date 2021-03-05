@@ -18,30 +18,36 @@ class CalculatorPage extends StatefulWidget {
 }
 
 class _CalculatorPageState extends State<CalculatorPage> {
-  Size screenSize;
+  CalculatorService calculatorService = new CalculatorService();
 
+  Size screenSize;
   DateTime selectedDate = DateTime.now();
-  String _parsedDate = "";
-  int _userID = 0;
+  String _parsedDate = formatDate(DateTime.now(), [dd, ' / ', mm, ' / ', yyyy]);
+  String calculatedDateWeek = "";
+  String calculatedDate = "";
+  int currentWeek = 0;
+  int userId = 0;
 
   DateTime calculateMaxDate() {
     var now = new DateTime.now();
-    var minDate = now.add(new Duration(days: 287));
-    return minDate;
+    var maxDate = now.add(new Duration(days: 280));
+
+    if (userId != null && userId > 0 && calculatedDateWeek != null) {
+      maxDate = DateTime.parse(calculatedDateWeek)
+          .add(new Duration(days: 280 - (40 - currentWeek) * 7));
+    }
+
+    return maxDate;
   }
 
   Future<DateTime> calculateMinDate() async {
     var now = new DateTime.now();
-    DateTime minDate = now.add(new Duration(days: -280));
-    /*
-    var now = new DateTime.now();
-    int currentWeek = await SharedPreferencesUtil.getInt("currentWeek");
-    DateTime minDate = now.add(new Duration(days: -280));
+    DateTime minDate = now;
 
-    if (currentWeek != null) {
-      minDate = now.add(new Duration(days: -280 + (currentWeek * 7)));
+    if (userId != null && userId > 0 && calculatedDateWeek != null) {
+      minDate = DateTime.parse(calculatedDateWeek)
+          .add(new Duration(days: -(40 - currentWeek) * 7));
     }
-    */
 
     return minDate;
   }
@@ -53,18 +59,41 @@ class _CalculatorPageState extends State<CalculatorPage> {
     if (difference <= 1) {
       difference = 1;
     }
-
-    //SharedPreferencesUtil.saveInt("currentWeek", difference.toInt());
-
     return difference.toInt();
   }
 
   void getCalculatedDate() async {
-    String date = await SharedPreferencesUtil.getString('calculated_date');
-    if (date != null) {
-      print(date);
+    userId = await SharedPreferencesUtil.getInt('user_id');
+
+    calculatedDateWeek =
+        await SharedPreferencesUtil.getString('calculated_date_week');
+    calculatedDate = await SharedPreferencesUtil.getString('calculated_date');
+    currentWeek = await SharedPreferencesUtil.getInt('currentWeek');
+
+    print("calculatedDateWeek");
+    print(calculatedDateWeek);
+    print("calculatedDate");
+    print(calculatedDate);
+    print("currentWeek");
+    print(currentWeek.toString());
+
+    print("calculatedDateWeek");
+    if (userId != null && userId > 0 && calculatedDateWeek != null) {
+      /*
+      var d =
+      DateTime.parse(calculatedDate).difference(new DateTime.now()).inDays;
+
+      print("d");
+      print(d);
+      var diff = getDifferenceBetweenDatesInWeeks(
+          DateTime.parse(calculatedDateWeek), new DateTime.now());
+      print("getCalculatedDate");
+      print(diff);
+      */
+
       setState(() {
-        DateTime time = DateTime.parse(date);
+        DateTime time = DateTime.parse(calculatedDateWeek);
+        //time = time.add(new Duration(days: d));
         _parsedDate = '${time.day} / ${time.month} / ${time.year}';
         selectedDate = time;
       });
@@ -72,9 +101,17 @@ class _CalculatorPageState extends State<CalculatorPage> {
   }
 
   int calculatePregnancyWeeks(DateTime estimatedBirthDate) {
-    DateTime now = new DateTime.now();
+    var now = new DateTime.now();
+    int diff = getDifferenceBetweenDatesInWeeks(estimatedBirthDate, now);
 
-    var diff = getDifferenceBetweenDatesInWeeks(estimatedBirthDate, now);
+    print(calculatedDateWeek);
+
+    /*
+    if (userId != null && userId > 0 && calculatedDateWeek != null) {
+      diff = getDifferenceBetweenDatesInWeeks(estimatedBirthDate, DateTime.parse(calculatedDate));
+    }
+    */
+
     print("diff inside");
     print(diff);
 
@@ -92,7 +129,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
   int getDifferenceBetweenDatesInWeeks(DateTime startDate, DateTime endDate) {
     var difference = startDate.difference(endDate).inDays / 7;
     difference = difference.abs();
-    print("difference");
+    print("getDifferenceBetweenDatesInWeeks");
     print(difference);
     return difference.toInt();
   }
@@ -100,12 +137,10 @@ class _CalculatorPageState extends State<CalculatorPage> {
   @override
   void initState() {
     super.initState();
-    _parsedDate = formatDate(DateTime.now(), [dd, ' / ', mm, ' / ', yyyy]);
-    SharedPreferencesUtil.getInt('user_id').then((onValue) {
-      _userID = onValue;
-    });
-    getCalculatedDate();
 
+    getCalculatedDate();
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    /*
     if (Platform.operatingSystem == "android") {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -120,14 +155,16 @@ class _CalculatorPageState extends State<CalculatorPage> {
       );
       SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     }
+
+    */
   }
 
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
-    CalculatorService calculatorService = new CalculatorService();
 
     SystemChrome.setEnabledSystemUIOverlays([]);
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -178,27 +215,19 @@ class _CalculatorPageState extends State<CalculatorPage> {
                             containerHeight: 210.0,
                           ),
                           showTitleActions: true,
-                          minTime: DateTime.now(),
-                          maxTime: calculateMaxDate(),
-                          onConfirm: (date) async {
+                          minTime: await calculateMinDate(),
+                          maxTime: calculateMaxDate(), onConfirm: (date) async {
                         print('confirm $date');
                         selectedDate = date;
                         _parsedDate =
                             '${date.day} / ${date.month} / ${date.year}';
 
-                        var diff = getDifferenceBetweenDatesInWeeks(
-                            date, new DateTime.now());
-                        print("diff");
-                        print(diff);
+
 
                         var week = calculatePregnancyWeeks(date);
                         print("week");
                         print(week);
 
-                        await SharedPreferencesUtil.saveString(
-                            'calculated_date', selectedDate.toString());
-
-                        SharedPreferencesUtil.saveInt("currentWeek", week);
 
                         calculatorService.calculatorByWeek(week).then((val) {
                           if (val != null) {
@@ -208,32 +237,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                 arguments: val);
                           }
                         });
-
-                        /*
-                        calculateWeekBySetDate(date);
-
-                        if (_userID != 0) {
-                          print('userid');
-
-                          print(_userID);
-                        }
-
-                        //await SharedPreferencesUtil.saveString(
-                        //    'calculated_date', selectedDate.toString());
-
-                        calculatorService
-                            .calculatorByWeek(
-                                calculateWeekBySetDate(selectedDate))
-                            .then((val) {
-                          if (val != null) {
-                            val.selectedDateTime = selectedDate;
-                            Navigator.of(context).pushNamed(
-                                '/calculator_detail',
-                                arguments: val);
-                          }
-
-                        });
-                        */
 
                         setState(() {});
                       }, locale: LocaleType.es);
