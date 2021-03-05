@@ -5,6 +5,7 @@ import 'package:babyandme/models/NullString.dart';
 import 'package:babyandme/models/login.dart';
 import 'package:babyandme/models/user.dart';
 import 'package:babyandme/utils/http_request.dart';
+import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:universal_io/io.dart';
 
@@ -15,8 +16,7 @@ class LoginService {
 
   Future<User> login(String username, String password) async {
     User user;
-    var status = await OneSignal.shared.getPermissionSubscriptionState();
-    var playerId = status.subscriptionStatus.userId;
+    String playerId = await SharedPreferencesUtil.getString("one_signal_token");
     print(playerId);
     print(Platform.operatingSystem);
     Login login = Login(

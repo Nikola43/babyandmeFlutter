@@ -10,6 +10,7 @@ import 'package:babyandme/pages/promos/promo_detail.dart';
 import 'package:babyandme/pages/streaming/streaming_page.dart';
 import 'package:babyandme/pages/streaming/streaming_video_page.dart';
 import 'package:babyandme/transition_route_observer.dart';
+import 'package:babyandme/utils/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -199,9 +200,18 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class VideoPlayerPage {}
 
 Widget _buildFirstScreen() {
+  OneSignal.shared.getPermissionSubscriptionState().then((status) => {
+
+    print("status"),
+    print(status),
+    print("playerId"),
+    print(status.subscriptionStatus.userId),
+    
+    SharedPreferencesUtil.saveString("one_signal_token", status.subscriptionStatus.userId).then((value) => {})
+  });
+
   return DashboardScreen();
 
   //return OnBoardingPage();

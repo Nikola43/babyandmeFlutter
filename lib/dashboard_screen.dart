@@ -61,7 +61,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                             barrierDismissible: false,
                             context: context,
                             builder: (_) => AlertDialog(
-                              title: Center(child: Text('Data de nascimento')),
+                              title: Center(
+                                  child: Text('Data prevista para o parto')),
                               content: Container(
                                 margin: EdgeInsets.all(10),
                                 width: 150,
@@ -101,7 +102,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           'calculated_date',
                                           selectedDate.toString());
 
-                                      SharedPreferencesUtil.saveInt("currentWeek", week);
+                                      SharedPreferencesUtil.saveInt(
+                                          "currentWeek", week);
 
                                       calculatorService
                                           .calculatorByWeekSave(week)
@@ -117,9 +119,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                     builder: (_) => AlertDialog(
                                                       title: Center(
                                                           child: Text(
-                                                              'Data de nascimento')),
+                                                              'Data prevista para o parto')),
                                                       content: Text(
-                                                          "Data de nascimento salva corretamente",
+                                                          "Data guardada corretamente",
                                                           style: TextStyle(
                                                               color: Colors
                                                                   .green)),
