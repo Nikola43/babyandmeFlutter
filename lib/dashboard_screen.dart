@@ -52,7 +52,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             if (value > 0)
               {
                 SharedPreferencesUtil.getInt('first_login').then((value) => {
-                      if (value == 1)
+                      if (value != 1)
                         {
                           showDialog(
                             barrierDismissible: false,

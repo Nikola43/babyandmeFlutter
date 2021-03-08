@@ -17,6 +17,11 @@ class LoginService {
   Future<User> login(String username, String password) async {
     User user;
     String playerId = await SharedPreferencesUtil.getString("one_signal_token");
+
+    if (playerId == null) {
+      playerId = " ";
+    }
+
     print(playerId);
     print(Platform.operatingSystem);
     Login login = Login(

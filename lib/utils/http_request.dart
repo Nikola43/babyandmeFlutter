@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 class HttpRequestUtil {
@@ -47,6 +48,7 @@ class HttpRequestUtil {
       HttpHeaders.authorizationHeader: "Bearer $token",
     };
     Response response = await get(url, headers: headers);
+    print(response.body);
     Map<String, dynamic> map = jsonDecode(response.body);
     return map;
   }

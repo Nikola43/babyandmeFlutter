@@ -20,6 +20,7 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
 
   int calculateDaysBySetDate(DateTime selectedDate) {
     var difference = new DateTime.now().difference(selectedDate).inDays % 7;
+    difference = difference.abs();
     if (difference <= 1) {
       difference = 1;
     }
@@ -28,9 +29,45 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
 
   int calculateWeekBySetDate(DateTime selectedDate) {
     var difference = new DateTime.now().difference(selectedDate).inDays / 7;
+    print("difference");
+    print(difference);
+    difference = difference.abs();
     if (difference <= 1) {
       difference = 1;
     }
+    return difference.toInt();
+  }
+
+  int calculatePregnancyWeeks(DateTime estimatedBirthDate) {
+    var now = new DateTime.now();
+    int diff = getDifferenceBetweenDatesInWeeks(estimatedBirthDate, now);
+
+
+    /*
+    if (userId != null && userId > 0 && calculatedDateWeek != null) {
+      diff = getDifferenceBetweenDatesInWeeks(estimatedBirthDate, DateTime.parse(calculatedDate));
+    }
+    */
+
+    print("diff inside");
+    print(diff);
+
+    var lastMenstruationDate = now.add(new Duration(days: -280 + (diff * 7)));
+
+    int weeks =
+    this.getDifferenceBetweenDatesInWeeks(lastMenstruationDate, now);
+    if (weeks == 0) {
+      weeks = 1;
+    }
+
+    return weeks;
+  }
+
+  int getDifferenceBetweenDatesInWeeks(DateTime startDate, DateTime endDate) {
+    var difference = startDate.difference(endDate).inDays / 7;
+    difference = difference.abs();
+    print("getDifferenceBetweenDatesInWeeks");
+    print(difference);
     return difference.toInt();
   }
 
@@ -108,7 +145,7 @@ class _CalculatorDetailPageState extends State<CalculatorDetailPage> {
           centerTitle: true,
           title: Text(
             "Está de " +
-                calculateWeekBySetDate(calc.selectedDateTime).toString() +
+                calculatePregnancyWeeks(calc.selectedDateTime).toString() +
                 ' semanas' +
                 " e " +
                 calculateDaysBySetDate(calc.selectedDateTime).toString() +

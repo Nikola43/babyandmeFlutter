@@ -231,6 +231,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
                         calculatorService.calculatorByWeek(week).then((val) {
                           if (val != null) {
+                            print("val");
+                            print(val);
                             val.selectedDateTime = selectedDate;
                             Navigator.of(context).pushNamed(
                                 '/calculator_detail',

@@ -249,7 +249,7 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
             } else {
               return Center(
                 child: Text(
-                  "Não tem " + label.toLowerCase() + " disponível",
+                  "Não tem " + label.toLowerCase() + " disponíveis",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
                 ),
               );
