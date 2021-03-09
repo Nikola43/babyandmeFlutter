@@ -252,7 +252,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                         Icon(FontAwesomeIcons.calendarAlt),
                         Text(_parsedDate,
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
+                                fontSize: 14, fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
