@@ -155,7 +155,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
       );
       SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     }
-
     */
   }
 

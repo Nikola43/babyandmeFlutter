@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "babyandme")
-set(APPLICATION_ID "com.stelast.babyandme")
+set(APPLICATION_ID "com.babyandmept.babyandme")
 
 cmake_policy(SET CMP0063 NEW)
 

@@ -6,7 +6,7 @@ import 'package:babyandme/utils/http_request.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 
 class CalculatorService {
-  final apiUrl = "https://api.babyandme.stelast.com/api/calculator/week";
+  final apiUrl = "https://api.babyandme.stelast.es/api/calculator/week";
 
   Future<Calculator> calculatorByWeek(int id) async {
 

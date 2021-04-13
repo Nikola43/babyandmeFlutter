@@ -5,7 +5,7 @@ import 'package:babyandme/utils/http_request.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 
 class StreamingService {
-  final apiUrl = "https://api.babyandme.stelast.com/api/streaming";
+  final apiUrl = "https://api.babyandme.stelast.es/api/streaming";
 
   Future<Streaming> getStreamingByCode(String code) async {
     var token = await SharedPreferencesUtil.getString('token');

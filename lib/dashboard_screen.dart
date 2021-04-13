@@ -337,14 +337,18 @@ class _DashboardScreenState extends State<DashboardScreen>
     const step = 0.04;
     const aniInterval = 0.75;
     SystemChrome.setEnabledSystemUIOverlays([]);
+
+    print("screenSize.aspectRatio");
+    print(screenSize.height);
+
     return GridView.count(
       physics: new NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(
         horizontal: 5,
         vertical: 5,
       ),
-      childAspectRatio: .9,
-      // crossAxisSpacing: 5,
+      childAspectRatio: screenSize.height < 740 ? 0.9 : 1.5,
+      //crossAxisSpacing: 5,
       crossAxisCount: 3,
       children: [
         _buildButton(
@@ -455,9 +459,9 @@ class _DashboardScreenState extends State<DashboardScreen>
             appBar: _buildAppBar(theme),
             body: Column(
               children: <Widget>[
-                SizedBox(height: screenSize.height / 16),
+                SizedBox(height: screenSize.height / 32),
                 _buildHeader(theme),
-                SizedBox(height: screenSize.height / 16),
+                SizedBox(height: screenSize.height / 32),
                 Expanded(
                   flex: 8,
                   child: _buildDashboardGrid(),

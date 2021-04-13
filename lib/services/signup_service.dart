@@ -7,7 +7,7 @@ import 'package:babyandme/models/user.dart';
 import 'package:babyandme/utils/http_request.dart';
 
 class SignUpService {
-  final apiUrl = "https://api.babyandme.stelast.com/api/user/new";
+  final apiUrl = "https://api.babyandme.stelast.es/api/user/new";
 
   Future<bool> signUp(String username, String password) async {
     SignUp signUp = SignUp(

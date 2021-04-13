@@ -8,7 +8,7 @@ import 'package:babyandme/utils/http_request.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 
 class AppointmentService {
-  final apiUrl = "https://api.babyandme.stelast.com/api/appointment/new";
+  final apiUrl = "https://api.babyandme.stelast.es/api/appointment/new";
 
   Future<bool> sendNewAppointment(
       String name, String email, String phone, String promo_name) async {

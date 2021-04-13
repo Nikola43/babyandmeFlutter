@@ -7,7 +7,7 @@ import 'package:babyandme/utils/http_request.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 
 class HeartbeatService {
-  final apiUrl = "https://api.babyandme.stelast.com/api/heartbeat/";
+  final apiUrl = "https://api.babyandme.stelast.es/api/heartbeat/";
 
   Future<Heartbeat> getHeartbeat() async {
     int userId = await SharedPreferencesUtil.getInt('user_id');

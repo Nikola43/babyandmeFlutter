@@ -21,7 +21,7 @@ class RecoveryEmail {
 
 
 class RecoveryPasswordService {
-  final apiUrl = "https://api.babyandme.stelast.com/api/user/recovery";
+  final apiUrl = "https://api.babyandme.stelast.es/api/user/recovery";
 
   Future<Success> recoveryPassword(String username) async {
     Success ok;

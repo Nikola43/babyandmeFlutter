@@ -3,7 +3,7 @@ import 'package:babyandme/utils/http_request.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 
 class ImageProvider {
-  final apiUrl = "https://api.babyandme.stelast.com/api/multimedia_content/";
+  final apiUrl = "https://api.babyandme.stelast.es/api/multimedia_content/";
 
   Future<List<ImageModel>> getImages(int type) async {
     List<ImageModel> list = [];

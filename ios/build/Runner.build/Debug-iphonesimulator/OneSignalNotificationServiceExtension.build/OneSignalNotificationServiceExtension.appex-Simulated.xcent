@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>application-identifier</key>
-	<string>W4F5UWSGAM.com.stelast.babyandme.OneSignalNotificationServiceExtension</string>
+	<string>W4F5UWSGAM.com.babyandmept.babyandme.OneSignalNotificationServiceExtension</string>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>W4F5UWSGAM.com.stelast.babyandme.OneSignalNotificationServiceExtension</string>
+		<string>W4F5UWSGAM.com.babyandmept.babyandme.OneSignalNotificationServiceExtension</string>
 	</array>
 </dict>
 </plist>
