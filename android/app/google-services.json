@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "130047476353",
-    "project_id": "babyandme-816cf",
-    "storage_bucket": "babyandme-816cf.appspot.com"
+    "project_number": "242270750845",
+    "project_id": "babyandmeapp",
+    "storage_bucket": "babyandmeapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:130047476353:android:525a8b1bded3808656c380",
+        "mobilesdk_app_id": "1:242270750845:android:e03ba6e77aa94bf4528914",
         "android_client_info": {
-          "package_name": "com.babyandmept.babyandme"
+          "package_name": "com.babyandme.babyandme"
         }
       },
       "oauth_client": [
         {
-          "client_id": "130047476353-1os1af927e48iskum77hid2116ur45ir.apps.googleusercontent.com",
+          "client_id": "242270750845-e8f629m2m1rff5fa5el8tsotpmq9h635.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAzc4yFWKXDc1PdjmVIkua6Ci1wUVDu47Y"
+          "current_key": "AIzaSyAzyEzWD34tG141DGHotpPEgPDfgGK8UPo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "130047476353-1os1af927e48iskum77hid2116ur45ir.apps.googleusercontent.com",
+              "client_id": "242270750845-e8f629m2m1rff5fa5el8tsotpmq9h635.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "242270750845-3gcljkms40mp2o86419botvvofbgl3i1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.babyandme.babyandme"
+              }
             }
           ]
         }

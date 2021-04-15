@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.babyandmept.babyandme">
+    package="com.babyandme.babyandme">
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- Permissions options for the `storage` group -->
@@ -11,7 +11,7 @@
         android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true">
         <meta-data android:name="com.google.android.geo.API_KEY"
-                   android:value="AIzaSyDhi5ZVIZaMhpg_Ur6F_txFjxOqBOWv-Dg"/>
+                   android:value="AIzaSyAzyEzWD34tG141DGHotpPEgPDfgGK8UPo"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

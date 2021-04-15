@@ -1,4 +1,4 @@
-package com.babyandmept.babyandme
+package com.babyandme.babyandme
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -347,7 +347,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         horizontal: 5,
         vertical: 5,
       ),
-      childAspectRatio: screenSize.height < 740 ? 0.9 : 1.5,
+      childAspectRatio: screenSize.height < 950 ? 0.9 : 1.5,
       //crossAxisSpacing: 5,
       crossAxisCount: 3,
       children: [
