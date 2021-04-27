@@ -143,7 +143,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                   )
                                                 });
                                       });
-                                    }, locale: LocaleType.es);
+                                    }, locale: LocaleType.pt);
                                   },
                                   padding: EdgeInsets.all(10.0),
                                   color: Colors.orangeAccent,

@@ -278,9 +278,9 @@ class ImageGalleryPageState extends State<ImageGalleryPage> {
                         showDialog(
                           context: context,
                           builder: (_) => AlertDialog(
-                            title: Center(child: Text('Baixar tudo')),
+                            title: Center(child: Text('Descarregar tudo')),
                             content:
-                                Text("¿Certeza que você deseja baixar tudo?"),
+                                Text("Tem a certeza que deseja descarregar tudo?"),
                             actions: [
                               FlatButton(
                                   child: Text("Cancelar"),

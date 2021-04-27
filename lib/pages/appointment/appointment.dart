@@ -67,7 +67,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
           // this is all you need
@@ -86,212 +85,208 @@ class _AppointmentPageState extends State<AppointmentPage> {
           ),
         ),
         body: Center(
-          child: Container(
-            width: screenSize.width,
-            color: Colors.white,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: screenSize.height / 64),
-                Image.asset("assets/images/undraw_doctors_hwty.png"),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Container(
-                              width: screenSize.width / 1.2,
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    TextField(
-                                      keyboardType: TextInputType.name,
-                                      textAlign: TextAlign.center,
-                                      controller: _nameTextEditingController,
-                                      textCapitalization:
-                                          TextCapitalization.characters,
-                                      focusNode: _nameTextEditingFocusNode,
-                                      autofocus: false,
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        counterStyle:
-                                            TextStyle(color: Colors.black),
-                                        fillColor: Colors.white,
-                                        //Add th Hint text here.
-                                        hintText: "Nome",
+          child: SingleChildScrollView(
+            child: Container(
+              width: screenSize.width,
+              color: Colors.white,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: screenSize.height / 64),
+                  Image.asset("assets/images/undraw_doctors_hwty.png"),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Container(
+                                width: screenSize.width / 1.2,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      TextField(
+                                        keyboardType: TextInputType.name,
+                                        textAlign: TextAlign.center,
+                                        controller: _nameTextEditingController,
+                                        focusNode: _nameTextEditingFocusNode,
+                                        autofocus: false,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          counterStyle:
+                                              TextStyle(color: Colors.black),
+                                          fillColor: Colors.white,
+                                          //Add th Hint text here.
+                                          hintText: "Nome",
 
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4.0),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: screenSize.height / 64),
-                                    TextField(
-                                      keyboardType: TextInputType.emailAddress,
-                                      textAlign: TextAlign.center,
-                                      controller: _emailTextEditingController,
-                                      textCapitalization:
-                                          TextCapitalization.characters,
-                                      focusNode: _emailTextEditingFocusNode,
-                                      autofocus: false,
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        counterStyle:
-                                            TextStyle(color: Colors.black),
-                                        fillColor: Colors.white,
-                                        //Add th Hint text here.
-                                        hintText: "Email",
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4.0),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: screenSize.height / 64),
-                                    TextField(
-                                      keyboardType: TextInputType.phone,
-                                      textAlign: TextAlign.center,
-                                      controller: _phoneTextEditingController,
-                                      textCapitalization:
-                                          TextCapitalization.characters,
-                                      focusNode: _phoneTextEditingFocusNode,
-                                      autofocus: false,
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        counterStyle:
-                                            TextStyle(color: Colors.black),
-                                        fillColor: Colors.white,
-                                        //Add th Hint text here.
-                                        hintText: "Telefone",
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4.0),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: screenSize.height / 16),
-                                    Container(
-                                      margin: EdgeInsets.all(10),
-                                      height: 50.0,
-                                      child: RaisedButton(
-                                        shape: RoundedRectangleBorder(
+                                          border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(4.0),
-                                            side: BorderSide(
-                                                color: Colors.orangeAccent)),
-                                        onPressed: () async {
-                                          if (_nameTextEditingController
-                                                  .value.text.length ==
-                                              0) {
-                                            FocusScope.of(context).requestFocus(
-                                                _nameTextEditingFocusNode);
-                                            Flushbar(
-                                              backgroundColor:
-                                                  Colors.orangeAccent,
-                                              title: "Nome é obrigatório",
-                                              message: " ",
-                                              duration: Duration(seconds: 3),
-                                            )..show(context);
-                                          } else if (_emailTextEditingController
-                                                  .value.text.length ==
-                                              0) {
-                                            FocusScope.of(context).requestFocus(
-                                                _phoneTextEditingFocusNode);
-                                            Flushbar(
-                                              backgroundColor:
-                                                  Colors.orangeAccent,
-                                              title: "Email é obrigatório",
-                                              message: " ",
-                                              duration: Duration(seconds: 3),
-                                            )..show(context);
-                                          } else if (_phoneTextEditingController
-                                                  .value.text.length ==
-                                              0) {
-                                            FocusScope.of(context).requestFocus(
-                                                _phoneTextEditingFocusNode);
-                                            Flushbar(
-                                              backgroundColor:
-                                                  Colors.orangeAccent,
-                                              title: "Telefone é obrigatório",
-                                              message: " ",
-                                              duration: Duration(seconds: 3),
-                                            )..show(context);
-                                          } else {
-                                            setState(() {
-                                              isLoading = true;
-                                            });
-
-                                            var result = await appointmentService
-                                                .sendNewAppointment(
-                                                    _nameTextEditingController
-                                                        .value.text,
-                                                    _emailTextEditingController
-                                                        .value.text,
-                                                    _phoneTextEditingController
-                                                        .value.text,
-                                                    promoTitle != null &&
-                                                            promoTitle.length >
-                                                                0
-                                                        ? promoTitle
-                                                        : "");
-                                            print(result);
-                                            if (result) {
-                                              setState(() {
-                                                isLoading = false;
-                                                _phoneTextEditingController
-                                                    .text = "";
-                                                _nameTextEditingController
-                                                    .text = "";
-                                                _emailTextEditingController
-                                                    .text = "";
-                                                promoTitle = "";
-                                              });
-                                              print(result);
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: screenSize.height / 64),
+                                      TextField(
+                                        keyboardType: TextInputType.emailAddress,
+                                        textAlign: TextAlign.center,
+                                        controller: _emailTextEditingController,
+                                        focusNode: _emailTextEditingFocusNode,
+                                        autofocus: false,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          counterStyle:
+                                              TextStyle(color: Colors.black),
+                                          fillColor: Colors.white,
+                                          //Add th Hint text here.
+                                          hintText: "Email",
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4.0),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: screenSize.height / 64),
+                                      TextField(
+                                        keyboardType: TextInputType.phone,
+                                        textAlign: TextAlign.center,
+                                        controller: _phoneTextEditingController,
+                                        focusNode: _phoneTextEditingFocusNode,
+                                        autofocus: false,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          counterStyle:
+                                              TextStyle(color: Colors.black),
+                                          fillColor: Colors.white,
+                                          //Add th Hint text here.
+                                          hintText: "Telefone",
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4.0),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: screenSize.height / 16),
+                                      Container(
+                                        margin: EdgeInsets.all(10),
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4.0),
+                                              side: BorderSide(
+                                                  color: Colors.orangeAccent)),
+                                          onPressed: () async {
+                                            if (_nameTextEditingController
+                                                    .value.text.length ==
+                                                0) {
+                                              FocusScope.of(context).requestFocus(
+                                                  _nameTextEditingFocusNode);
                                               Flushbar(
                                                 backgroundColor:
                                                     Colors.orangeAccent,
-                                                title:
-                                                    "Pedido enviado com sucesso",
+                                                title: "Nome é obrigatório",
                                                 message: " ",
                                                 duration: Duration(seconds: 3),
                                               )..show(context);
-                                              Future.delayed(
-                                                  Duration(seconds: 4), () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          DashboardScreen()),
-                                                );
+                                            } else if (_emailTextEditingController
+                                                    .value.text.length ==
+                                                0) {
+                                              FocusScope.of(context).requestFocus(
+                                                  _phoneTextEditingFocusNode);
+                                              Flushbar(
+                                                backgroundColor:
+                                                    Colors.orangeAccent,
+                                                title: "Email é obrigatório",
+                                                message: " ",
+                                                duration: Duration(seconds: 3),
+                                              )..show(context);
+                                            } else if (_phoneTextEditingController
+                                                    .value.text.length ==
+                                                0) {
+                                              FocusScope.of(context).requestFocus(
+                                                  _phoneTextEditingFocusNode);
+                                              Flushbar(
+                                                backgroundColor:
+                                                    Colors.orangeAccent,
+                                                title: "Telefone é obrigatório",
+                                                message: " ",
+                                                duration: Duration(seconds: 3),
+                                              )..show(context);
+                                            } else {
+                                              setState(() {
+                                                isLoading = true;
                                               });
+
+                                              var result = await appointmentService
+                                                  .sendNewAppointment(
+                                                      _nameTextEditingController
+                                                          .value.text,
+                                                      _emailTextEditingController
+                                                          .value.text,
+                                                      _phoneTextEditingController
+                                                          .value.text,
+                                                      promoTitle != null &&
+                                                              promoTitle.length >
+                                                                  0
+                                                          ? promoTitle
+                                                          : "");
+                                              print(result);
+                                              if (result) {
+                                                setState(() {
+                                                  isLoading = false;
+                                                  _phoneTextEditingController
+                                                      .text = "";
+                                                  _nameTextEditingController
+                                                      .text = "";
+                                                  _emailTextEditingController
+                                                      .text = "";
+                                                  promoTitle = "";
+                                                });
+                                                print(result);
+                                                Flushbar(
+                                                  backgroundColor:
+                                                      Colors.orangeAccent,
+                                                  title:
+                                                      "Pedido enviado com sucesso",
+                                                  message: " ",
+                                                  duration: Duration(seconds: 3),
+                                                )..show(context);
+                                                Future.delayed(
+                                                    Duration(seconds: 4), () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DashboardScreen()),
+                                                  );
+                                                });
+                                              }
                                             }
-                                          }
-                                        },
-                                        padding: EdgeInsets.all(10.0),
-                                        color: Colors.orangeAccent,
-                                        textColor: Colors.white,
-                                        child: isLoading
-                                            ? CircularProgressIndicator(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<
-                                                        Color>(Colors.white),
-                                              )
-                                            : Text("ENVIAR",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
+                                          },
+                                          padding: EdgeInsets.all(10.0),
+                                          color: Colors.orangeAccent,
+                                          textColor: Colors.white,
+                                          child: isLoading
+                                              ? CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(Colors.white),
+                                                )
+                                              : Text("ENVIAR",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                        ),
                                       ),
-                                    ),
-                                  ]))),
-                    ],
+                                    ]))),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ));

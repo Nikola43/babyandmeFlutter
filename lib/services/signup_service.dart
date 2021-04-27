@@ -11,7 +11,7 @@ class SignUpService {
 
   Future<bool> signUp(String username, String password) async {
     SignUp signUp = SignUp(
-        clinic_id: new NullInt64(int64: 10, valid: true),
+        clinic_id: new NullInt64(int64: 1, valid: true),
         username: username,
         password: password,
         name: new NullString(string: " ", valid: true),

@@ -240,7 +240,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                         });
 
                         setState(() {});
-                      }, locale: LocaleType.es);
+                      }, locale: LocaleType.pt);
                     },
                     padding: EdgeInsets.all(10.0),
                     color: Colors.orangeAccent,

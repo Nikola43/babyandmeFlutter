@@ -48,10 +48,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ToastUtil.makeToast("Bem-vindo a Baby&Me by ecox Lisboa");
         return null;
       } else {
-        return 'Error usuario ya registrado';
+        return 'Erro. Utilizador ou password incorrectos.';
       }
     } else {
-      return 'Error usuario ya registrado';
+      return 'Erro. Usuário já registado.';
     }
 
     /*
@@ -81,8 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ToastUtil.makeToast("Bem-vindo a Baby&Me by ecox Lisboa");
       return null;
     } else {
-      ToastUtil.makeToast("Usuário não encontrado");
-      return 'Usuário ou senha incorrectos';
+      return 'Erro. Utilizador ou password incorrectos.';
     }
   }
 
