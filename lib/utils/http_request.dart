@@ -63,7 +63,10 @@ class HttpRequestUtil {
     if (response.statusCode == 403) {
       return null;
     }
-    List<dynamic> map = json.decode(response.body);
+
+
+
+    List<dynamic> map = json.decode(utf8.decode(response.bodyBytes));
     // todo no funciona en latido
     //Map<String, dynamic> map = jsonDecode(response.body);
     // int statusCode = response.statusCode;

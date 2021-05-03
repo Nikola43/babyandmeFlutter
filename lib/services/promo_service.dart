@@ -7,7 +7,7 @@ import 'package:babyandme/utils/http_request.dart';
 import 'package:babyandme/utils/shared_preferences.dart';
 
 class PromoService {
-  final apiUrl = "https://api.babyandme.stelast.es/api/user_promo/2/";
+  final apiUrl = "https://api.babyandme.stelast.es/api/user_promo/1/";
 
   Future<List<Promo>> getPromosByWeek() async {
     var token = await SharedPreferencesUtil.getString('token');
